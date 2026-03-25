@@ -1,0 +1,207 @@
+﻿Chave,Titulo,Status,Prioridade,Start Date,Deadline,Descricao
+BF3E4-6226,Acessos Ferramentas do Cliente,Open,Highest,2026-03-16,2026-03-23,Acessos Stellantis
+BF3E4-6039,[Comercial] Dependências,Done,Medium,2026-03-18,2026-03-23,
+BF3E4-6038,[Supply Chain] Dependências,Done,Medium,2026-03-18,2026-03-23,"Dependência para início
+• Acessos Geral
+GitLab
+Snowflake
+GitHub
+AWS
+DataStage
+Data Lakes - SupplyChain, Vendas"
+BF3E4-6037,[Finance] Dependências,Done,Medium,2026-03-18,2026-03-23,"Dependência para início
+• Acessos Geral
+GitLab
+Snowflake
+GitHub
+AWS
+DataStage
+Data Lakes  → data-lake-brain, data-lake-supplychain, fse-prod(shared-services)
+Acesso a bases de dados:
+Bancos de dados transacionais com acesso direto (JDBC, sem API):
+Banco
+Tecnologia
+Histórias
+Método de Acesso
+NDD_COLD_PRD_FIAT (Eforms)     
+SQL Server                            
+FINANCE 1-18            
+JDBC via Dataflow -> AWS Glue JDBC (driver mssql-jdbc-8.2.2.jre8.jar)
+SQL Server Eforms On-Premise   
+SQL Server (187.0.244.170:1433)       
+FINANCE 1-18            
+JDBC - requer liberação de Security Group e secret no AWS Secrets Manager
+SQL Server Eforms Cloud        
+SQL Server (172.20.226.99:1433)       
+FINANCE 1-18            
+JDBC - requer liberação de Security Group e secret no AWS Secrets Manager
+SQL Server Elog                
+SQL Server                            
+FINANCE (Elog)          
+JDBC - host a confirmar, credenciais no AWS Secrets Manager
+MySQL User Parameters Master   
+MySQL (db-user-parameter-master:3306) 
+FINANCE (RecFiscal/TPC) 
+JDBC via Dataflow -> AWS Glue JDBC (driver mysql-connector-java)
+SAP HANA On-Premise            
+SAP HANA                              
+FINANCE (SAP)           
+Extração via IBM DataStage (IS-EN-CONDUCTOR-0.EN-COND) - requer rota de rede VPN/Direct Connect
+Sistemas/APIs e integrações que dependem de credenciais de acesso:
+Sistema/API
+Autenticação
+Gerenciamento de Credenciais
+Histórias
+IBM DataStage (IS-EN-CONDUCTOR-0.EN-COND)    
+HTTP/Bearer              
+AWS Secrets Manager                              
+FINANCE (SAP, TPC)
+AWS S3 (ste-sa-ibm-connect-direct-prod)      
+IAM Role / Bucket Policy 
+IAM cross-account                                
+FINANCE (TPC)
+Microsoft Azure (DTLHub_AnalyticsTPC)        
+DataStage Gateway        
+AWS Secrets Manager                              
+FINANCE (TPC)
+fse-prod.FCA_TAX_MSAF (BigQuery externo)     
+Service Account GCP      
+Manter acesso cross-project ou replicar datasets 
+FINANCE (AnaliseFiscal, RecFiscal)
+fse-prod.FCA_TAX_RUBI (BigQuery externo)     
+Service Account GCP      
+Manter acesso cross-project ou replicar datasets 
+FINANCE (RecFiscal)
+data-lake-brain-non-prod (BigQuery externo)  
+Service Account GCP      
+Manter acesso cross-project ou replicar datasets 
+FINANCE (Eforms, RecFiscal, Argentina)
+data-lake-supplychain-non-prod (BigQuery)    
+Service Account GCP      
+Manter acesso cross-project ou replicar datasets 
+FINANCE (Eforms - vw_nfe_mvm)
+ZOOMCONWRK / SAP BW                          
+Conexão SAP BW           
+AWS Secrets Manager                              
+FINANCE (Finance On)
+DataStage ODBC3                              
+ODBC (não documentado)   
+REQUER INVESTIGAÇÃO                              
+FINANCE (TB_FLOW_CAUSAIS, TB_FLOW_PADRAO_FORNECEDOR)
+Chaves de criptografia a migrar (Cloud KMS -> AWS KMS):
+Key Ring GCP
+Chave
+Uso
+Histórias
+key_ring_eforms           
+key_eforms  
+Credenciais SQL Server Eforms (187.x e 172.x) 
+FINANCE 1-18
+key_ring_brain_stage_11   
+key_stage   
+Credenciais MySQL e SQL Server Elog           
+FINANCE (RecFiscal, TPC)
+Informações adicionais nos documentos em anexo:
+• INVENTARIO_CONEXOES_EXTERNAS_MIGRACAO_AWS.md
+• DEPENDENCIAS_TABELAS_FINANCE_CONSOLIDADO.md
+• DOCUMENTAÇÃO_DATA_LAKE_FINANCE.md"
+BF3E4-6036,[RH] Dependências,Done,Medium,2026-03-18,2026-03-23,"## 1. Credenciais no Datastage
+
+### Param_Vetorh
+- **PRIORIDADE**: Impacto direto na H1 - https://fcagil.atlassian.net/browse/BF3E4-3141
+- **Banco:** Oracle
+- **Host:** VETORH_FA33_CLOUD_HOMO
+- **Username:** HRDLVETORH
+
+
+### Param_Espaider
+- **Banco:** SQL Server
+- **Host:** ESPAIDERPROD
+- **Username:** HRDLKESP
+- **Impacto:** H55 https://fcagil.atlassian.net/browse/BF3E4-3662
+
+## 2. Acessos
+- **data-lake-RH**
+  - storage
+  - cloud functions
+
+## 3. APIs
+- **API iTransport**
+  - Endpoints
+  - Token
+- **Impacto:** H57 https://fcagil.atlassian.net/browse/BF3E4-3679
+
+## 4. Buckets
+- Confirmar se o bucket informado na história é o mesmo:
+  - **sftp.fcalatam.com.br** - Documentado na história
+  - **sftp.datastage-nonprod.fcalatam.com.br** - Presente no S3
+- **Impacto:** - Da H36 a H54 
+https://fcagil.atlassian.net/browse/BF3E4-3508"
+BF3E4-6035,[Shared Services] Dependências,Done,Medium,2026-03-18,2026-03-23,"Dependência para início
+
+Acessos/Permissionamento geral nas ferramentas GCP:
+• Cloud Storages
+• DataFlow
+• Cloud Schedule
+• Cloud Funcions
+
+Acesso a base de dados :
+1. Bancos de dados transacionais com acesso direto (JDBC, sem API):
+Banco
+Tecnologia
+Histórias
+Método de Acesso
+Oracle Rubi
+Oracle
+H1–H43
+JDBC via Dataflow (fn_run_dataflow_oracle_rubi)
+Oracle EGATEPD
+Oracle
+H45–H48
+JDBC via Dataflow (fn_run_dataflow_jdbc)
+Oracle senior_app_prd
+Oracle
+H29, H36, H41
+Acesso direto por views Qlik (qlik_rubi_dim_horaextrapaga, qlik_torre_esocial)
+1. Sistemas/APIs que dependem de credenciais de acesso (ingestão via API):
+Sistema/API
+Autenticação
+Gerenciamento de Credenciais
+Histórias
+API CIC
+JWT
+Cloud KMS
+H44
+API Portal GT
+JWT (PEM)
+Chave PEM
+H49
+API TaxOne
+OAuth2
+Cloud KMS
+H50–H52
+API Workday v40
+OAuth2
+Cloud KMS / Cloud Composer
+H53–H64
+Informações adicionais no PDF em anexo."
+BF3E4-6034,[Cliente] Dependências,Done,Medium,2026-03-18,2026-03-23,
+BF3E4-6033,[Mopar] Depenências,Done,Medium,2026-03-18,2026-03-23,
+BF3E4-6032,[BMC] Dependências,Done,Medium,2026-03-02,2026-03-09,"Temos duas dependências na entidade de BMC: vw_venda_identificada_lead, vw_venda_identificada_veiculo
+• As duas views não são autônomas
+• Dependem de:
+• Cliente (CRM) (Fase 3)→ fonte principal
+• Brain (Fase 2)→ enriquecimento (veículo, NF, concessionária)
+• SAP (Fase 2)"
+BF3E4-1570,[Compras] Dependências,Done,Medium,2026-03-09,2026-03-13,"Dependência para início
+• Acessos Geral
+GitLab
+Snowflake
+GitHub
+AWS
+DataStage
+Data Lakes - SupplyChain, BMC e Compras"
+BF3E4-316,Acesso dos DEVs ao board do Jira,Done,Highest,2026-03-05,2026-03-09,
+BF3E4-296,Comunicar as áreas de negócio responsáveis pelos,Open,Medium,2026-03-04,2026-03-09,
+BF3E4-294,[Shared Services] Retornar a planilha até 05/03,Open,Medium,2026-02-27,2026-03-05,"Descrição:
+Impacto, caso não atinja o target:"
