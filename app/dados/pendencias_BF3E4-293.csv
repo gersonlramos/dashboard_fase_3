@@ -1,4 +1,7 @@
 ﻿Chave,Titulo,Status,Prioridade,Start Date,Deadline,Descricao
+BF3E4-6236,[Finance] Acesso ao banco de dados Eform,Open,Highest,2026-03-23,2026-03-30,"Banco de dados do Eforms: não está sendo possível a conexão, e foi informado que não tem previsão ainda.
+
+Banco - HOST 172.20.226.99"
 BF3E4-6226,Acessos Ferramentas do Cliente,Open,Highest,2026-03-16,2026-03-23,Acessos Stellantis
 BF3E4-6039,[Comercial] Dependências,Done,Medium,2026-03-18,2026-03-23,
 BF3E4-6038,[Supply Chain] Dependências,Done,Medium,2026-03-18,2026-03-23,"Dependência para início
