@@ -47,8 +47,8 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
-          # Adiciona os arquivos de dados atualizados
-          git add app/dados/FASE_3.csv app/dados/historico/*.csv
+          # Adiciona todos os dados atualizados sem falhar se um arquivo específico não existir
+          git add app/dados/
 
           # Verifica se há mudanças e faz commit
           if ! git diff --cached --quiet; then
