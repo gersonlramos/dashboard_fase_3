@@ -105,7 +105,7 @@ print(f"\nEtapa 1: Buscando todos os épicos...")
 jql_epicos = f'project="{projeto}" AND issuetype="Epic"'
 params = {
     'jql': jql_epicos,
-    'fields': 'key,summary',
+    'fields': 'key,summary,customfield_11309,duedate,status',
     'maxResults': 500
 }
 
@@ -125,7 +125,7 @@ print(f"Total retornado pelo Jira: {response_data.get('total', 0)}")
 print(f"Issues na resposta: {len(response_data.get('issues', []))}")
 epicos = buscar_com_paginacao(
     jql_epicos,
-    "key,summary",
+    "key,summary,customfield_11309,duedate,status",
     auth,
     max_results=100
 )
@@ -144,10 +144,23 @@ if len(epicos) == 0:
             print("Sugestão: O projeto existe mas não tem épicos, ou o tipo 'Epic' tem outro nome no Jira")
     exit(0)
 
-# Listar épicos encontrados
+# Listar épicos encontrados e gerar processos_seguintes.csv
 print("\nÉpicos encontrados:")
-for epic in epicos:
-    print(f"  - {epic['key']}: {epic['fields']['summary']}")
+file_epicos = os.path.join(DIR_DADOS, "processos_seguintes.csv")
+with open(file_epicos, mode='w', newline='', encoding='utf-8-sig') as f_ep:
+    writer_ep = csv.writer(f_ep)
+    writer_ep.writerow(['Chave', 'Titulo', 'Status', 'Start Date', 'Deadline'])
+    for epic in epicos:
+        f = epic['fields']
+        print(f"  - {epic['key']}: {f['summary']}")
+        writer_ep.writerow([
+            epic['key'],
+            f.get('summary', ''),
+            (f.get('status') or {}).get('name', ''),
+            f.get('customfield_11309') or '',
+            f.get('duedate') or '',
+        ])
+print(f"Arquivo de épicos gerado: {file_epicos}")
 
 # --- BUSCAR HISTÓRIAS DE CADA ÉPICO ---
 print(f"\nEtapa 2: Buscando histórias de cada épico...")
@@ -162,18 +175,20 @@ for epic in epicos:
     # Usar buscar_com_paginacao para garantir que pegamos TODAS as histórias
     stories = buscar_com_paginacao(
         jql_stories,
-        'key,summary',
+        'key,summary,customfield_11309,duedate',
         auth,
         max_results=100
     )
-    
+
     if stories:
         all_stories.extend(stories)
         # Criar mapeamento história -> épico
         for story in stories:
             story_to_epic[story['key']] = {
                 'epic_key': epic_key,
-                'epic_summary': epic['fields']['summary']
+                'epic_summary': epic['fields']['summary'],
+                'start_date': story['fields'].get('customfield_11309') or '',
+                'duedate': story['fields'].get('duedate') or '',
             }
         print(f"  {epic_key}: {len(stories)} história(s)")
 
@@ -243,7 +258,7 @@ try:
         
         with open(file_resumo, mode='w', newline='', encoding='utf-8-sig') as f_res:
             writer_res = csv.writer(f_res)
-            writer_res.writerow(['Epico', 'Historia', 'Titulo Historia', 'Data-Lake', 'Chave', 'Titulo', 'Status', 'Data Criacao', 'Data Atualizacao', 'Quantidade Subtarefas', 'Categoria_Analise'])
+            writer_res.writerow(['Epico', 'Historia', 'Titulo Historia', 'Data-Lake', 'Chave', 'Titulo', 'Status', 'Data Criacao', 'Data Atualizacao', 'Quantidade Subtarefas', 'Categoria_Analise', 'Start Date Historia', 'Deadline Historia'])
             
             for issue in issues:
                 key = issue['key']
@@ -271,7 +286,9 @@ try:
                 # Classificação da subtarefa
                 categoria_analise = classificar_subtarefa(summary)
                 
-                writer_res.writerow([epic_key, parent_key_current, parent_summary, data_lake, key, summary, status_atual, created_at, updated_at, quantidade_subtarefas, categoria_analise])
+                start_date_hist = epic_info.get('start_date', '')
+                duedate_hist    = epic_info.get('duedate', '')
+                writer_res.writerow([epic_key, parent_key_current, parent_summary, data_lake, key, summary, status_atual, created_at, updated_at, quantidade_subtarefas, categoria_analise, start_date_hist, duedate_hist])
         
         print(f"Arquivo gerado com sucesso: {file_resumo}")
         

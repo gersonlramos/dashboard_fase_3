@@ -272,10 +272,6 @@ st.markdown("""
 brt_time = datetime.now(timezone(timedelta(hours=-3)))
 st.markdown(f"**📅 Atualizado em:** {brt_time.strftime('%d/%m/%Y %H:%M:%S')} | **Fase:** FASE 3")
 
-# ── Indicadores de % Planejada e Realizada ──────────────────────────────────
-_df_lake_pct = pd.read_csv(os.path.join(DADOS_DIR, 'datas_esperadas_por_lake.csv'), encoding='utf-8-sig')
-_df_lake_pct['data_fim'] = pd.to_datetime(_df_lake_pct['data_fim'], dayfirst=True, errors='coerce')
-_df_lake_pct['lake'] = _df_lake_pct['lake'].astype(str).str.strip().str.upper()
 _hoje = pd.Timestamp(brt_time.date())
 _status_done = {'done', 'closed', 'resolved', 'concluído', 'concluida', 'canceled', 'cancelled'}
 
@@ -436,6 +432,25 @@ if df is None:
     st.info("Execute primeiro o script de extracao para gerar o arquivo CSV.")
     st.stop()
 
+# ── Indicadores de % Planejada e Realizada ──────────────────────────────────
+if 'Deadline Historia' in df.columns:
+    _df_lake_pct = (
+        df[['Titulo Historia', 'Data-Lake', 'Deadline Historia']]
+        .drop_duplicates(subset='Titulo Historia')
+        .rename(columns={'Data-Lake': 'lake', 'Deadline Historia': 'data_fim', 'Titulo Historia': 'id_historia'})
+        .copy()
+    )
+    _df_lake_pct['data_fim'] = pd.to_datetime(_df_lake_pct['data_fim'], errors='coerce')
+    _df_lake_pct['lake'] = _df_lake_pct['lake'].astype(str).str.strip().str.upper()
+else:
+    _csv_lake_pct = os.path.join(DADOS_DIR, 'datas_esperadas_por_lake.csv')
+    if os.path.exists(_csv_lake_pct):
+        _df_lake_pct = pd.read_csv(_csv_lake_pct, encoding='utf-8-sig')
+        _df_lake_pct['data_fim'] = pd.to_datetime(_df_lake_pct['data_fim'], dayfirst=True, errors='coerce')
+        _df_lake_pct['lake'] = _df_lake_pct['lake'].astype(str).str.strip().str.upper()
+    else:
+        _df_lake_pct = pd.DataFrame(columns=['id_historia', 'lake', 'data_fim'])
+
 # Filtros na sidebar
 st.sidebar.markdown("---")
 st.sidebar.header("🔍 Filtros")
@@ -543,11 +558,35 @@ except Exception as e:
 # =====================
 # Gráfico de Burn-out semanal (Planejado vs Real)
 # =====================
-df_lake = pd.read_csv(os.path.join(DADOS_DIR, 'datas_esperadas_por_lake.csv'), encoding='utf-8-sig', sep=',')
-# Normalizar lake para uppercase e remover sufixos " A", " B", etc.
+# Monta df_lake a partir do FASE_3.csv — uma linha por história com datas do Jira
+# (colunas Start Date Historia / Deadline Historia disponíveis após rodar script atualizado)
+_tem_datas_jira = 'Start Date Historia' in df.columns and 'Deadline Historia' in df.columns
+
+if _tem_datas_jira:
+    df_lake = (
+        df[['Titulo Historia', 'Data-Lake', 'Start Date Historia', 'Deadline Historia']]
+        .drop_duplicates(subset='Titulo Historia')
+        .rename(columns={
+            'Titulo Historia':     'titulo',
+            'Data-Lake':           'lake',
+            'Start Date Historia': 'data_inicio',
+            'Deadline Historia':   'data_fim',
+        })
+        .copy()
+    )
+    # id_historia = apenas o trecho entre colchetes, para dar match com normalizar_id_historia
+    df_lake['id_historia'] = df_lake['titulo'].str.extract(r'(\[[^\]]+\])', expand=False)
+else:
+    # Fallback: lê o CSV legado enquanto o script não for executado
+    _csv_lake = os.path.join(DADOS_DIR, 'datas_esperadas_por_lake.csv')
+    if os.path.exists(_csv_lake):
+        df_lake = pd.read_csv(_csv_lake, encoding='utf-8-sig')
+        df_lake['lake'] = df_lake['lake'].astype(str).str.strip().str.upper()
+        df_lake['lake'] = df_lake['lake'].str.replace(r'\s+[A-Z]$', '', regex=True)
+    else:
+        df_lake = pd.DataFrame(columns=['id_historia', 'titulo', 'lake', 'data_inicio', 'data_fim'])
+
 df_lake['lake'] = df_lake['lake'].astype(str).str.strip().str.upper()
-# Remove sufixos como " A", " B" que separam squads mas não aparecem no Jira
-df_lake['lake'] = df_lake['lake'].str.replace(r'\s+[A-Z]$', '', regex=True)
 
 def calcular_dias_uteis(data_inicio, data_fim):
     """
@@ -700,47 +739,35 @@ def calcular_ciclo_desenvolvimento(data_lake_filtro='Todos'):
 
 def calcular_ciclo_ideal(data_lake_filtro='Todos'):
     """
-    Calcula o ciclo ideal médio baseado nas datas planejadas (data_inicio e data_fim) 
-    do arquivo datas_esperadas_por_lake.csv.
+    Calcula o ciclo ideal médio baseado nas datas planejadas (Start Date / Deadline)
+    extraídas do Jira via FASE_3.csv.
     Retorna: (ciclo_ideal_dias_uteis, num_historias) ou (None, None) se não houver dados
     """
-    df_lake_ideal = pd.read_csv(os.path.join(DADOS_DIR, 'datas_esperadas_por_lake.csv'), encoding='utf-8-sig')
-    
-    # Normalizar lake
-    df_lake_ideal['lake'] = df_lake_ideal['lake'].astype(str).str.strip().str.upper()
-    df_lake_ideal['lake'] = df_lake_ideal['lake'].str.replace(r'\s+[A-Z]$', '', regex=True)
-    
-    # Filtrar por lake
+    df_ideal = df_lake.copy()
+
     if data_lake_filtro != 'Todos':
-        df_lake_ideal = df_lake_ideal[df_lake_ideal['lake'] == data_lake_filtro]
-    
-    if df_lake_ideal.empty:
+        df_ideal = df_ideal[df_ideal['lake'] == data_lake_filtro]
+
+    if df_ideal.empty:
         return None, None
-    
-    # Converter datas
-    df_lake_ideal['data_inicio'] = pd.to_datetime(df_lake_ideal['data_inicio'], dayfirst=True, errors='coerce')
-    df_lake_ideal['data_fim'] = pd.to_datetime(df_lake_ideal['data_fim'], dayfirst=True, errors='coerce')
-    
-    # Remover linhas sem datas válidas
-    df_lake_ideal = df_lake_ideal.dropna(subset=['data_inicio', 'data_fim'])
-    
-    if df_lake_ideal.empty:
+
+    df_ideal['data_inicio'] = pd.to_datetime(df_ideal['data_inicio'], errors='coerce')
+    df_ideal['data_fim']    = pd.to_datetime(df_ideal['data_fim'],    errors='coerce')
+    df_ideal = df_ideal.dropna(subset=['data_inicio', 'data_fim'])
+
+    if df_ideal.empty:
         return None, None
-    
-    # Calcular dias úteis para cada história
+
     ciclos_planejados = []
-    for _, row in df_lake_ideal.iterrows():
+    for _, row in df_ideal.iterrows():
         dias_uteis = calcular_dias_uteis(row['data_inicio'], row['data_fim'])
         if dias_uteis > 0:
             ciclos_planejados.append(dias_uteis)
-    
+
     if not ciclos_planejados:
         return None, None
-    
-    ciclo_ideal_medio = sum(ciclos_planejados) / len(ciclos_planejados)
-    num_historias = len(ciclos_planejados)
-    
-    return ciclo_ideal_medio, num_historias
+
+    return sum(ciclos_planejados) / len(ciclos_planejados), len(ciclos_planejados)
 
 def normalizar_id_historia(valor):
     if pd.isna(valor):
@@ -753,48 +780,6 @@ def normalizar_id_historia(valor):
     texto = texto.replace('- ', '-')
     return texto
 
-# Carregar fases pós-desenvolvimento diretamente do FASE_3.csv (tasks de Homologação/Preparo)
-# e preencher datas faltantes das subtarefas com datas_esperadas_por_lake.csv
-_df_fase3_completo = df.copy()
-_df_fase3_completo['Data Inicio'] = pd.to_datetime(_df_fase3_completo.get('Data Inicio', pd.NaT), errors='coerce')
-_df_fase3_completo['Data Fim']    = pd.to_datetime(_df_fase3_completo.get('Data Fim', pd.NaT), errors='coerce')
-
-# Preencher datas faltantes com datas_esperadas_por_lake.csv via id_historia
-_df_lake_datas = df_lake[['id_historia', 'data_inicio', 'data_fim']].copy()
-_df_lake_datas['data_inicio'] = pd.to_datetime(_df_lake_datas['data_inicio'], dayfirst=True, errors='coerce')
-_df_lake_datas['data_fim']    = pd.to_datetime(_df_lake_datas['data_fim'],    dayfirst=True, errors='coerce')
-_df_lake_datas['id_historia_norm'] = _df_lake_datas['id_historia'].apply(normalizar_id_historia)
-_df_lake_datas = _df_lake_datas.drop_duplicates('id_historia_norm').set_index('id_historia_norm')
-
-def _preencher_data(row, col_fase3, col_lake):
-    val = row.get(col_fase3)
-    if pd.notna(val):
-        return val
-    hist_norm = normalizar_id_historia(row.get('Historia'))
-    if hist_norm and hist_norm in _df_lake_datas.index:
-        return _df_lake_datas.loc[hist_norm, col_lake]
-    return pd.NaT
-
-_df_fase3_completo['Data Inicio'] = _df_fase3_completo.apply(
-    lambda r: _preencher_data(r, 'Data Inicio', 'data_inicio'), axis=1)
-_df_fase3_completo['Data Fim'] = _df_fase3_completo.apply(
-    lambda r: _preencher_data(r, 'Data Fim', 'data_fim'), axis=1)
-
-# Filtrar pelo lake selecionado (já normalizado para uppercase)
-if data_lake_selecionado != 'Todos':
-    _fases_filtradas = _df_fase3_completo[
-        _df_fase3_completo['Data-Lake'] == data_lake_selecionado
-    ]
-else:
-    _fases_filtradas = _df_fase3_completo
-
-# Datas de Homologação e Preparo Produção
-_homolog_rows = _fases_filtradas[_fases_filtradas['Categoria_Analise'] == 'Homologação']
-_preparo_rows = _fases_filtradas[_fases_filtradas['Categoria_Analise'] == 'Preparo Produção']
-data_inicio_homologacao = _homolog_rows['Data Inicio'].min() if not _homolog_rows.empty else pd.NaT
-data_fim_homologacao    = _homolog_rows['Data Fim'].max()    if not _homolog_rows.empty else pd.NaT
-data_inicio_preparo     = _preparo_rows['Data Inicio'].min() if not _preparo_rows.empty else pd.NaT
-data_fim_preparo        = _preparo_rows['Data Fim'].max()    if not _preparo_rows.empty else pd.NaT
 
 # Planejado: sempre baseado no datas_esperadas_por_lake.csv (data_fim por história)
 if data_lake_selecionado == 'Todos':
@@ -802,7 +787,8 @@ if data_lake_selecionado == 'Todos':
 else:
     lakes_fase = df_lake[df_lake['lake'] == data_lake_selecionado].copy()
 
-lakes_fase['data_fim'] = pd.to_datetime(lakes_fase['data_fim'], dayfirst=True, errors='coerce')
+lakes_fase['data_fim']    = pd.to_datetime(lakes_fase['data_fim'],    dayfirst=not _tem_datas_jira, errors='coerce')
+lakes_fase['data_inicio'] = pd.to_datetime(lakes_fase['data_inicio'], dayfirst=not _tem_datas_jira, errors='coerce')
 lakes_fase['id_historia_norm'] = lakes_fase['id_historia'].apply(normalizar_id_historia)
 
 # Planejado agrupado por DIA (data_fim exata)
@@ -813,8 +799,15 @@ burn_planejado = (
     .reset_index(name='planejado')
 )
 burn_planejado.rename(columns={'data_fim': 'data'}, inplace=True)
-# Garantir que 'data' seja datetime64[ns]
 burn_planejado['data'] = pd.to_datetime(burn_planejado['data'])
+
+# Adiciona ponto inicial zerado na data de início do planejamento
+_data_inicio_plan = lakes_fase['data_inicio'].min() if 'data_inicio' in lakes_fase.columns and not lakes_fase['data_inicio'].isna().all() else None
+if _data_inicio_plan is not None and pd.notna(_data_inicio_plan):
+    burn_planejado = pd.concat(
+        [pd.DataFrame([{'data': _data_inicio_plan, 'planejado': 0}]), burn_planejado],
+        ignore_index=True
+    ).sort_values('data')
 
 # Real: história concluída quando todas as subtarefas estiverem concluídas
 df_real_base = df.copy()
@@ -876,23 +869,23 @@ if not hist_entregues.empty:
 else:
     burn_real = pd.DataFrame({'data': pd.Series(dtype='datetime64[ns]'), 'realizado': pd.Series(dtype='int64')})
 
-# Junta planejado, realizado total e realizado parcial
-burn = pd.merge(burn_planejado, burn_real, on='data', how='outer')
-burn = pd.merge(burn, burn_real_parcial, on='data', how='outer').fillna(0)
+# Junta planejado e realizado (histórias 100% concluídas)
+burn = pd.merge(burn_planejado, burn_real, on='data', how='outer').fillna(0)
 burn = burn.sort_values('data')
 burn['planejado_acum'] = burn['planejado'].cumsum()
 burn['realizado_acum'] = burn['realizado'].cumsum()
-burn['realizado_parcial_acum'] = burn['realizado_parcial'].cumsum()
 
-# Limita a linha do realizado até a última data de entrega
-if not burn_real_parcial.empty:
-    ultima_data_real_parcial = burn_real_parcial['data'].max()
-    burn_real_parcial_mask = burn['data'] <= ultima_data_real_parcial
+# Série de realizado acumulado (apenas datas com entregas reais)
+if not burn_real.empty:
+    burn_real_acum = burn_real.sort_values('data').copy()
+    burn_real_acum['realizado_acum'] = burn_real_acum['realizado'].cumsum()
+    ultima_data_real_bh = burn_real_acum['data'].max()
+    burn_real_mask = burn['data'] <= ultima_data_real_bh
 else:
-    burn_real_parcial_mask = burn['data'] == False
+    burn_real_acum = pd.DataFrame()
+    ultima_data_real_bh = pd.NaT
+    burn_real_mask = pd.Series(False, index=burn.index)
 
-# Projeção: extrapola o ritmo real até as datas finais esperadas
-dados_real = burn.loc[burn_real_parcial_mask, ['data', 'realizado_parcial_acum']].copy()
 datas_proj = []
 valores_proj = []
 datas_proj_melhor = []
@@ -905,53 +898,34 @@ realizado_atual = 0.0
 total_planejado = float(burn['planejado'].sum()) if not burn.empty else 0.0
 prazo_final_planejado = lakes_fase['data_fim'].max() if 'data_fim' in lakes_fase.columns and not lakes_fase.empty else pd.NaT
 
-if not dados_real.empty and dados_real['realizado_parcial_acum'].iloc[-1] > 0 and pd.notna(prazo_final_planejado):
-    x = np.arange(len(dados_real))
-    y = dados_real['realizado_parcial_acum'].values
+if not burn_real_acum.empty and pd.notna(ultima_data_real_bh) and pd.notna(prazo_final_planejado):
+    realizado_atual = float(burn_real_acum['realizado_acum'].iloc[-1])
 
-    if len(x) > 1:
-        coef = np.polyfit(x, y, 1)
-        ritmo_hist_dia = float(coef[0])
-    else:
-        ritmo_hist_dia = float(y[-1])
+    if realizado_atual > 0 and realizado_atual < total_planejado:
+        x = np.arange(len(burn_real_acum))
+        y = burn_real_acum['realizado_acum'].values
+        ritmo_hist_dia = float(np.polyfit(x, y, 1)[0]) if len(x) > 1 else float(y[-1])
+        ritmo_hist_dia = max(ritmo_hist_dia, 0.01)
 
-    realizado_atual = float(y[-1])
-    
-    if ritmo_hist_dia > 0 and total_planejado > 0 and realizado_atual < total_planejado:
-        ultima_data_real = dados_real['data'].iloc[-1]
         historias_faltantes = total_planejado - realizado_atual
-        
-        # Cenários de projeção
-        ritmo_melhor = ritmo_hist_dia * 1.3  # 30% mais rápido
-        ritmo_pior = ritmo_hist_dia * 0.7     # 30% mais lento
-        
-        # Função auxiliar para gerar projeção
+
         def gerar_projecao(ritmo, prazo_limite):
-            datas = []
-            valores = []
+            datas, valores = [], []
             dias_necessarios = int(np.ceil(historias_faltantes / ritmo))
-            
             for i in range(dias_necessarios + 1):
-                data_proj = ultima_data_real + pd.Timedelta(days=i)
-                
-                # Se passar da data final planejada, para
+                data_proj = ultima_data_real_bh + pd.Timedelta(days=i)
                 if pd.notna(prazo_limite) and data_proj > prazo_limite:
                     break
-                
                 valor_proj = realizado_atual + ritmo * i
-                if valor_proj >= total_planejado:
-                    datas.append(data_proj)
-                    valores.append(total_planejado)
-                    break
                 datas.append(data_proj)
-                valores.append(valor_proj)
-            
+                valores.append(min(valor_proj, total_planejado))
+                if valor_proj >= total_planejado:
+                    break
             return datas, valores
-        
-        # Gera as três projeções
+
         datas_proj, valores_proj = gerar_projecao(ritmo_hist_dia, prazo_final_planejado)
-        datas_proj_melhor, valores_proj_melhor = gerar_projecao(ritmo_melhor, prazo_final_planejado)
-        datas_proj_pior, valores_proj_pior = gerar_projecao(ritmo_pior, prazo_final_planejado)
+        datas_proj_melhor, valores_proj_melhor = gerar_projecao(ritmo_hist_dia * 1.3, prazo_final_planejado)
+        datas_proj_pior, valores_proj_pior = gerar_projecao(ritmo_hist_dia * 0.7, prazo_final_planejado)
 
 # ── BURN-UP POR PONTOS ────────────────────────────────────────────────────────
 # (cálculos permanecem fora das abas)
@@ -1161,7 +1135,7 @@ fig_burnup.update_layout(
 # ── RENDERIZAÇÃO ORGANIZADA POR ABAS ─────────────────────────────────────────
 
 # Cálculos de suporte para aba_exec (burnup por histórias)
-_data_ini_burnout = burn['data'].min() if not burn.empty else pd.NaT
+_data_ini_burnout = lakes_fase['data_inicio'].min() if 'data_inicio' in lakes_fase.columns and not lakes_fase['data_inicio'].isna().all() else (burn['data'].min() if not burn.empty else pd.NaT)
 # Extrair datas e valores do planejado acumulado para a curva de aprendizado
 _datas_plan_hist = list(burn['data']) if not burn.empty else []
 _valores_plan_hist = list(burn['planejado_acum']) if not burn.empty else []
@@ -1171,27 +1145,23 @@ _datas_sig, _valores_sig = calcular_curva_aprendizado(
 )
 
 total_historias = int(total_planejado)
-historias_concluidas = int(burn['realizado_acum'].max()) if not burn.empty else 0
+historias_concluidas = int(realizado_atual) if realizado_atual > 0 else 0
 percentual_concluido_hist = (historias_concluidas / total_historias * 100) if total_historias > 0 else 0
 
-if not dados_real.empty and ritmo_hist_dia > 0 and realizado_atual < total_planejado:
+if ritmo_hist_dia > 0 and realizado_atual > 0 and realizado_atual < total_planejado:
     historias_faltantes = total_planejado - realizado_atual
     dias_faltantes = int(np.ceil(historias_faltantes / ritmo_hist_dia))
-    previsao_conclusao = dados_real['data'].iloc[-1] + pd.Timedelta(days=dias_faltantes)
-    ritmo_melhor = ritmo_hist_dia * 1.3
-    dias_faltantes_melhor = int(np.ceil(historias_faltantes / ritmo_melhor))
-    previsao_melhor = dados_real['data'].iloc[-1] + pd.Timedelta(days=dias_faltantes_melhor)
-    ritmo_pior = ritmo_hist_dia * 0.7
-    dias_faltantes_pior = int(np.ceil(historias_faltantes / ritmo_pior))
-    previsao_pior = dados_real['data'].iloc[-1] + pd.Timedelta(days=dias_faltantes_pior)
-elif historias_concluidas >= total_historias:
-    previsao_conclusao = burn.loc[burn['realizado_acum'] >= total_historias, 'data'].min() if not burn.empty else pd.NaT
+    previsao_conclusao = ultima_data_real_bh + pd.Timedelta(days=dias_faltantes)
+    previsao_melhor = ultima_data_real_bh + pd.Timedelta(days=int(np.ceil(historias_faltantes / (ritmo_hist_dia * 1.3))))
+    previsao_pior   = ultima_data_real_bh + pd.Timedelta(days=int(np.ceil(historias_faltantes / (ritmo_hist_dia * 0.7))))
+elif historias_concluidas >= total_historias and total_historias > 0:
+    previsao_conclusao = burn_real_acum.loc[burn_real_acum['realizado_acum'] >= total_historias, 'data'].min() if not burn_real_acum.empty else pd.NaT
     previsao_melhor = previsao_conclusao
-    previsao_pior = previsao_conclusao
+    previsao_pior   = previsao_conclusao
 else:
     previsao_conclusao = pd.NaT
     previsao_melhor = pd.NaT
-    previsao_pior = pd.NaT
+    previsao_pior   = pd.NaT
 
 in_progress = len(df_filtrado[df_filtrado['Status'].str.lower() == 'in progress'])
 
@@ -1255,13 +1225,14 @@ fig_burn.add_trace(go.Scatter(
     name='Planejado',
     line=dict(color='royalblue')
 ))
-fig_burn.add_trace(go.Scatter(
-    x=burn.loc[burn_real_parcial_mask, 'data'],
-    y=burn.loc[burn_real_parcial_mask, 'realizado_parcial_acum'],
-    mode='lines+markers',
-    name='Realizado',
-    line=dict(color='orange')
-))
+if not burn_real_acum.empty:
+    fig_burn.add_trace(go.Scatter(
+        x=burn_real_acum['data'],
+        y=burn_real_acum['realizado_acum'],
+        mode='lines+markers',
+        name='Realizado',
+        line=dict(color='orange')
+    ))
 
 if len(_datas_sig) > 1:
     fig_burn.add_trace(go.Scatter(
@@ -1301,7 +1272,7 @@ if len(datas_proj_pior) > 1:
     ))
 
 if pd.notna(prazo_final_planejado):
-    data_inicio_grafico = burn['data'].min() if not burn.empty else prazo_final_planejado
+    data_inicio_grafico = lakes_fase['data_inicio'].min() if 'data_inicio' in lakes_fase.columns and not lakes_fase['data_inicio'].isna().all() else (burn['data'].min() if not burn.empty else prazo_final_planejado)
     xaxis_range = [data_inicio_grafico, prazo_final_planejado]
     _ticks_bh = pd.date_range(start=data_inicio_grafico, end=prazo_final_planejado, freq='2W').tolist()
     # Remove o último tick automático se estiver a menos de 7 dias da data final
@@ -1670,6 +1641,145 @@ Baseado nas datas planejadas do arquivo `datas_esperadas_por_lake.csv`:
 """)
     else:
         st.info("ℹ️ **Ainda não há histórias abertas com ciclo de desenvolvimento registrado para este Data-Lake.**\n\nO ciclo será calculado quando as histórias passarem pelos status de desenvolvimento (IN DEVELOPMENT, WAITING CODE REVIEW, IN CODE REVIEW, WAITING TEST, TEST).")
+
+    st.markdown(hr_style, unsafe_allow_html=True)
+
+    # ── Gantt: Linha do Tempo por Lake ────────────────────────────────────────
+    st.subheader("📅 Linha do Tempo por Data-Lake")
+
+    _arquivo_proc = os.path.join(DADOS_DIR, "processos_seguintes.csv")
+    if os.path.exists(_arquivo_proc):
+        _df_proc = pd.read_csv(_arquivo_proc, encoding="utf-8-sig")
+        _df_proc["Start Date"] = pd.to_datetime(_df_proc["Start Date"], errors="coerce")
+        _df_proc["Deadline"]   = pd.to_datetime(_df_proc["Deadline"],   errors="coerce")
+
+        # Extrai lake e fase do título
+        _df_proc["Lake"] = _df_proc["Titulo"].str.extract(r'\[([^\]]+)\]', expand=False).str.strip().str.upper()
+        _df_proc["Fase"] = _df_proc["Titulo"].apply(lambda t: (
+            "Desenvolvimento"    if "Desenvolvimento" in str(t) or "desenvolvimento" in str(t) else
+            "Homologação"        if "Homologa" in str(t) else
+            "Preparo Produção"   if "Preparo" in str(t) else
+            "Produção Assistida" if "Produção Assistida" in str(t) or "Assis" in str(t) else
+            None
+        ))
+
+        # Filtra pelo lake selecionado no filtro principal
+        _lakes_gantt = _df_proc["Lake"].dropna().unique()
+        if data_lake_selecionado != 'Todos':
+            _df_proc = _df_proc[_df_proc["Lake"] == data_lake_selecionado]
+
+        # Desenvolvimento: start = menor Start Date das histórias do lake, end = maior Deadline das histórias
+        _dev_hist = df_lake.copy()
+        _dev_hist["data_inicio"] = pd.to_datetime(_dev_hist["data_inicio"], errors="coerce")
+        _dev_hist["data_fim"]    = pd.to_datetime(_dev_hist["data_fim"],    errors="coerce")
+
+        if data_lake_selecionado != 'Todos':
+            _dev_hist = _dev_hist[_dev_hist["lake"] == data_lake_selecionado]
+
+        _dev_por_lake = (
+            _dev_hist.groupby("lake")
+            .agg(start=("data_inicio", "min"), end=("data_fim", "max"))
+            .reset_index()
+            .rename(columns={"lake": "Lake"})
+        )
+        _dev_por_lake["Fase"] = "Desenvolvimento"
+
+        # Monta linhas dos processos seguintes (sem Desenvolvimento)
+        _proc_fases = _df_proc[_df_proc["Fase"].isin(["Homologação", "Preparo Produção", "Produção Assistida"])].copy()
+        _proc_fases = _proc_fases.rename(columns={"Start Date": "start", "Deadline": "end"})
+        _proc_fases = _proc_fases[["Lake", "Fase", "start", "end"]].dropna(subset=["start", "end", "Lake"])
+
+        # Une desenvolvimento + processos seguintes
+        _df_gantt = pd.concat([
+            _dev_por_lake[["Lake", "Fase", "start", "end"]],
+            _proc_fases
+        ], ignore_index=True).dropna(subset=["start", "end", "Lake"])
+
+        # Filtra lake selecionado
+        if data_lake_selecionado != 'Todos':
+            _df_gantt = _df_gantt[_df_gantt["Lake"] == data_lake_selecionado]
+
+        _cores_fase = {
+            "Desenvolvimento":    "#1f77b4",
+            "Homologação":        "#ff7f0e",
+            "Preparo Produção":   "#2ca02c",
+            "Produção Assistida": "#9467bd",
+        }
+        _ordem_fase = ["Desenvolvimento", "Homologação", "Preparo Produção", "Produção Assistida"]
+        _lakes_ordem = sorted(_df_gantt["Lake"].unique())
+
+        if not _df_gantt.empty:
+            _fig_gantt = go.Figure()
+            _data_ref = _df_gantt["start"].min()
+
+            _legendas_adicionadas = set()
+            for _lake in _lakes_ordem:
+                for _fase in _ordem_fase:
+                    _row = _df_gantt[(_df_gantt["Lake"] == _lake) & (_df_gantt["Fase"] == _fase)]
+                    if _row.empty:
+                        continue
+                    _r = _row.iloc[0]
+                    _dur = (_r["end"] - _r["start"]).days
+                    _off = (_r["start"] - _data_ref).days
+                    _cor = _cores_fase.get(_fase, "#7f7f7f")
+                    _show_legend = _fase not in _legendas_adicionadas
+                    _legendas_adicionadas.add(_fase)
+
+                    _fig_gantt.add_trace(go.Bar(
+                        x=[_dur],
+                        y=[_lake],
+                        base=[_off],
+                        orientation="h",
+                        marker_color=_cor,
+                        name=_fase,
+                        legendgroup=_fase,
+                        showlegend=_show_legend,
+                        hovertemplate=(
+                            f"<b>{_lake}</b><br>"
+                            f"Fase: {_fase}<br>"
+                            f"Início: {_r['start'].strftime('%d/%m/%Y')}<br>"
+                            f"Fim: {_r['end'].strftime('%d/%m/%Y')}<br>"
+                            f"Duração: {_dur} dias<extra></extra>"
+                        ),
+                    ))
+
+            # Linha de hoje
+            _hoje_off = (pd.Timestamp.now().normalize() - _data_ref).days
+            _fig_gantt.add_vline(
+                x=_hoje_off, line_dash="dash", line_color="#e8edf2" if tema_selecionado != "☀️ Claro" else "#333",
+                annotation_text="Hoje", annotation_position="top right",
+                annotation_font_color="#e8edf2" if tema_selecionado != "☀️ Claro" else "#333",
+            )
+
+            # Eixo X em datas reais
+            _data_fim_gantt = _df_gantt["end"].max()
+            _ticks_gantt = pd.date_range(start=_data_ref, end=_data_fim_gantt, freq="2W")
+            _tick_offs   = [int((d - _data_ref).days) for d in _ticks_gantt]
+            _tick_labels = [d.strftime("%d/%m/%Y") for d in _ticks_gantt]
+
+            _fig_gantt.update_layout(
+                barmode="overlay",
+                template=plotly_template,
+                paper_bgcolor=plotly_paper_bgcolor,
+                plot_bgcolor=plotly_plot_bgcolor,
+                font=dict(color=plotly_font_color),
+                height=max(300, len(_lakes_ordem) * 80 + 100),
+                margin=dict(l=20, r=20, t=30, b=60),
+                xaxis=dict(
+                    title="Data",
+                    tickvals=_tick_offs,
+                    ticktext=_tick_labels,
+                    tickangle=-45,
+                    **plotly_axis_style,
+                ),
+                yaxis=dict(autorange="reversed", **plotly_axis_style),
+                legend=plotly_legend_style,
+            )
+            st.plotly_chart(_fig_gantt, use_container_width=True)
+        else:
+            st.info("Nenhum dado disponível para o Gantt.")
+    else:
+        st.info("Arquivo `processos_seguintes.csv` não encontrado. Execute o script de atualização.")
 
 # ── GRÁFICOS ──────────────────────────────────────────────────────────────────
 elif aba_selecionada == "📈 Gráficos":
