@@ -27,8 +27,8 @@ ENV/
 env/
 
 # IDE
+.github/agents/
 .claude/
-.github/
 .vscode/
 .idea/
 *.swp
