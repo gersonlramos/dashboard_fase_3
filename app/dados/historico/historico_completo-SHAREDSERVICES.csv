@@ -1,4 +1,13 @@
 ﻿Chave,Titulo,Data Criacao,Data Mudanca,Status Antigo,Status Novo,Autor
+BF3E4-5316,"[SHARED SERVICES - 67] Entidade: SOI - Tabelas Base (Family Members, PLM, WT8) - TAMANHO: P",2026-03-16T10:37:38.287-0300,2026-03-25T13:41:40.656-0300,IN REFINEMENT,Refined,artur.mariano
+BF3E4-5316,"[SHARED SERVICES - 67] Entidade: SOI - Tabelas Base (Family Members, PLM, WT8) - TAMANHO: P",2026-03-16T10:37:38.287-0300,2026-03-25T13:41:37.847-0300,WAITING REFINEMENT,IN REFINEMENT,artur.mariano
+BF3E4-5316,"[SHARED SERVICES - 67] Entidade: SOI - Tabelas Base (Family Members, PLM, WT8) - TAMANHO: P",2026-03-16T10:37:38.287-0300,2026-03-25T13:41:33.304-0300,Open,WAITING REFINEMENT,artur.mariano
+BF3E4-5312,[SHARED SERVICES - 66] Entidade: Workday - Views Analytics - Remuneração e Desligamento - TAMANHO: M,2026-03-16T10:37:25.790-0300,2026-03-25T13:38:41.958-0300,IN REFINEMENT,Refined,artur.mariano
+BF3E4-5312,[SHARED SERVICES - 66] Entidade: Workday - Views Analytics - Remuneração e Desligamento - TAMANHO: M,2026-03-16T10:37:25.790-0300,2026-03-25T13:38:37.720-0300,WAITING REFINEMENT,IN REFINEMENT,artur.mariano
+BF3E4-5312,[SHARED SERVICES - 66] Entidade: Workday - Views Analytics - Remuneração e Desligamento - TAMANHO: M,2026-03-16T10:37:25.790-0300,2026-03-25T13:38:34.002-0300,Open,WAITING REFINEMENT,artur.mariano
+BF3E4-5306,[SHARED SERVICES - 65] Entidade: Workday - Views Normalized - Desligamento - TAMANHO: P,2026-03-16T10:37:12.006-0300,2026-03-25T13:38:23.003-0300,IN REFINEMENT,Refined,artur.mariano
+BF3E4-5306,[SHARED SERVICES - 65] Entidade: Workday - Views Normalized - Desligamento - TAMANHO: P,2026-03-16T10:37:12.006-0300,2026-03-25T13:38:20.048-0300,WAITING REFINEMENT,IN REFINEMENT,artur.mariano
+BF3E4-5306,[SHARED SERVICES - 65] Entidade: Workday - Views Normalized - Desligamento - TAMANHO: P,2026-03-16T10:37:12.006-0300,2026-03-25T13:38:15.372-0300,Open,WAITING REFINEMENT,artur.mariano
 BF3E4-5295,[SHARED SERVICES - 64] Entidade: Workday - Views Normalized - Benefícios Parte 1 - TAMANHO: G,2026-03-16T10:36:50.476-0300,2026-03-24T10:29:13.068-0300,Refined,To Do,fabio.bastos
 BF3E4-5295,[SHARED SERVICES - 64] Entidade: Workday - Views Normalized - Benefícios Parte 1 - TAMANHO: G,2026-03-16T10:36:50.476-0300,2026-03-18T15:16:54.277-0300,IN REFINEMENT,Refined,fabio.bastos
 BF3E4-5295,[SHARED SERVICES - 64] Entidade: Workday - Views Normalized - Benefícios Parte 1 - TAMANHO: G,2026-03-16T10:36:50.476-0300,2026-03-18T11:59:34.473-0300,WAITING REFINEMENT,IN REFINEMENT,fabio.bastos
