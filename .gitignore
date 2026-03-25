@@ -40,7 +40,7 @@ env/
 api_token.txt
 
 # Arquivos CSV temporários (mas permite dados/)
-*.csv
+
 !dados/**/*.csv
 !requirements.txt
 

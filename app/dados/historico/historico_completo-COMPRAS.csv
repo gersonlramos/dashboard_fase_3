@@ -1,0 +1,59 @@
+﻿Chave,Titulo,Data Criacao,Data Mudanca,Status Antigo,Status Novo,Autor
+BF3E4-277,[QA|COMPRAS] Relatório de teste para entrega da homologação,2026-02-26T14:53:43.629-0300,2026-02-26T17:56:55.328-0300,Canceled,Open,maite.willig
+BF3E4-277,[QA|COMPRAS] Relatório de teste para entrega da homologação,2026-02-26T14:53:43.629-0300,2026-02-26T17:56:33.624-0300,To Do,Canceled,maite.willig
+BF3E4-277,[QA|COMPRAS] Relatório de teste para entrega da homologação,2026-02-26T14:53:43.629-0300,2026-02-26T17:56:17.042-0300,Open,To Do,maite.willig
+BF3E4-263,[COMPRAS - 13] Entidade: Integração Power BI (Material Indireto) - TAMANHO: G,2026-02-25T12:02:21.793-0300,2026-03-17T09:18:33.524-0300,IN REFINEMENT,Refined,marina.bueno
+BF3E4-263,[COMPRAS - 13] Entidade: Integração Power BI (Material Indireto) - TAMANHO: G,2026-02-25T12:02:21.793-0300,2026-03-17T09:15:37.000-0300,WAITING REFINEMENT,IN REFINEMENT,marina.bueno
+BF3E4-263,[COMPRAS - 13] Entidade: Integração Power BI (Material Indireto) - TAMANHO: G,2026-02-25T12:02:21.793-0300,2026-02-26T17:56:12.075-0300,Open,WAITING REFINEMENT,maite.willig
+BF3E4-256,[COMPRAS - 12] Entidade: Integração TM1 (IBM Planning Analytics) - TAMANHO: P,2026-02-25T12:02:04.850-0300,2026-03-17T09:18:35.899-0300,IN REFINEMENT,Refined,marina.bueno
+BF3E4-256,[COMPRAS - 12] Entidade: Integração TM1 (IBM Planning Analytics) - TAMANHO: P,2026-02-25T12:02:04.850-0300,2026-03-17T09:15:34.433-0300,WAITING REFINEMENT,IN REFINEMENT,marina.bueno
+BF3E4-256,[COMPRAS - 12] Entidade: Integração TM1 (IBM Planning Analytics) - TAMANHO: P,2026-02-25T12:02:04.850-0300,2026-02-26T17:56:09.488-0300,Open,WAITING REFINEMENT,maite.willig
+BF3E4-245,[COMPRAS - 11] Entidade: Flow Causais (MySQL) - TAMANHO: M,2026-02-25T12:01:40.783-0300,2026-03-17T09:18:28.860-0300,IN REFINEMENT,Refined,marina.bueno
+BF3E4-245,[COMPRAS - 11] Entidade: Flow Causais (MySQL) - TAMANHO: M,2026-02-25T12:01:40.783-0300,2026-03-17T09:15:31.362-0300,WAITING REFINEMENT,IN REFINEMENT,marina.bueno
+BF3E4-245,[COMPRAS - 11] Entidade: Flow Causais (MySQL) - TAMANHO: M,2026-02-25T12:01:40.783-0300,2026-02-26T17:56:07.629-0300,Open,WAITING REFINEMENT,maite.willig
+BF3E4-239,[COMPRAS - 10] Entidade: Estrutura Veicular - TAMANHO: P,2026-02-25T12:01:27.005-0300,2026-03-19T10:09:27.957-0300,IN REFINEMENT,Refined,artur.mariano
+BF3E4-239,[COMPRAS - 10] Entidade: Estrutura Veicular - TAMANHO: P,2026-02-25T12:01:27.005-0300,2026-03-19T10:09:24.216-0300,WAITING REFINEMENT,IN REFINEMENT,artur.mariano
+BF3E4-239,[COMPRAS - 10] Entidade: Estrutura Veicular - TAMANHO: P,2026-02-25T12:01:27.005-0300,2026-02-26T17:56:05.127-0300,Open,WAITING REFINEMENT,maite.willig
+BF3E4-230,[COMPRAS - 9] Entidade: RDA (Requisição de Autorização) - TAMANHO: G,2026-02-25T12:01:03.952-0300,2026-03-18T16:46:50.545-0300,To Do,IN DEVELOPMENT,artur.mariano
+BF3E4-230,[COMPRAS - 9] Entidade: RDA (Requisição de Autorização) - TAMANHO: G,2026-02-25T12:01:03.952-0300,2026-03-18T16:46:46.686-0300,Refined,To Do,artur.mariano
+BF3E4-230,[COMPRAS - 9] Entidade: RDA (Requisição de Autorização) - TAMANHO: G,2026-02-25T12:01:03.952-0300,2026-03-17T09:18:25.568-0300,IN REFINEMENT,Refined,marina.bueno
+BF3E4-230,[COMPRAS - 9] Entidade: RDA (Requisição de Autorização) - TAMANHO: G,2026-02-25T12:01:03.952-0300,2026-03-17T09:15:27.424-0300,WAITING REFINEMENT,IN REFINEMENT,marina.bueno
+BF3E4-230,[COMPRAS - 9] Entidade: RDA (Requisição de Autorização) - TAMANHO: G,2026-02-25T12:01:03.952-0300,2026-02-26T17:56:03.421-0300,Open,WAITING REFINEMENT,maite.willig
+BF3E4-213,[COMPRAS - 8] Entidade: Datamart Tratativa - Parte 8 (APV - Análise Preço Volume) - TAMANHO: G,2026-02-25T12:00:30.732-0300,2026-03-17T09:18:23.587-0300,IN REFINEMENT,Refined,marina.bueno
+BF3E4-213,[COMPRAS - 8] Entidade: Datamart Tratativa - Parte 8 (APV - Análise Preço Volume) - TAMANHO: G,2026-02-25T12:00:30.732-0300,2026-03-17T09:14:51.269-0300,WAITING REFINEMENT,IN REFINEMENT,marina.bueno
+BF3E4-213,[COMPRAS - 8] Entidade: Datamart Tratativa - Parte 8 (APV - Análise Preço Volume) - TAMANHO: G,2026-02-25T12:00:30.732-0300,2026-02-26T17:56:01.619-0300,Open,WAITING REFINEMENT,maite.willig
+BF3E4-199,[COMPRAS - 7] Entidade: Datamart Tratativa - Parte 7 (Variação e Programação) - TAMANHO: G,2026-02-25T12:00:01.891-0300,2026-03-18T12:14:11.043-0300,To Do,IN DEVELOPMENT,marina.bueno
+BF3E4-199,[COMPRAS - 7] Entidade: Datamart Tratativa - Parte 7 (Variação e Programação) - TAMANHO: G,2026-02-25T12:00:01.891-0300,2026-03-18T12:14:08.382-0300,Refined,To Do,marina.bueno
+BF3E4-199,[COMPRAS - 7] Entidade: Datamart Tratativa - Parte 7 (Variação e Programação) - TAMANHO: G,2026-02-25T12:00:01.891-0300,2026-03-17T09:17:33.818-0300,IN REFINEMENT,Refined,marina.bueno
+BF3E4-199,[COMPRAS - 7] Entidade: Datamart Tratativa - Parte 7 (Variação e Programação) - TAMANHO: G,2026-02-25T12:00:01.891-0300,2026-03-17T09:14:46.749-0300,WAITING REFINEMENT,IN REFINEMENT,marina.bueno
+BF3E4-199,[COMPRAS - 7] Entidade: Datamart Tratativa - Parte 7 (Variação e Programação) - TAMANHO: G,2026-02-25T12:00:01.891-0300,2026-02-26T17:56:00.114-0300,Open,WAITING REFINEMENT,maite.willig
+BF3E4-191,[COMPRAS - 6] Entidade: Datamart Tratativa - Parte 6 (Curva de Compra Mensal e Despivotada) - TAMANHO: M,2026-02-25T11:59:45.803-0300,2026-03-18T12:14:01.696-0300,To Do,IN DEVELOPMENT,marina.bueno
+BF3E4-191,[COMPRAS - 6] Entidade: Datamart Tratativa - Parte 6 (Curva de Compra Mensal e Despivotada) - TAMANHO: M,2026-02-25T11:59:45.803-0300,2026-03-18T12:13:57.046-0300,Refined,To Do,marina.bueno
+BF3E4-191,[COMPRAS - 6] Entidade: Datamart Tratativa - Parte 6 (Curva de Compra Mensal e Despivotada) - TAMANHO: M,2026-02-25T11:59:45.803-0300,2026-03-17T09:19:10.618-0300,IN REFINEMENT,Refined,marina.bueno
+BF3E4-191,[COMPRAS - 6] Entidade: Datamart Tratativa - Parte 6 (Curva de Compra Mensal e Despivotada) - TAMANHO: M,2026-02-25T11:59:45.803-0300,2026-03-17T09:19:03.351-0300,WAITING REFINEMENT,IN REFINEMENT,marina.bueno
+BF3E4-191,[COMPRAS - 6] Entidade: Datamart Tratativa - Parte 6 (Curva de Compra Mensal e Despivotada) - TAMANHO: M,2026-02-25T11:59:45.803-0300,2026-02-26T17:56:29.216-0300,Open,WAITING REFINEMENT,maite.willig
+BF3E4-177,"[COMPRAS - 5] Entidade: Datamart Tratativa - Parte 5 (Curva de Compra Base - Curva, Histórico e Causais) - TAMANHO: G",2026-02-25T11:59:20.848-0300,2026-03-23T09:25:15.865-0300,To Do,IN DEVELOPMENT,artur.mariano
+BF3E4-177,"[COMPRAS - 5] Entidade: Datamart Tratativa - Parte 5 (Curva de Compra Base - Curva, Histórico e Causais) - TAMANHO: G",2026-02-25T11:59:20.848-0300,2026-03-23T09:25:12.889-0300,Refined,To Do,artur.mariano
+BF3E4-177,"[COMPRAS - 5] Entidade: Datamart Tratativa - Parte 5 (Curva de Compra Base - Curva, Histórico e Causais) - TAMANHO: G",2026-02-25T11:59:20.848-0300,2026-03-17T09:17:30.836-0300,IN REFINEMENT,Refined,marina.bueno
+BF3E4-177,"[COMPRAS - 5] Entidade: Datamart Tratativa - Parte 5 (Curva de Compra Base - Curva, Histórico e Causais) - TAMANHO: G",2026-02-25T11:59:20.848-0300,2026-03-17T09:14:44.333-0300,WAITING REFINEMENT,IN REFINEMENT,marina.bueno
+BF3E4-177,"[COMPRAS - 5] Entidade: Datamart Tratativa - Parte 5 (Curva de Compra Base - Curva, Histórico e Causais) - TAMANHO: G",2026-02-25T11:59:20.848-0300,2026-02-26T17:55:58.262-0300,Open,WAITING REFINEMENT,maite.willig
+BF3E4-163,[COMPRAS - 4] Entidade: Datamart Tratativa - Parte 4 (Documentos de Compra) - TAMANHO: G,2026-02-25T11:58:52.700-0300,2026-03-18T12:13:46.808-0300,To Do,IN DEVELOPMENT,marina.bueno
+BF3E4-163,[COMPRAS - 4] Entidade: Datamart Tratativa - Parte 4 (Documentos de Compra) - TAMANHO: G,2026-02-25T11:58:52.700-0300,2026-03-18T11:50:00.741-0300,Refined,To Do,artur.mariano
+BF3E4-163,[COMPRAS - 4] Entidade: Datamart Tratativa - Parte 4 (Documentos de Compra) - TAMANHO: G,2026-02-25T11:58:52.700-0300,2026-03-17T09:17:27.937-0300,IN REFINEMENT,Refined,marina.bueno
+BF3E4-163,[COMPRAS - 4] Entidade: Datamart Tratativa - Parte 4 (Documentos de Compra) - TAMANHO: G,2026-02-25T11:58:52.700-0300,2026-03-17T09:14:40.111-0300,WAITING REFINEMENT,IN REFINEMENT,marina.bueno
+BF3E4-163,[COMPRAS - 4] Entidade: Datamart Tratativa - Parte 4 (Documentos de Compra) - TAMANHO: G,2026-02-25T11:58:52.700-0300,2026-02-26T17:55:56.395-0300,Open,WAITING REFINEMENT,maite.willig
+BF3E4-149,[COMPRAS - 3] Entidade: Datamart Tratativa - Parte 3 (Fornecedores e Materiais) - TAMANHO: G,2026-02-25T11:58:21.939-0300,2026-03-18T11:48:56.454-0300,To Do,IN DEVELOPMENT,artur.mariano
+BF3E4-149,[COMPRAS - 3] Entidade: Datamart Tratativa - Parte 3 (Fornecedores e Materiais) - TAMANHO: G,2026-02-25T11:58:21.939-0300,2026-03-18T11:48:52.360-0300,Refined,To Do,artur.mariano
+BF3E4-149,[COMPRAS - 3] Entidade: Datamart Tratativa - Parte 3 (Fornecedores e Materiais) - TAMANHO: G,2026-02-25T11:58:21.939-0300,2026-03-17T09:17:26.337-0300,IN REFINEMENT,Refined,marina.bueno
+BF3E4-149,[COMPRAS - 3] Entidade: Datamart Tratativa - Parte 3 (Fornecedores e Materiais) - TAMANHO: G,2026-02-25T11:58:21.939-0300,2026-03-17T09:14:37.629-0300,WAITING REFINEMENT,IN REFINEMENT,marina.bueno
+BF3E4-149,[COMPRAS - 3] Entidade: Datamart Tratativa - Parte 3 (Fornecedores e Materiais) - TAMANHO: G,2026-02-25T11:58:21.939-0300,2026-02-26T17:55:54.903-0300,Open,WAITING REFINEMENT,maite.willig
+BF3E4-107,[COMPRAS - 2] Entidade: Datamart Tratativa - Parte 2 (Dimensões Básicas 5-8) - TAMANHO: G,2026-02-25T11:55:46.163-0300,2026-03-17T15:10:24.949-0300,To Do,IN DEVELOPMENT,caio.fascina
+BF3E4-107,[COMPRAS - 2] Entidade: Datamart Tratativa - Parte 2 (Dimensões Básicas 5-8) - TAMANHO: G,2026-02-25T11:55:46.163-0300,2026-03-17T15:10:20.198-0300,Refined,To Do,caio.fascina
+BF3E4-107,[COMPRAS - 2] Entidade: Datamart Tratativa - Parte 2 (Dimensões Básicas 5-8) - TAMANHO: G,2026-02-25T11:55:46.163-0300,2026-03-17T09:17:24.212-0300,IN REFINEMENT,Refined,marina.bueno
+BF3E4-107,[COMPRAS - 2] Entidade: Datamart Tratativa - Parte 2 (Dimensões Básicas 5-8) - TAMANHO: G,2026-02-25T11:55:46.163-0300,2026-03-17T09:14:35.353-0300,WAITING REFINEMENT,IN REFINEMENT,marina.bueno
+BF3E4-107,[COMPRAS - 2] Entidade: Datamart Tratativa - Parte 2 (Dimensões Básicas 5-8) - TAMANHO: G,2026-02-25T11:55:46.163-0300,2026-02-26T17:55:53.174-0300,Open,WAITING REFINEMENT,maite.willig
+BF3E4-91,[COMPRAS - 1] Entidade: Datamart Tratativa - Parte 1 (Dimensões Básicas 1-4) - TAMANHO: G,2026-02-24T17:40:25.596-0300,2026-03-18T12:10:24.108-0300,To Do,IN DEVELOPMENT,marina.bueno
+BF3E4-91,[COMPRAS - 1] Entidade: Datamart Tratativa - Parte 1 (Dimensões Básicas 1-4) - TAMANHO: G,2026-02-24T17:40:25.596-0300,2026-03-18T12:10:21.467-0300,Refined,To Do,marina.bueno
+BF3E4-91,[COMPRAS - 1] Entidade: Datamart Tratativa - Parte 1 (Dimensões Básicas 1-4) - TAMANHO: G,2026-02-24T17:40:25.596-0300,2026-03-17T09:17:21.928-0300,IN REFINEMENT,Refined,marina.bueno
+BF3E4-91,[COMPRAS - 1] Entidade: Datamart Tratativa - Parte 1 (Dimensões Básicas 1-4) - TAMANHO: G,2026-02-24T17:40:25.596-0300,2026-03-17T09:14:32.702-0300,WAITING REFINEMENT,IN REFINEMENT,marina.bueno
+BF3E4-91,[COMPRAS - 1] Entidade: Datamart Tratativa - Parte 1 (Dimensões Básicas 1-4) - TAMANHO: G,2026-02-24T17:40:25.596-0300,2026-02-26T17:55:50.923-0300,Open,WAITING REFINEMENT,maite.willig
