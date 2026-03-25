@@ -42,6 +42,12 @@ jobs:
           API_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
         run: python app/scripts/extrair_historico.py
 
+      - name: Executar script de pendências
+        env:
+          EMAIL: ${{ secrets.JIRA_EMAIL }}
+          API_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
+        run: python app/scripts/script_pendencias.py
+
       - name: Commit e push dos dados atualizados
         run: |
           git config user.name "github-actions[bot]"
