@@ -2027,9 +2027,6 @@ elif aba_selecionada == "⚠️ Pendências":
                         {dias} dias em aberto
                     </span>
                 </div>
-                <div style="font-size:14px; font-weight:600; margin:6px 0 2px 0; color:{txt_color};">
-                    {row['Titulo']}
-                </div>
                 <div style="font-size:12px; color:#888; margin-bottom:8px;">
                     Status: <b>{row['Status']}</b> &nbsp;|&nbsp; Prioridade: <b>{prior}</b>
                 </div>
@@ -2038,4 +2035,207 @@ elif aba_selecionada == "⚠️ Pendências":
                 </div>
             </div>
             """, unsafe_allow_html=True)
+
+    st.markdown(hr_style, unsafe_allow_html=True)
+
+    # ── SLA de Escalonamento de Dependências ───────────────────────────────
+    st.subheader("🚦 SLA de Escalonamento de Dependências")
+
+    # Configuração dos níveis SLA
+    # Pré-impedimento: baseado em dias úteis até o Deadline
+    # Impedimento: baseado em dias corridos desde a Start Date (task ainda aberta)
+
+    def dias_uteis_restantes(deadline):
+        """Conta dias úteis entre hoje e o deadline."""
+        if pd.isna(deadline):
+            return None
+        hoje_d = pd.Timestamp.now().normalize()
+        if deadline < hoje_d:
+            return -int((hoje_d - deadline).days)  # negativo = já passou
+        count = 0
+        cur = hoje_d
+        while cur < deadline:
+            cur += pd.Timedelta(days=1)
+            if cur.weekday() < 5:
+                count += 1
+        return count
+
+    df_sla = df_pend[~df_pend["Status"].isin(status_done_pend | status_canceled_pend)].copy()
+    df_sla["Start Date"] = pd.to_datetime(df_sla["Start Date"], errors="coerce").dt.tz_localize(None)
+    df_sla["Deadline"]   = pd.to_datetime(df_sla["Deadline"],   errors="coerce").dt.tz_localize(None)
+    hoje_sla = pd.Timestamp.now().normalize()
+
+    # Dias corridos desde Start Date (impedimento)
+    df_sla["Dias Impedimento"] = (hoje_sla - df_sla["Start Date"]).dt.days
+
+    # Dias úteis até Deadline
+    df_sla["DU Restantes"] = df_sla["Deadline"].apply(dias_uteis_restantes)
+
+    def classificar_sla(row):
+        du = row["DU Restantes"]
+        di = row["Dias Impedimento"]
+
+        # Sem deadline: classifica só por dias de impedimento
+        if pd.isna(du):
+            if pd.isna(di) or di < 0:
+                return "normal", "✅ Normal", "#2ca02c", "L1", "Acompanhamento regular"
+            elif di >= 5:
+                return "impedimento_5", "🔴 Impedimento Crítico", "#7b0000", "L5", "Avaliação de impacto no programa — decisão executiva"
+            elif di >= 2:
+                return "impedimento_2", "🟣 Impedimento Grave", "#7b2d8b", "L3", "Priorização executiva — plano imediato de desbloqueio"
+            elif di >= 0:
+                return "impedimento_0", "🔴 Impedimento", "#d62728", "L2", "Comunicação formal de impedimento — avaliação de impacto"
+            return "normal", "✅ Normal", "#2ca02c", "L1", "Acompanhamento regular"
+
+        # Com deadline: usa dias úteis restantes (pré-impedimento)
+        if du <= 0:
+            # Passou do deadline → impedimento
+            dias_imp = abs(du)
+            if dias_imp >= 5:
+                return "impedimento_5", "🔴 Impedimento Crítico", "#7b0000", "L5", "Avaliação de impacto no programa — decisão executiva"
+            elif dias_imp >= 2:
+                return "impedimento_2", "🟣 Impedimento Grave", "#7b2d8b", "L3", "Priorização executiva — plano imediato de desbloqueio"
+            else:
+                return "impedimento_0", "🔴 Impedimento", "#d62728", "L2", "Comunicação formal de impedimento — avaliação de impacto"
+        elif du <= 1:
+            return "d1", "🟠 D-1 Escalonamento L3", "#e05c00", "L3", "Alinhamento de urgência — definição de ação imediata"
+        elif du <= 3:
+            return "d3", "🟡 D-3 Escalonamento L2", "#d4a000", "L2", "Revisão do bloqueio — validação de alternativas"
+        elif du <= 5:
+            return "d5", "🔵 D-5 Atenção L1", "#1f77b4", "L1", "Reforço de comunicação — confirmação de plano e data"
+        else:
+            return "normal", "✅ Normal", "#2ca02c", "L1", "Acompanhamento regular"
+
+    df_sla[["_nivel", "Nível SLA", "Cor", "Escalonamento", "Ação"]] = df_sla.apply(
+        lambda r: pd.Series(classificar_sla(r)), axis=1
+    )
+
+    # Ordem de exibição por criticidade
+    ordem_nivel = ["impedimento_5", "impedimento_2", "impedimento_0", "d1", "d3", "d5", "normal"]
+    df_sla["_ordem"] = df_sla["_nivel"].map({v: i for i, v in enumerate(ordem_nivel)})
+    df_sla = df_sla.sort_values("_ordem")
+
+    # ── Resumo visual (contadores por nível) ──
+    niveis_resumo = df_sla.groupby(["Nível SLA", "Cor", "Escalonamento"]).size().reset_index(name="Qtd")
+    niveis_resumo["_ordem"] = niveis_resumo["Nível SLA"].map(
+        {row["Nível SLA"]: row["_ordem"] for _, row in df_sla.drop_duplicates("Nível SLA").iterrows()}
+    )
+    niveis_resumo = niveis_resumo.sort_values("_ordem")
+
+    _bg   = "#1b2a3b" if tema_selecionado != "☀️ Claro" else "#f8fafc"
+    _txt  = "#e8edf2" if tema_selecionado != "☀️ Claro" else "#0d1b2a"
+    _brd  = "#1f3a5c" if tema_selecionado != "☀️ Claro" else "#d0dff0"
+    _bg2  = "#0d1b2a" if tema_selecionado != "☀️ Claro" else "#e8f0f8"
+
+    cols_resumo = st.columns(max(len(niveis_resumo), 1))
+    for i, (_, nr) in enumerate(niveis_resumo.iterrows()):
+        with cols_resumo[i]:
+            st.markdown(f"""
+            <div style="background:{_bg}; border:2px solid {nr['Cor']}; border-radius:10px;
+                        padding:14px 12px; text-align:center;">
+                <div style="font-size:11px; color:{nr['Cor']}; font-weight:700; margin-bottom:4px;">
+                    {nr['Nível SLA']}
+                </div>
+                <div style="font-size:32px; font-weight:800; color:{_txt};">{nr['Qtd']}</div>
+                <div style="font-size:11px; color:#888; margin-top:4px;">Escal. {nr['Escalonamento']}</div>
+            </div>
+            """, unsafe_allow_html=True)
+
+    st.markdown("<br>", unsafe_allow_html=True)
+
+    # ── Gantt de pendências abertas ──
+    df_gantt = df_sla[df_sla["Start Date"].notna() & df_sla["Deadline"].notna()].copy()
+    if not df_gantt.empty:
+        fig_gantt = go.Figure()
+
+        for _, row in df_gantt.iterrows():
+            fig_gantt.add_trace(go.Bar(
+                x=[(row["Deadline"] - row["Start Date"]).days],
+                y=[f"{row['Chave']}"],
+                base=[(row["Start Date"] - df_gantt["Start Date"].min()).days],
+                orientation="h",
+                marker_color=row["Cor"],
+                name=row["Nível SLA"],
+                showlegend=False,
+                hovertemplate=(
+                    f"<b>{row['Chave']}</b><br>"
+                    f"{row['Titulo']}<br>"
+                    f"Start: {row['Start Date'].strftime('%d/%m/%Y')}<br>"
+                    f"Deadline: {row['Deadline'].strftime('%d/%m/%Y')}<br>"
+                    f"Nível: {row['Nível SLA']}<br>"
+                    f"Escalonamento: {row['Escalonamento']}<br>"
+                    f"Ação: {row['Ação']}<extra></extra>"
+                ),
+            ))
+
+        # Linha de hoje
+        hoje_offset = (hoje_sla - df_gantt["Start Date"].min()).days
+        fig_gantt.add_vline(
+            x=hoje_offset, line_dash="dash", line_color="#ff7f0e",
+            annotation_text="Hoje", annotation_position="top",
+        )
+
+        fig_gantt.update_layout(
+            title="Linha do Tempo das Pendências Abertas",
+            barmode="overlay",
+            template=plotly_template,
+            paper_bgcolor=plotly_paper_bgcolor,
+            plot_bgcolor=plotly_plot_bgcolor,
+            font=dict(color=plotly_font_color),
+            xaxis=dict(title="Dias desde a 1ª Start Date", **plotly_axis_style),
+            yaxis=dict(title="", autorange="reversed", **plotly_axis_style),
+            height=max(200, len(df_gantt) * 40 + 80),
+            margin=dict(l=120, r=20, t=50, b=40),
+        )
+        st.plotly_chart(fig_gantt, use_container_width=True)
+
+    st.markdown("<br>", unsafe_allow_html=True)
+
+    # ── Cards por pendência com nível SLA ──
+    st.markdown("**Detalhamento por Pendência**")
+    for _, row in df_sla.iterrows():
+        du      = row["DU Restantes"]
+        di      = int(row["Dias Impedimento"]) if pd.notna(row["Dias Impedimento"]) else None
+        prior   = row.get("Prioridade", "-") or "-"
+        desc    = str(row.get("Descricao", "") or "")
+        desc_c  = desc[:250] + "..." if len(desc) > 250 else desc
+        cor     = row["Cor"]
+        nivel   = row["Nível SLA"]
+        escal   = row["Escalonamento"]
+        acao    = row["Ação"]
+        bg_card = "#1b2a3b" if tema_selecionado != "☀️ Claro" else "#f8fafc"
+        txt_c   = "#e8edf2" if tema_selecionado != "☀️ Claro" else "#0d1b2a"
+
+        du_txt = f"{du} dias úteis restantes" if du is not None and du > 0 else (
+            f"{abs(du)} dias úteis em atraso" if du is not None and du < 0 else "Sem deadline"
+        )
+        deadline_str = row["Deadline"].strftime("%d/%m/%Y") if pd.notna(row["Deadline"]) else "—"
+
+        st.markdown(f"""
+        <div style="border-left:5px solid {cor}; background:{bg_card}; padding:14px 18px;
+                    border-radius:8px; margin-bottom:10px;">
+            <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:6px;">
+                <span style="font-weight:700; font-size:15px; color:{cor};">{row['Chave']} — {row['Titulo']}</span>
+                <span style="background:{cor}; color:#fff; padding:3px 12px;
+                             border-radius:12px; font-size:12px; font-weight:700; white-space:nowrap;">
+                    {nivel}
+                </span>
+            </div>
+            <div style="display:flex; gap:20px; margin:8px 0 4px 0; flex-wrap:wrap;">
+                <span style="font-size:12px; color:#888;">Prioridade: <b style="color:{txt_c};">{prior}</b></span>
+                <span style="font-size:12px; color:#888;">Deadline: <b style="color:{txt_c};">{deadline_str}</b></span>
+                <span style="font-size:12px; color:#888;">⏳ <b style="color:{cor};">{du_txt}</b></span>
+                <span style="font-size:12px; color:#888;">📅 {di} dias desde abertura</span>
+            </div>
+            <div style="background:{_bg2}; border-radius:6px; padding:8px 12px; margin:6px 0;">
+                <span style="font-size:12px; color:#888;">🔺 Escalonamento: </span>
+                <span style="font-size:12px; font-weight:700; color:{cor};">{escal}</span>
+                <span style="font-size:12px; color:#888;"> &nbsp;|&nbsp; Ação: </span>
+                <span style="font-size:12px; color:{txt_c};">{acao}</span>
+            </div>
+            <div style="font-size:13px; color:{txt_c}; opacity:0.85; white-space:pre-wrap; margin-top:4px;">
+                {desc_c if desc_c else '<i>Sem descrição.</i>'}
+            </div>
+        </div>
+        """, unsafe_allow_html=True)
 
