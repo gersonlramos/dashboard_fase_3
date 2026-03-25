@@ -275,32 +275,112 @@ st.markdown(f"**📅 Atualizado em:** {brt_time.strftime('%d/%m/%Y %H:%M:%S')} |
 # ── Indicadores de % Planejada e Realizada ──────────────────────────────────
 _df_lake_pct = pd.read_csv(os.path.join(DADOS_DIR, 'datas_esperadas_por_lake.csv'), encoding='utf-8-sig')
 _df_lake_pct['data_fim'] = pd.to_datetime(_df_lake_pct['data_fim'], dayfirst=True, errors='coerce')
-_total_hist_pct = _df_lake_pct['id_historia'].nunique()
-
-# % planejada: histórias com data_fim <= hoje / total de histórias
+_df_lake_pct['lake'] = _df_lake_pct['lake'].astype(str).str.strip().str.upper()
 _hoje = pd.Timestamp(brt_time.date())
-_hist_planejadas_ate_hoje = (_df_lake_pct['data_fim'] <= _hoje).sum()
-_pct_planejada = (_hist_planejadas_ate_hoje / _total_hist_pct * 100) if _total_hist_pct > 0 else 0.0
-
-# % realizada: subtarefas Done / total subtarefas (dados já carregados após filtro)
-_df_pct = pd.read_csv(os.path.join(DADOS_DIR, 'FASE_3.csv'), encoding='utf-8-sig')
 _status_done = {'done', 'closed', 'resolved', 'concluído', 'concluida', 'canceled', 'cancelled'}
-_total_sub = len(_df_pct)
-_done_sub = _df_pct['Status'].astype(str).str.strip().str.lower().isin(_status_done).sum()
-_pct_realizada = (_done_sub / _total_sub * 100) if _total_sub > 0 else 0.0
 
-_col_p, _col_r = st.columns(2)
-with _col_p:
-    st.metric("📊 Porcentagem Planejada", f"{_pct_planejada:.1f}%",
-              help="Percentual esperado de conclusão hoje segundo a curva de aprendizado (sigmoide)")
-with _col_r:
-    _delta_pct = _pct_realizada - _pct_planejada
-    st.metric("✅ Porcentagem Realizada", f"{_pct_realizada:.1f}%",
-              delta=f"{_delta_pct:+.1f}% vs planejado",
-              delta_color="normal" if _delta_pct <= 0 else "inverse",
-              help="Percentual de subtarefas concluídas (Done/Canceled) sobre o total")
+def _render_indicadores(df_base):
+    """Renderiza cards de progresso reagindo ao df_base (já filtrado)."""
+    _bg  = "#1b2a3b" if tema_selecionado != "☀️ Claro" else "#ffffff"
+    _txt = "#e8edf2" if tema_selecionado != "☀️ Claro" else "#0d1b2a"
+    _brd = "#1f3a5c" if tema_selecionado != "☀️ Claro" else "#d0dff0"
+    _bg_bar = "#1e3048" if tema_selecionado != "☀️ Claro" else "#e0e8f0"
 
-st.markdown(hr_style, unsafe_allow_html=True)
+    def _barra(pct, cor):
+        return f"""<div style="background:{_bg_bar}; border-radius:6px; height:10px; width:100%;
+                               margin-top:4px; overflow:hidden;">
+            <div style="width:{min(pct,100):.1f}%; background:{cor}; height:100%; border-radius:6px;"></div>
+        </div>"""
+
+    # Lakes presentes no df_base filtrado
+    lakes_no_filtro = sorted(df_base['Data-Lake'].dropna().unique())
+
+    # Se nenhum lake reconhecível, não renderiza
+    if not lakes_no_filtro:
+        return
+
+    # Filtra datas_esperadas apenas para os lakes do filtro
+    df_plan_filtrado = _df_lake_pct[_df_lake_pct['lake'].isin(lakes_no_filtro)]
+
+    # Totais considerando o filtro
+    _total_hist = df_plan_filtrado['id_historia'].nunique()
+    _hist_plan  = (df_plan_filtrado['data_fim'] <= _hoje).sum()
+    _pct_plan   = (_hist_plan / _total_hist * 100) if _total_hist > 0 else 0.0
+
+    _total_sub  = len(df_base)
+    _done_sub   = df_base['Status'].astype(str).str.strip().str.lower().isin(_status_done).sum()
+    _pct_real   = (_done_sub / _total_sub * 100) if _total_sub > 0 else 0.0
+    _delta      = _pct_real - _pct_plan
+    _cor_delta  = "#2ca02c" if _delta >= 0 else "#d62728"
+    _sinal      = "▲" if _delta >= 0 else "▼"
+
+    # ── Card geral ──
+    st.markdown(f"""
+    <div style="background:{_bg}; border:1px solid {_brd}; border-radius:10px;
+                padding:16px 20px; margin-bottom:14px;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+            <span style="font-weight:700; font-size:15px; color:{_txt};">📊 Progresso — Seleção Atual</span>
+            <span style="font-size:13px; color:{_cor_delta}; font-weight:600;">
+                {_sinal} {abs(_delta):.1f}% vs planejado
+            </span>
+        </div>
+        <div style="display:flex; gap:32px;">
+            <div style="flex:1;">
+                <div style="font-size:12px; color:#888; margin-bottom:2px;">Planejado</div>
+                <div style="font-size:22px; font-weight:700; color:#5ba3d9;">{_pct_plan:.1f}%</div>
+                {_barra(_pct_plan, "#5ba3d9")}
+            </div>
+            <div style="flex:1;">
+                <div style="font-size:12px; color:#888; margin-bottom:2px;">Realizado</div>
+                <div style="font-size:22px; font-weight:700; color:{_cor_delta};">{_pct_real:.1f}%</div>
+                {_barra(_pct_real, _cor_delta)}
+            </div>
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
+
+    # ── Cards por lake (só quando exatamente 1 lake está selecionado no filtro) ──
+    if data_lake_selecionado == 'Todos' or len(lakes_no_filtro) <= 1:
+        return
+
+    _lake_stats = []
+    for _lake in lakes_no_filtro:
+        _df_l  = _df_lake_pct[_df_lake_pct['lake'] == _lake]
+        _tot_l = _df_l['id_historia'].nunique()
+        _pl_l  = (_df_l['data_fim'] <= _hoje).sum()
+        _pct_pl = (_pl_l / _tot_l * 100) if _tot_l > 0 else 0.0
+
+        _df_s  = df_base[df_base['Data-Lake'] == _lake]
+        _tot_s = len(_df_s)
+        _dn_s  = _df_s['Status'].astype(str).str.strip().str.lower().isin(_status_done).sum()
+        _pct_rl = (_dn_s / _tot_s * 100) if _tot_s > 0 else 0.0
+
+        _lake_stats.append({"lake": _lake, "planejada": _pct_pl, "realizada": _pct_rl})
+
+    cols_por_linha = 3
+    for i in range(0, len(_lake_stats), cols_por_linha):
+        bloco = _lake_stats[i:i + cols_por_linha]
+        cols  = st.columns(cols_por_linha)
+        for col, stat in zip(cols, bloco):
+            _pl = stat["planejada"]
+            _rl = stat["realizada"]
+            _dc = "#2ca02c" if _rl >= _pl else "#d62728"
+            with col:
+                st.markdown(f"""
+                <div style="background:{_bg}; border:1px solid {_brd}; border-radius:8px;
+                            padding:12px 14px; margin-bottom:10px;">
+                    <div style="font-weight:700; font-size:13px; color:{_txt};
+                                margin-bottom:8px; border-bottom:1px solid {_brd}; padding-bottom:5px;">
+                        {stat['lake']}
+                    </div>
+                    <div style="font-size:11px; color:#888; margin-bottom:1px;">Planejado</div>
+                    <div style="font-size:16px; font-weight:700; color:#5ba3d9;">{_pl:.1f}%</div>
+                    {_barra(_pl, "#5ba3d9")}
+                    <div style="font-size:11px; color:#888; margin:7px 0 1px 0;">Realizado</div>
+                    <div style="font-size:16px; font-weight:700; color:{_dc};">{_rl:.1f}%</div>
+                    {_barra(_rl, _dc)}
+                </div>
+                """, unsafe_allow_html=True)
 
 
 # Função para carregar dados
@@ -363,12 +443,12 @@ st.sidebar.header("🔍 Filtros")
 # Filtro por Data-Lake
 # Normalizar para uppercase para evitar duplicatas (ex: COMPRAS vs Compras)
 df['Data-Lake'] = df['Data-Lake'].astype(str).str.strip().str.upper()
-data_lakes_unicos = ['Todas'] + sorted([str(d) for d in df['Data-Lake'].unique() if pd.notna(d) and str(d) not in ['N/A', 'NAN']])
+data_lakes_unicos = ['Todos'] + sorted([str(d) for d in df['Data-Lake'].unique() if pd.notna(d) and str(d) not in ['N/A', 'NAN']])
 data_lake_selecionado = st.sidebar.selectbox("Data-Lake:", data_lakes_unicos, index=0)
 
 # Aplicar filtro de Data-Lake primeiro
 df_filtrado = df.copy()
-if data_lake_selecionado != 'Todas':
+if data_lake_selecionado != 'Todos':
     df_filtrado = df_filtrado[df_filtrado['Data-Lake'] == data_lake_selecionado]
 
 # Filtro por História (usando título) - baseado no filtro de Data-Lake
@@ -392,7 +472,7 @@ st.sidebar.markdown("---")
 st.sidebar.markdown("**Visualize:**")
 aba_selecionada = st.sidebar.radio(
     "Visualize:",
-    ["📊 Executivo", "📈 Gráficos", "📋 Detalhes"],
+    ["📊 Executivo", "📈 Gráficos", "📋 Detalhes", "⚠️ Pendências"],
     label_visibility="collapsed"
 )
 
@@ -487,7 +567,7 @@ def calcular_dias_uteis(data_inicio, data_fim):
     # busday_count conta dias úteis (seg-sex)
     return np.busday_count(d1, d2)
 
-def calcular_ciclo_desenvolvimento(data_lake_filtro='Todas'):
+def calcular_ciclo_desenvolvimento(data_lake_filtro='Todos'):
     """
     Calcula o ciclo de desenvolvimento médio das histórias baseado nos arquivos de histórico.
     Considera os status: IN DEVELOPMENT, WAITING CODE REVIEW, IN CODE REVIEW, WAITING TEST, TEST
@@ -517,7 +597,7 @@ def calcular_ciclo_desenvolvimento(data_lake_filtro='Todas'):
     }
     
     # Determinar quais arquivos carregar
-    if data_lake_filtro == 'Todas':
+    if data_lake_filtro == 'Todos':
         arquivos = glob.glob(os.path.join(DADOS_DIR, 'historico', 'historico_completo-*.csv'))
     else:
         arquivo_key = lake_to_file.get(data_lake_filtro)
@@ -618,7 +698,7 @@ def calcular_ciclo_desenvolvimento(data_lake_filtro='Todas'):
     
     return ciclo_medio, num_historias
 
-def calcular_ciclo_ideal(data_lake_filtro='Todas'):
+def calcular_ciclo_ideal(data_lake_filtro='Todos'):
     """
     Calcula o ciclo ideal médio baseado nas datas planejadas (data_inicio e data_fim) 
     do arquivo datas_esperadas_por_lake.csv.
@@ -631,7 +711,7 @@ def calcular_ciclo_ideal(data_lake_filtro='Todas'):
     df_lake_ideal['lake'] = df_lake_ideal['lake'].str.replace(r'\s+[A-Z]$', '', regex=True)
     
     # Filtrar por lake
-    if data_lake_filtro != 'Todas':
+    if data_lake_filtro != 'Todos':
         df_lake_ideal = df_lake_ideal[df_lake_ideal['lake'] == data_lake_filtro]
     
     if df_lake_ideal.empty:
@@ -701,7 +781,7 @@ _df_fase3_completo['Data Fim'] = _df_fase3_completo.apply(
     lambda r: _preencher_data(r, 'Data Fim', 'data_fim'), axis=1)
 
 # Filtrar pelo lake selecionado (já normalizado para uppercase)
-if data_lake_selecionado != 'Todas':
+if data_lake_selecionado != 'Todos':
     _fases_filtradas = _df_fase3_completo[
         _df_fase3_completo['Data-Lake'] == data_lake_selecionado
     ]
@@ -717,7 +797,7 @@ data_inicio_preparo     = _preparo_rows['Data Inicio'].min() if not _preparo_row
 data_fim_preparo        = _preparo_rows['Data Fim'].max()    if not _preparo_rows.empty else pd.NaT
 
 # Planejado: sempre baseado no datas_esperadas_por_lake.csv (data_fim por história)
-if data_lake_selecionado == 'Todas':
+if data_lake_selecionado == 'Todos':
     lakes_fase = df_lake.copy()
 else:
     lakes_fase = df_lake[df_lake['lake'] == data_lake_selecionado].copy()
@@ -738,7 +818,7 @@ burn_planejado['data'] = pd.to_datetime(burn_planejado['data'])
 
 # Real: história concluída quando todas as subtarefas estiverem concluídas
 df_real_base = df.copy()
-if data_lake_selecionado != 'Todas':
+if data_lake_selecionado != 'Todos':
     df_real_base = df_real_base[df_real_base['Data-Lake'] == data_lake_selecionado]
 
 df_real_base['id_historia_raw'] = df_real_base['Titulo Historia'].str.extract(r'\[([^\]]+)\]', expand=False)
@@ -1377,6 +1457,8 @@ rn_total = len(df_filtrado[df_filtrado['Categoria_Analise'].str.contains('RN', n
 
 # ── VISÃO EXECUTIVA ───────────────────────────────────────────────────────────
 if aba_selecionada == "📊 Executivo":
+    _render_indicadores(df_filtrado)
+    st.markdown(hr_style, unsafe_allow_html=True)
     # KPIs do burnup por storypoint
     col_bp1, col_bp2, col_bp3, col_bp4 = st.columns(4)
     with col_bp1:
@@ -1484,7 +1566,7 @@ if aba_selecionada == "📊 Executivo":
     ciclo_ideal, num_historias_ideal = calcular_ciclo_ideal(data_lake_selecionado)
     
     # Calcular total de histórias (planejadas) no projeto filtrado
-    if data_lake_selecionado != 'Todas':
+    if data_lake_selecionado != 'Todos':
         df_lake_filtrado = df[df['Data-Lake'] == data_lake_selecionado]
     else:
         df_lake_filtrado = df
@@ -1591,6 +1673,8 @@ Baseado nas datas planejadas do arquivo `datas_esperadas_por_lake.csv`:
 
 # ── GRÁFICOS ──────────────────────────────────────────────────────────────────
 elif aba_selecionada == "📈 Gráficos":
+    _render_indicadores(df_filtrado)
+    st.markdown(hr_style, unsafe_allow_html=True)
     # Burnup por Storypoint
     st.subheader('Burnup por Storypoint (Planejado x Real)')
     st.plotly_chart(fig_burnup, use_container_width=True)
@@ -1721,4 +1805,237 @@ elif aba_selecionada == "📋 Detalhes":
         colunas_resumo = ['Data-Lake', 'Historia', 'Titulo Historia', 'Chave', 'Titulo', 'Status', 'Categoria_Analise']
         renderizar_tabela(df_filtrado[colunas_resumo].sort_index(ascending=False), tema_selecionado)
 
+
+# ── PENDÊNCIAS ────────────────────────────────────────────────────────────────
+elif aba_selecionada == "⚠️ Pendências":
+    arquivo_pendencias  = os.path.join(DADOS_DIR, "pendencias_BF3E4-293.csv")
+    arquivo_hist_pend   = os.path.join(DADOS_DIR, "historico_BF3E4-293.csv")
+
+    if not os.path.exists(arquivo_pendencias):
+        st.warning("Arquivo de pendências não encontrado. Execute o script `script_pendencias.py` primeiro.")
+        st.stop()
+
+    df_pend = pd.read_csv(arquivo_pendencias, encoding="utf-8-sig")
+    df_hist_pend = pd.read_csv(arquivo_hist_pend, encoding="utf-8-sig") if os.path.exists(arquivo_hist_pend) else pd.DataFrame()
+
+    # ── Normalizar status ──────────────────────────────────────────────────
+    df_pend["Status"] = df_pend["Status"].astype(str).str.strip()
+    status_done_pend      = {"Done", "Closed", "Resolved"}
+    status_canceled_pend  = {"Canceled", "Cancelled", "Cancelado"}
+
+    total_pend    = len(df_pend)
+    qtd_done      = df_pend["Status"].isin(status_done_pend).sum()
+    qtd_canceled  = df_pend["Status"].isin(status_canceled_pend).sum()
+    qtd_aberta    = total_pend - qtd_done - qtd_canceled
+    pct_resolucao = ((qtd_done + qtd_canceled) / total_pend * 100) if total_pend > 0 else 0
+
+    st.subheader("⚠️ Pendências")
+    st.markdown(hr_style, unsafe_allow_html=True)
+
+    # ── Métricas principais ────────────────────────────────────────────────
+    c1, c2, c3, c4, c5 = st.columns(5)
+    c1.metric("Total de Pendências",  total_pend)
+    c2.metric("Em Aberto",            int(qtd_aberta))
+    c3.metric("Concluídas (Done)",    int(qtd_done))
+    c4.metric("Canceladas",           int(qtd_canceled))
+    c5.metric("% Resolução",          f"{pct_resolucao:.1f}%")
+
+    st.markdown(hr_style, unsafe_allow_html=True)
+
+    # ── Ciclo de tempo: Start Date → Done ─────────────────────────────────
+    st.subheader("⏱️ Ciclo de Tempo (Start Date → Done)")
+
+    df_ciclo = df_pend.copy()
+    df_ciclo["Start Date"] = pd.to_datetime(df_ciclo["Start Date"], errors="coerce")
+
+    # Busca data de conclusão no histórico
+    if not df_hist_pend.empty:
+        df_hist_pend["Data Mudanca"] = pd.to_datetime(df_hist_pend["Data Mudanca"], errors="coerce")
+        datas_done = (
+            df_hist_pend[df_hist_pend["Status Novo"].isin(status_done_pend)]
+            .sort_values("Data Mudanca")
+            .groupby("Chave")["Data Mudanca"]
+            .last()
+            .reset_index()
+            .rename(columns={"Data Mudanca": "Data Done"})
+        )
+        df_ciclo = df_ciclo.merge(datas_done, on="Chave", how="left")
+    else:
+        df_ciclo["Data Done"] = pd.NaT
+
+    # Normaliza ambas as colunas para tz-naive (remove timezone se houver)
+    df_ciclo["Start Date"] = pd.to_datetime(df_ciclo["Start Date"], errors="coerce").dt.tz_localize(None)
+    df_ciclo["Data Done"]  = pd.to_datetime(df_ciclo["Data Done"],  errors="coerce").dt.tz_localize(None)
+
+    df_ciclo["Ciclo (dias)"] = (df_ciclo["Data Done"] - df_ciclo["Start Date"]).dt.days
+    df_ciclo_valido = df_ciclo[df_ciclo["Ciclo (dias)"].notna() & (df_ciclo["Ciclo (dias)"] >= 0)]
+
+    if not df_ciclo_valido.empty:
+        ciclo_medio = df_ciclo_valido["Ciclo (dias)"].mean()
+        ciclo_max   = df_ciclo_valido["Ciclo (dias)"].max()
+        ciclo_min   = df_ciclo_valido["Ciclo (dias)"].min()
+
+        cc1, cc2, cc3 = st.columns(3)
+        cc1.metric("Ciclo Médio (dias)", f"{ciclo_medio:.1f}")
+        cc2.metric("Maior Ciclo (dias)", f"{ciclo_max:.0f}")
+        cc3.metric("Menor Ciclo (dias)", f"{ciclo_min:.0f}")
+
+        fig_ciclo = px.bar(
+            df_ciclo_valido.sort_values("Ciclo (dias)", ascending=False),
+            x="Chave", y="Ciclo (dias)", text="Ciclo (dias)",
+            title="Ciclo de Tempo por Pendência (dias corridos)",
+            color="Ciclo (dias)",
+            color_continuous_scale="Blues",
+            template=plotly_template,
+        )
+        fig_ciclo.update_traces(textposition="outside")
+        fig_ciclo.update_layout(
+            paper_bgcolor=plotly_paper_bgcolor,
+            plot_bgcolor=plotly_plot_bgcolor,
+            font=dict(color=plotly_font_color),
+            coloraxis_showscale=False,
+        )
+        st.plotly_chart(fig_ciclo, use_container_width=True)
+    else:
+        st.info("Nenhuma pendência com Start Date e data de conclusão disponíveis para calcular ciclo.")
+
+    st.markdown(hr_style, unsafe_allow_html=True)
+
+    # ── Gráficos ───────────────────────────────────────────────────────────
+    st.subheader("📊 Distribuição das Pendências")
+    gc1, gc2 = st.columns(2)
+
+    # Donut: distribuição por status
+    contagem_status = df_pend["Status"].value_counts().reset_index()
+    contagem_status.columns = ["Status", "Quantidade"]
+    fig_donut = px.pie(
+        contagem_status, names="Status", values="Quantidade",
+        hole=0.5,
+        title="Distribuição por Status",
+        template=plotly_template,
+        color_discrete_sequence=px.colors.qualitative.Set2,
+    )
+    fig_donut.update_layout(
+        paper_bgcolor=plotly_paper_bgcolor,
+        font=dict(color=plotly_font_color),
+        legend=plotly_legend_style,
+    )
+    gc1.plotly_chart(fig_donut, use_container_width=True)
+
+    # Barras: distribuição por prioridade
+    contagem_prior = df_pend["Prioridade"].fillna("Não definida").value_counts().reset_index()
+    contagem_prior.columns = ["Prioridade", "Quantidade"]
+    cores_prior = {"Highest": "#d62728", "High": "#ff7f0e", "Medium": "#1f77b4",
+                   "Low": "#2ca02c", "Lowest": "#9467bd", "Não definida": "#7f7f7f"}
+    fig_prior = px.bar(
+        contagem_prior, x="Prioridade", y="Quantidade", text="Quantidade",
+        title="Distribuição por Prioridade",
+        color="Prioridade",
+        color_discrete_map=cores_prior,
+        template=plotly_template,
+    )
+    fig_prior.update_traces(textposition="outside")
+    fig_prior.update_layout(
+        paper_bgcolor=plotly_paper_bgcolor,
+        plot_bgcolor=plotly_plot_bgcolor,
+        font=dict(color=plotly_font_color),
+        showlegend=False,
+    )
+    gc2.plotly_chart(fig_prior, use_container_width=True)
+
+    # Barras: tasks abertas por dia
+    st.subheader("📅 Tasks Abertas por Dia")
+
+    # Conta tasks por Start Date (quantas foram abertas em cada dia)
+    df_abertura = df_pend[["Chave", "Start Date"]].copy()
+    df_abertura["Start Date"] = pd.to_datetime(df_abertura["Start Date"], errors="coerce").dt.tz_localize(None)
+    df_abertura = df_abertura.dropna(subset=["Start Date"])
+    df_abertura["Data"] = df_abertura["Start Date"].dt.strftime("%d/%m/%Y")
+
+    df_abertos_por_dia = (
+        df_abertura.groupby("Data")["Chave"]
+        .nunique()
+        .reset_index(name="Tasks Abertas")
+    )
+
+    fig_abertas = px.bar(
+        df_abertos_por_dia, x="Data", y="Tasks Abertas", text="Tasks Abertas",
+        title="Quantidade de Tasks em Aberto por Dia",
+        template=plotly_template,
+        color_discrete_sequence=["#1f77b4"],
+    )
+    fig_abertas.update_traces(textposition="outside")
+    fig_abertas.update_layout(
+        paper_bgcolor=plotly_paper_bgcolor,
+        plot_bgcolor=plotly_plot_bgcolor,
+        font=dict(color=plotly_font_color),
+        xaxis=dict(**plotly_axis_style, tickangle=-45),
+        yaxis=plotly_axis_style,
+        showlegend=False,
+    )
+    st.plotly_chart(fig_abertas, use_container_width=True)
+
+    st.markdown(hr_style, unsafe_allow_html=True)
+
+    # ── Alerta: pendências abertas há mais de 5 dias ───────────────────────
+    st.subheader("🚨 Alertas — Pendências Abertas há mais de 5 dias")
+
+    df_pend["Start Date"] = pd.to_datetime(df_pend["Start Date"], errors="coerce").dt.tz_localize(None)
+    hoje_pend = pd.Timestamp.now().normalize()
+
+    # Sobrescreve o status com o mais recente do histórico (fonte mais atualizada)
+    if not df_hist_pend.empty:
+        df_hist_pend["Data Mudanca"] = pd.to_datetime(df_hist_pend["Data Mudanca"], errors="coerce")
+        status_recente = (
+            df_hist_pend.sort_values("Data Mudanca")
+            .groupby("Chave")["Status Novo"]
+            .last()
+            .reset_index()
+            .rename(columns={"Status Novo": "Status Historico"})
+        )
+        df_pend = df_pend.merge(status_recente, on="Chave", how="left")
+        df_pend["Status"] = df_pend["Status Historico"].combine_first(df_pend["Status"])
+        df_pend.drop(columns=["Status Historico"], inplace=True)
+
+    mask_aberta = ~df_pend["Status"].isin(status_done_pend | status_canceled_pend)
+    df_alerta = df_pend[mask_aberta].copy()
+    df_alerta["Dias Aberto"] = (hoje_pend - df_alerta["Start Date"]).dt.days
+    df_alerta = df_alerta[df_alerta["Dias Aberto"] > 5].sort_values("Dias Aberto", ascending=False)
+
+    if df_alerta.empty:
+        st.success("Nenhuma pendência em aberto há mais de 5 dias.")
+    else:
+        st.error(f"⚠️ {len(df_alerta)} pendência(s) em aberto há mais de 5 dias!")
+
+        for _, row in df_alerta.iterrows():
+            dias = int(row["Dias Aberto"]) if pd.notna(row["Dias Aberto"]) else "?"
+            prior = row.get("Prioridade", "-") or "-"
+            desc  = row.get("Descricao", "") or ""
+            desc_curta = desc[:300] + "..." if len(str(desc)) > 300 else desc
+
+            cor_borda = "#d62728" if dias > 15 else "#ff7f0e"
+            bg_card   = "#2a1a1a" if tema_selecionado != "☀️ Claro" else "#fff5f5"
+            txt_color = "#e8edf2" if tema_selecionado != "☀️ Claro" else "#0d1b2a"
+
+            st.markdown(f"""
+            <div style="border-left: 5px solid {cor_borda}; background:{bg_card}; padding:14px 18px;
+                        border-radius:6px; margin-bottom:12px;">
+                <div style="display:flex; justify-content:space-between; align-items:center;">
+                    <span style="font-weight:700; font-size:15px; color:{cor_borda};">{row['Chave']} — {row['Titulo']}</span>
+                    <span style="background:{cor_borda}; color:#fff; padding:2px 10px;
+                                 border-radius:12px; font-size:12px; font-weight:600;">
+                        {dias} dias em aberto
+                    </span>
+                </div>
+                <div style="font-size:14px; font-weight:600; margin:6px 0 2px 0; color:{txt_color};">
+                    {row['Titulo']}
+                </div>
+                <div style="font-size:12px; color:#888; margin-bottom:8px;">
+                    Status: <b>{row['Status']}</b> &nbsp;|&nbsp; Prioridade: <b>{prior}</b>
+                </div>
+                <div style="font-size:13px; color:{txt_color}; white-space:pre-wrap; opacity:0.85;">
+                    {desc_curta if desc_curta else '<i>Sem descrição.</i>'}
+                </div>
+            </div>
+            """, unsafe_allow_html=True)
 
