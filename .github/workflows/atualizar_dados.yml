@@ -34,13 +34,13 @@ jobs:
         env:
           EMAIL: ${{ secrets.JIRA_EMAIL }}
           API_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
-        run: python scripts/script_atualizacao.py
+        run: python app/scripts/script_atualizacao.py
 
       - name: Executar script de extração de histórico
         env:
           EMAIL: ${{ secrets.JIRA_EMAIL }}
           API_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
-        run: python scripts/extrair_historico.py
+        run: python app/scripts/extrair_historico.py
 
       - name: Commit e push dos dados atualizados
         run: |
