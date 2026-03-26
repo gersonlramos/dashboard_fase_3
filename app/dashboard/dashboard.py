@@ -1228,6 +1228,8 @@ else:
     _tickvals_bp = None
     _ticktext_bp = None
 
+fig_burnup.update_traces(hovertemplate="%{x|%d/%m/%Y}<br>%{y:.0f}<extra></extra>")
+fig_burnup.update_traces(selector=dict(name='Realizado'), hovertemplate="<b>Realizado</b><br>%{x|%d/%m/%Y}<br>%{y:.0f} itens<extra></extra>")
 fig_burnup.update_layout(
     xaxis_title='Data',
     yaxis_title='Pontos acumulados',
@@ -1276,29 +1278,11 @@ in_progress = len(df_filtrado[df_filtrado['Status'].str.lower() == 'in progress'
 
 # Funções de renderização de tabelas (definidas fora das abas)
 def colorir_status(val):
-    cores_status = {
-        'Done': 'background-color: #90EE90; color: black',
-        'Closed': 'background-color: #90EE90; color: black',
-        'Resolved': 'background-color: #90EE90; color: black',
-        'Concluído': 'background-color: #90EE90; color: black',
-        'Concluida': 'background-color: #90EE90; color: black',
-        'In Progress': 'background-color: #87CEEB; color: black',
-        'To Do': 'background-color: #FFE4B5; color: black',
-        'Backlog': 'background-color: #D3D3D3; color: black',
-        'Canceled': 'background-color: #FFD700; color: black',
-        'Cancelled': 'background-color: #FFD700; color: black',
-        'Cancelado': 'background-color: #FFD700; color: black'
-    }
-    return cores_status.get(val, '')
+    col = STATUS_COLOR_MAP.get(val, None)
+    return f'background-color: {col}; color: black' if col else ''
 
 def renderizar_tabela(df_render, tema):
     if tema == "☀️ Claro":
-        cores_status_html = {
-            'Done': '#90EE90', 'Closed': '#90EE90', 'Resolved': '#90EE90',
-            'Concluído': '#90EE90', 'Concluida': '#90EE90',
-            'In Progress': '#87CEEB', 'To Do': '#FFE4B5', 'Backlog': '#D3D3D3',
-            'Canceled': '#FFD700', 'Cancelled': '#FFD700', 'Cancelado': '#FFD700'
-        }
         html = '<div style="overflow-x:auto; overflow-y:auto; max-height:300px;">'
         html += '<table style="width:100%; border-collapse:collapse; font-size:13px; background:#fff; color:#1f1f1f;">'
         html += '<thead><tr style="background:#e8e8e8; position:sticky; top:0;">'
@@ -1311,7 +1295,7 @@ def renderizar_tabela(df_render, tema):
             for col in df_render.columns:
                 val = str(row[col]) if pd.notna(row[col]) else ''
                 if col == 'Status':
-                    cor = cores_status_html.get(val, 'transparent')
+                    cor = STATUS_COLOR_MAP.get(val, 'transparent')
                     html += f'<td style="padding:5px 8px; border-bottom:1px solid #eee; background:{cor}; color:#1f1f1f; white-space:nowrap;">{val}</td>'
                 else:
                     html += f'<td style="padding:5px 8px; border-bottom:1px solid #eee; color:#1f1f1f;">{val}</td>'
@@ -1395,6 +1379,8 @@ else:
     _tickvals_bh = None
     _ticktext_bh = None
 
+fig_burn.update_traces(hovertemplate="%{x|%d/%m/%Y}<br>%{y:.0f}<extra></extra>")
+fig_burn.update_traces(selector=dict(name='Realizado'), hovertemplate="<b>Realizado</b><br>%{x|%d/%m/%Y}<br>%{y:.0f} itens<extra></extra>")
 fig_burn.update_layout(
     xaxis_title='Data',
     yaxis_title='Historias acumuladas',
@@ -1471,6 +1457,8 @@ fig_categoria = px.bar(
 )
 fig_categoria.update_layout(
     height=300,
+    xaxis_title='Categoria',
+    yaxis_title='Quantidade',
     showlegend=False,
     template=plotly_template,
     paper_bgcolor=plotly_paper_bgcolor,
@@ -1493,6 +1481,8 @@ fig_data_lake = px.bar(
 )
 fig_data_lake.update_layout(
     height=300,
+    xaxis_title='Data-Lake',
+    yaxis_title='Quantidade',
     showlegend=False,
     template=plotly_template,
     paper_bgcolor=plotly_paper_bgcolor,
@@ -1519,6 +1509,8 @@ if issues_abertos_1_semana > 0 and not df_criticos.empty:
     )
     fig_critico.update_layout(
         height=250,
+        xaxis_title='Categoria',
+        yaxis_title='Quantidade',
         showlegend=False,
         template=plotly_template,
         paper_bgcolor=plotly_paper_bgcolor,
