@@ -5,21 +5,21 @@
 See: .planning/PROJECT.md (updated 2026-03-25)
 
 **Core value:** The migration team must always know how many items are done, how many remain, and when it will finish — with a forecast range honest enough to plan around.
-**Current focus:** Phase 4 — Test Suite: Data Pipeline
+**Current focus:** Phase 5 — Migration Heatmap
 
 ## Current Position
 
-Phase: 3 of 6 (Test Suite — Calculations) — COMPLETE
-Plan: 3 of 3 completed
-Status: Phase complete — ready for Phase 4
-Last activity: 2026-03-26 — Phase 3 executed: calculations.py extraction + 57 unit tests + AppTest smoke test
+Phase: 4 of 6 (Test Suite — Data Pipeline) — COMPLETE
+Plan: 4 of 4 completed
+Status: Phase complete — ready for Phase 5
+Last activity: 2026-03-26 — Phase 4 executed: importable ETL scripts, data_loader.py extraction, 44 new tests (ETL helpers, HTTP mocks, CSV loader, ADF converter), 89% coverage on calculations.py
 
-Progress: [██████░░░░] 50% (phases 1-3/6 done)
+Progress: [███████░░░] 67% (phases 1-4/6 done)
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 7
+- Total plans completed: 11
 - Average duration: —
 - Total execution time: <1 hour
 
@@ -30,8 +30,8 @@ Progress: [██████░░░░] 50% (phases 1-3/6 done)
 | Phase 1 | 4 | <1h | — |
 
 **Recent Trend:**
-- Last 5 plans: 02-01, 02-02, 03-01, 03-02, 03-03
-- Trend: all completed across three sessions
+- Last 5 plans: 03-02, 03-03, 04-01, 04-02, 04-03
+- Trend: all completed across four sessions
 
 *Updated after each plan completion*
 
@@ -58,7 +58,7 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-03-26
-Stopped at: Phase 3 complete. 72 tests passing (14 phase1 + 57 unit + 1 smoke). Ready for Phase 4.
+Stopped at: Phase 4 complete. 116 tests passing (72 baseline + 23 ETL + 21 data-loader+ADF). 89% coverage on calculations.py. Ready for Phase 5.
 Resume file: None
 
 ### Technique Notes
