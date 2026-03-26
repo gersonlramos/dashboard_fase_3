@@ -11,13 +11,13 @@
 **Goal:** All deprecated pandas API calls eliminated and a pytest gate installed so no future pandas-3.x-breaking pattern can be reintroduced silently.
 **Requirements:** FIX-01, FIX-02, FIX-03, FIX-04
 **Depends on:** Nothing
+**Plans:** 4 plans
 
-### Plans
-
-1. **Fix fillna deprecation** — Replace `fillna(method='ffill')` at `dashboard.py:48` with `.ffill()` and confirm no `FutureWarning` is raised under the installed pandas version.
-2. **Fix applymap deprecation** — Replace `style.applymap(colorir_status)` at `dashboard.py:1214` with `style.map(colorir_status)` and verify table styling still renders correctly.
-3. **Replace dias_uteis_restantes loop** — Rewrite the `while`-loop business-day counter at `dashboard.py:2158–2171` using `np.busday_count()`, consistent with `calcular_dias_uteis()` already in the file; also tighten the bare `except:` at line 536 to `except (ValueError, TypeError):` and add the `Historia` column guard at line 1912.
-4. **Configure pytest.ini with FutureWarning gate** — Create `pytest.ini` at the project root with `filterwarnings = error::FutureWarning` (plus `ignore::urllib3.exceptions.InsecureRequestWarning`) so any re-introduced deprecated pandas call fails CI automatically.
+Plans:
+- [ ] 01-01-PLAN.md — Fix fillna deprecation: replace `fillna(method='ffill')` at dashboard.py:48 with `.ffill()`
+- [ ] 01-02-PLAN.md — Fix applymap deprecation: replace `style.applymap()` at dashboard.py:1214 with `style.map()`
+- [ ] 01-03-PLAN.md — Replace dias_uteis_restantes while-loop with np.busday_count; tighten bare except; add Historia guard
+- [ ] 01-04-PLAN.md — Create pytest.ini with filterwarnings = error::FutureWarning gate
 
 **Success criteria:**
 - [ ] Running `python -W error::FutureWarning -c "import app.dashboard.dashboard"` produces no warnings and no exceptions.
@@ -165,7 +165,7 @@
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Correctness Fixes | 0/4 | Not started | - |
+| 1. Correctness Fixes | 0/4 | Planned | - |
 | 2. Performance | 0/4 | Not started | - |
 | 3. Test Suite: Calculations | 0/4 | Not started | - |
 | 4. Test Suite: Data Pipeline | 0/5 | Not started | - |
@@ -175,3 +175,4 @@
 ---
 
 *Roadmap created: 2026-03-25*
+*Phase 1 plans created: 2026-03-25*
