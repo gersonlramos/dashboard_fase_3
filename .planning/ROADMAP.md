@@ -170,6 +170,49 @@ Plans:
 
 ---
 
+## Phase 7: Alerts & Bottleneck Detection
+
+**Goal:** O dashboard detecta automaticamente lakes em risco de atraso e impedimentos vencidos, exibindo alertas visuais na aba Executivo sem necessidade de navegar para outras abas.
+**Requirements:** ALERT-01, ALERT-02, ALERT-03, ALERT-04, ALERT-05
+**Depends on:** Phase 2 (caching), Phase 6 (forecast data already loaded)
+
+**Plans:** 2 plans
+
+Plans:
+- [ ] 07-01-PLAN.md — Cálculo de velocidade necessária por lake + semáforo de risco (ALERT-04, ALERT-02, ALERT-03)
+- [ ] 07-02-PLAN.md — Badge de impedimentos vencidos + resumo de alertas na aba Executivo (ALERT-01, ALERT-05)
+
+**Success criteria:**
+- [ ] Aba Executivo exibe contagem de lakes em risco (vermelho) e em atenção (amarelo) sem precisar navegar.
+- [ ] Impedimentos com deadline vencida exibem badge/indicador visível.
+- [ ] Velocidade necessária é calculada corretamente com `np.busday_count` para cada lake.
+- [ ] Semáforo verde aparece quando lake está no ritmo ou acima.
+- [ ] Nenhuma aba existente quebra após a mudança.
+
+---
+
+## Phase 8: Weekly Tracker View
+
+**Goal:** Uma nova aba "Semanas" dá visão consolidada semana a semana: progresso real vs. meta por lake, velocidade de entrega, semáforos de risco e impedimentos com SLA, em uma única tela.
+**Requirements:** WEEK-01, WEEK-02, WEEK-03, WEEK-04, WEEK-05, WEEK-06
+**Depends on:** Phase 7 (reaproveita cálculo de velocidade necessária e semáforo)
+
+**Plans:** 2 plans
+
+Plans:
+- [ ] 08-01-PLAN.md — Nav entry + tabela semanal por lake (velocidade real vs. necessária, semáforo, semanas restantes) (WEEK-01, WEEK-02, WEEK-05)
+- [ ] 08-02-PLAN.md — Seção impedimentos com SLA vencido + gráfico barras progresso vs. meta + tema (WEEK-03, WEEK-04, WEEK-06)
+
+**Success criteria:**
+- [ ] Aba "📋 Semanas" aparece na navegação e renderiza sem exceções.
+- [ ] Tabela exibe todos os 9 lakes com semáforo correto (🔴/🟡/🟢) baseado na velocidade.
+- [ ] Impedimentos vencidos aparecem destacados na seção de impedimentos.
+- [ ] Gráfico de barras mostra progresso real vs. meta semanal por lake.
+- [ ] Aba respeita tema dark/light.
+- [ ] Nenhuma aba existente quebra após a mudança.
+
+---
+
 ## Coverage
 
 | Phase | Requirements | Key Deliverable |
@@ -191,12 +234,14 @@ Plans:
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Correctness Fixes | 0/4 | Planned | - |
-| 2. Performance | 0/4 | Not started | - |
-| 3. Test Suite: Calculations | 0/4 | Not started | - |
-| 4. Test Suite: Data Pipeline | 0/5 | Not started | - |
-| 5. Migration Heatmap | 0/5 | Not started | - |
-| 6. Timeline & Forecast View | 0/3 | Planned | - |
+| 1. Correctness Fixes | 4/4 | Done | 2026-03-25 |
+| 2. Performance | 2/2 | Done | 2026-03-25 |
+| 3. Test Suite: Calculations | 3/3 | Done | 2026-03-25 |
+| 4. Test Suite: Data Pipeline | 4/4 | Done | 2026-03-25 |
+| 5. Migration Heatmap | 3/3 | Done | 2026-03-25 |
+| 6. Timeline & Forecast View | 3/3 | Done | 2026-03-26 |
+| 7. Alerts & Bottleneck Detection | 0/2 | Planned | - |
+| 8. Weekly Tracker View | 0/2 | Planned | - |
 
 ---
 

@@ -64,6 +64,23 @@
 - [ ] **VIS-03**: Status colors are consistent across all charts and the heatmap (single color mapping defined once, referenced everywhere)
 - [ ] **VIS-04**: Chart axis labels and titles are present and descriptive (no unlabeled axes)
 
+### Alerts & Bottleneck Detection
+
+- [ ] **ALERT-01**: Sidebar ou aba Executivo exibe badge de alerta quando qualquer impedimento está vencido (deadline < hoje e status != Done/Closed)
+- [ ] **ALERT-02**: Cada lake com velocidade real abaixo de 50% da velocidade necessária para cumprir o deadline exibe indicador visual de risco (vermelho)
+- [ ] **ALERT-03**: Cada lake com velocidade entre 50–80% da necessária exibe indicador de atenção (amarelo)
+- [ ] **ALERT-04**: Cálculo de velocidade necessária: `itens_restantes / dias_uteis_ate_deadline` por lake, usando `np.busday_count`
+- [ ] **ALERT-05**: Resumo de alertas visível na aba Executivo (n° de lakes em risco, n° de impedimentos vencidos)
+
+### Weekly Tracker View
+
+- [ ] **WEEK-01**: Nova aba "📋 Semanas" adicionada à navegação sidebar
+- [ ] **WEEK-02**: Tabela semanal exibe, por lake: itens restantes, done esta semana, velocidade atual, velocidade necessária, semáforo de risco (🔴/🟡/🟢)
+- [ ] **WEEK-03**: Seção de impedimentos exibe todos os itens abertos com indicação de "vencido" quando deadline < hoje
+- [ ] **WEEK-04**: Gráfico de barras empilhadas mostra progresso por lake vs. meta semanal
+- [ ] **WEEK-05**: Indicador de semanas restantes até deadline por lake, calculado com `np.busday_count`
+- [ ] **WEEK-06**: Aba respeita tema dark/light
+
 ## v2 Requirements
 
 ### Deferred to Future Milestone
@@ -94,10 +111,12 @@
 | HEAT-01 – HEAT-07 | Phase 5 | Pending |
 | FORE-01 – FORE-07 | Phase 6 | Pending |
 | VIS-01 – VIS-04 | Phase 5 + 6 | Pending |
+| ALERT-01 – ALERT-05 | Phase 7 | Pending |
+| WEEK-01 – WEEK-06 | Phase 8 | Pending |
 
 **Coverage:**
-- v1 requirements: 35 total
-- Mapped to phases: 35
+- v1 requirements: 46 total
+- Mapped to phases: 46
 - Unmapped: 0 ✓
 
 ---
