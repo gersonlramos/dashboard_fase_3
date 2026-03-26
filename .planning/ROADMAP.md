@@ -60,6 +60,13 @@ Plans:
 **Requirements:** TEST-01, TEST-02, TEST-03, TEST-04, TEST-05, TEST-06, TEST-07
 **Depends on:** Phase 1
 
+**Plans:** 3 plans
+
+Plans:
+- [ ] 03-01-PLAN.md — Extract calculation functions to calculations.py + conftest fixture (TEST-01)
+- [ ] 03-02-PLAN.md — TDD unit tests for all 6 functions, ≥90% coverage (TEST-02 to TEST-06)
+- [ ] 03-03-PLAN.md — AppTest smoke test: dashboard loads without exception (TEST-07)
+
 ### Plans
 
 1. **Extract calculations.py** — Copy (verbatim, no signature changes) `calcular_curva_aprendizado`, `calcular_dias_uteis`, `colorir_status`, `classificar_subtarefa`, `normalizar_id_historia`, and `parse_data_criacao` into `app/dashboard/calculations.py`; add a single `from calculations import ...` line to `dashboard.py` so both files stay in sync without duplication.
