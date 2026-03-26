@@ -36,8 +36,8 @@ Plans:
 **Plans:** 2 plans
 
 Plans:
-- [ ] 02-01-PLAN.md — Add @st.cache_data(ttl=900) to carregar_dados and calcular_ciclo_desenvolvimento (PERF-01, PERF-02)
-- [ ] 02-02-PLAN.md — Add Atualizar dados button + orjson dependency (PERF-03, PERF-04)
+- [x] 02-01-PLAN.md — Add @st.cache_data(ttl=900) to carregar_dados and calcular_ciclo_desenvolvimento (PERF-01, PERF-02)
+- [x] 02-02-PLAN.md — Add Atualizar dados button + orjson dependency (PERF-03, PERF-04)
 
 ### Plans (original outline)
 

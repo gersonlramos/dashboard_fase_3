@@ -5,16 +5,16 @@
 See: .planning/PROJECT.md (updated 2026-03-25)
 
 **Core value:** The migration team must always know how many items are done, how many remain, and when it will finish — with a forecast range honest enough to plan around.
-**Current focus:** Phase 1 — Correctness Fixes
+**Current focus:** Phase 3 — Extract Calculations Module
 
 ## Current Position
 
-Phase: 1 of 6 (Correctness Fixes) — COMPLETE
-Plan: 4 of 4 completed
-Status: Phase complete — ready for Phase 2
-Last activity: 2026-03-25 — Phase 1 executed: all 4 plans done, 14 tests passing
+Phase: 2 of 6 (Performance) — COMPLETE
+Plan: 2 of 2 completed
+Status: Phase complete — ready for Phase 3
+Last activity: 2026-03-26 — Phase 2 executed: cache decorators + refresh button + orjson
 
-Progress: [██░░░░░░░░] 17% (phase 1/6 done)
+Progress: [████░░░░░░] 33% (phases 1-2/6 done)
 
 ## Performance Metrics
 
@@ -30,8 +30,8 @@ Progress: [██░░░░░░░░] 17% (phase 1/6 done)
 | Phase 1 | 4 | <1h | — |
 
 **Recent Trend:**
-- Last 5 plans: 01-01, 01-02, 01-03, 01-04
-- Trend: all completed in one session
+- Last 5 plans: 01-01, 01-02, 01-03, 01-04, 02-01, 02-02
+- Trend: all completed across two sessions
 
 *Updated after each plan completion*
 
