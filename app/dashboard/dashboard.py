@@ -11,6 +11,7 @@ from calculations import (
     normalizar_id_historia, parse_data_criacao, classificar_subtarefa,
     projetar_burndown,
 )
+from data_loader import carregar_dados_csv
 
 # Obter o diretório do script e do diretório de dados
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -471,46 +472,7 @@ def _render_indicadores(df_base):
 # Função para carregar dados
 @st.cache_data(ttl=900)
 def carregar_dados(arquivo):
-    if os.path.exists(arquivo):
-        try:
-            return pd.read_csv(arquivo, encoding='utf-8-sig')
-        except ParserError:
-            # Fallback para linhas com vírgulas sem aspas no campo "Titulo".
-            with open(arquivo, 'r', encoding='utf-8-sig') as f:
-                linhas = f.readlines()
-
-            if not linhas:
-                return pd.DataFrame()
-
-            cabecalho = linhas[0].strip().split(',')
-            if len(cabecalho) != 11:
-                raise
-
-            registros = []
-            for idx, linha in enumerate(linhas[1:], start=2):
-                linha = linha.rstrip('\n').rstrip('\r')
-                if not linha:
-                    continue
-
-                partes = linha.split(',')
-                if len(partes) < 11:
-                    # Linha incompleta: ignora de forma segura.
-                    continue
-
-                # Estrutura esperada: 5 colunas fixas + Titulo (com vírgulas) + 5 colunas fixas finais.
-                inicio = partes[:5]
-                fim = partes[-5:]
-                titulo = ','.join(partes[5:-5]).strip()
-                if titulo.startswith('"') and titulo.endswith('"'):
-                    titulo = titulo[1:-1]
-
-                registro = inicio + [titulo] + fim
-                if len(registro) == 11:
-                    registros.append(registro)
-
-            df = pd.DataFrame(registros, columns=cabecalho)
-            return df
-    return None
+    return carregar_dados_csv(arquivo)
 
 # Carregar arquivo FASE 3
 arquivo_selecionado = os.path.join(DADOS_DIR, "FASE_3.csv")
