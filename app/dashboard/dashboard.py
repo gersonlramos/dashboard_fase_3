@@ -216,12 +216,17 @@ if tema_selecionado == "☀️ Claro":
             outline: none !important;
             box-shadow: none !important;
         }
-        /* Tooltip do botao Atualizar dados - tema claro */
+        /* Tooltip - tema claro */
         [data-baseweb="tooltip"],
+        [data-baseweb="tooltip"] div,
+        [data-baseweb="tooltip"] > div,
+        [data-baseweb="block"],
         [data-testid="tooltipContent"],
-        div[role="tooltip"] {
-            background-color: #1f77b4 !important;
-            color: #ffffff !important;
+        div[role="tooltip"],
+        div[role="tooltip"] > div {
+            background-color: #dce8f5 !important;
+            color: #0d1b2a !important;
+            border: 1px solid #1f77b4 !important;
             border-radius: 4px !important;
             font-size: 0.85em !important;
         }
