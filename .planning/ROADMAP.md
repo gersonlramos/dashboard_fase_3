@@ -14,10 +14,10 @@
 **Plans:** 4 plans
 
 Plans:
-- [ ] 01-01-PLAN.md — Fix fillna deprecation: replace `fillna(method='ffill')` at dashboard.py:48 with `.ffill()`
-- [ ] 01-02-PLAN.md — Fix applymap deprecation: replace `style.applymap()` at dashboard.py:1214 with `style.map()`
-- [ ] 01-03-PLAN.md — Replace dias_uteis_restantes while-loop with np.busday_count; tighten bare except; add Historia guard
-- [ ] 01-04-PLAN.md — Create pytest.ini with filterwarnings = error::FutureWarning gate
+- [x] 01-01-PLAN.md — Fix fillna deprecation: replace `fillna(method='ffill')` at dashboard.py:48 with `.ffill()`
+- [x] 01-02-PLAN.md — Fix applymap deprecation: replace `style.applymap()` at dashboard.py:1214 with `style.map()`
+- [x] 01-03-PLAN.md — Replace dias_uteis_restantes while-loop with np.busday_count; tighten bare except; add Historia guard
+- [x] 01-04-PLAN.md — Create pytest.ini with filterwarnings = error::FutureWarning gate
 
 **Success criteria:**
 - [ ] Running `python -W error::FutureWarning -c "import app.dashboard.dashboard"` produces no warnings and no exceptions.

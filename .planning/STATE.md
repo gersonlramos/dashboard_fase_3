@@ -9,29 +9,29 @@ See: .planning/PROJECT.md (updated 2026-03-25)
 
 ## Current Position
 
-Phase: 1 of 6 (Correctness Fixes)
-Plan: 0 of 4 in current phase
-Status: Ready to plan
-Last activity: 2026-03-25 — Roadmap created, STATE.md initialized
+Phase: 1 of 6 (Correctness Fixes) — COMPLETE
+Plan: 4 of 4 completed
+Status: Phase complete — ready for Phase 2
+Last activity: 2026-03-25 — Phase 1 executed: all 4 plans done, 14 tests passing
 
-Progress: [░░░░░░░░░░] 0%
+Progress: [██░░░░░░░░] 17% (phase 1/6 done)
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 0
+- Total plans completed: 4
 - Average duration: —
-- Total execution time: 0 hours
+- Total execution time: <1 hour
 
 **By Phase:**
 
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
-| - | - | - | - |
+| Phase 1 | 4 | <1h | — |
 
 **Recent Trend:**
-- Last 5 plans: —
-- Trend: —
+- Last 5 plans: 01-01, 01-02, 01-03, 01-04
+- Trend: all completed in one session
 
 *Updated after each plan completion*
 
@@ -61,3 +61,8 @@ None yet.
 Last session: 2026-03-25
 Stopped at: Roadmap and STATE.md initialized; no plans executed yet.
 Resume file: None
+
+### Technique Notes
+
+-  semantics: use shifted bounds  to match the while-loop's exclusive-start / inclusive-end counting.
+- Dashboard.py cannot be imported in tests (Streamlit runs set_page_config at module scope). Reproduce logic inline in test functions.
