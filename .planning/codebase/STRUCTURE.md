@@ -1,128 +1,161 @@
 # Project Structure
 
-**Analysis Date:** 2026-03-25
+**Analysis Date:** 2026-03-26
 
-## Root Layout
+## Directory Layout
 
 ```
 dashboard_fase_3/
-├── app/                        # All application code and data
-│   ├── dados/                  # CSV data files (ETL output, read by dashboard)
-│   │   └── historico/          # Per-lake status-change history CSVs
-│   ├── dashboard/              # Streamlit web application
-│   │   └── .streamlit/         # Streamlit configuration
-│   └── scripts/                # Jira data extraction scripts
-├── .devcontainer/              # GitHub Codespaces dev container config
-├── .github/
-│   └── workflows/              # GitHub Actions CI/CD workflows
-├── .planning/
-│   └── codebase/               # GSD architecture and planning documents
-├── requirements.txt            # Python dependencies (pinned versions)
-└── .gitignore                  # Excludes .env, __pycache__, etc.
+├── app/
+│   ├── dados/                          # CSV data files (git-tracked, updated by ETL scripts)
+│   │   ├── FASE_3.csv                  # Primary dataset: one row per Jira subtask
+│   │   ├── datas_esperadas_por_lake.csv # Legacy planned dates per lake (fallback)
+│   │   ├── processos_seguintes.csv     # Next-process reference data
+│   │   ├── pendencias_BF3E4-293.csv    # Blocker/impedimento issues
+│   │   ├── historico_BF3E4-293.csv     # Change history for blocker epic
+│   │   └── historico/                  # Per-lake status-change history
+│   │       ├── historico_completo-BMC.csv
+│   │       ├── historico_completo-CLIENTE.csv
+│   │       ├── historico_completo-COMERCIAL.csv
+│   │       ├── historico_completo-COMPRAS.csv
+│   │       ├── historico_completo-FINANCE.csv
+│   │       ├── historico_completo-MOPAR.csv
+│   │       ├── historico_completo-RH.csv
+│   │       ├── historico_completo-SHAREDSERVICES.csv
+│   │       └── historico_completo-SUPPLYCHAIN.csv
+│   ├── dashboard/
+│   │   ├── dashboard.py                # Streamlit entry point (~2600 lines)
+│   │   ├── calculations.py             # Pure calculation functions (~218 lines)
+│   │   ├── data_loader.py              # CSV loader with fallback parser (~47 lines)
+│   │   └── .streamlit/
+│   │       └── config.toml             # Streamlit theme (dark, blue primary)
+│   └── scripts/
+│       ├── script_atualizacao.py       # Jira ETL: extracts subtasks -> FASE_3.csv
+│       ├── script_pendencias.py        # Jira ETL: extracts blockers -> pendencias_*.csv
+│       └── extrair_historico.py        # Jira ETL: extracts status history -> historico/
+├── tests/
+│   ├── __init__.py
+│   ├── conftest.py                     # Adds app/dashboard to sys.path
+│   ├── test_calculations.py            # Unit tests for calculations.py functions
+│   ├── test_forecast_calculations.py   # Tests for monte_carlo_forecast, forecast_linear_range
+│   ├── test_data_loader_and_pendencias.py
+│   ├── test_etl_atualizacao.py
+│   ├── test_phase1.py
+│   └── test_smoke.py                   # AppTest smoke test: dashboard loads without exception
+├── conftest.py                         # Root conftest: adds app/dashboard to sys.path
+├── pytest.ini                          # Pytest configuration
+├── requirements.txt                    # Python dependencies
+└── .planning/                          # GSD planning documents (not application code)
+    ├── codebase/                       # Codebase analysis documents
+    ├── phases/                         # Phase planning documents
+    └── ...
 ```
 
-## Source Organization
+## Key Files
 
-The codebase has no `src/` directory. Application code lives directly under `app/` split into two roles:
+**Application Entry Point:**
+- `app/dashboard/dashboard.py` — the only file executed by `streamlit run`. Contains all UI rendering, data wrangling, figure construction, and tab branching logic.
 
-- `app/scripts/` — data producers (run by CI, write CSV files)
-- `app/dashboard/` — data consumer (Streamlit app, reads CSV files)
+**Calculation Library:**
+- `app/dashboard/calculations.py` — pure functions imported by `dashboard.py` and tested independently. No Streamlit imports. Add new stateless computation here.
 
-Data flows one-way: scripts write to `app/dados/`, dashboard reads from `app/dados/`.
+**Data Loading:**
+- `app/dashboard/data_loader.py` — `carregar_dados_csv(arquivo)`. The only place that reads the primary CSV. Import in tests or scripts that need raw data loading.
 
-## Key Directories
+**ETL Scripts:**
+- `app/scripts/script_atualizacao.py` — run to refresh `FASE_3.csv` from Jira.
+- `app/scripts/script_pendencias.py` — run to refresh `pendencias_BF3E4-293.csv`.
+- `app/scripts/extrair_historico.py` — run to rebuild all per-lake history CSVs.
 
-**`app/dados/`:**
-- Purpose: Persistent CSV data store. Acts as the interface layer between ETL and dashboard.
-- Key files:
-  - `FASE_3.csv` — main dataset (~1.4 MB); one row per Jira subtask with Epic/Story/Status/Dates
-  - `datas_esperadas_por_lake.csv` — planned delivery dates per story (legacy fallback, ~75 KB)
-  - `processos_seguintes.csv` — Epic list with keys, titles, statuses, dates
-  - `pendencias_BF3E4-293.csv` — open issues for the Pendencias tab
-  - `historico_BF3E4-293.csv` — status-change history for BF3E4-293 epic
-- All files are committed to git and updated by GitHub Actions on each scheduled run.
+**Configuration:**
+- `app/dashboard/.streamlit/config.toml` — Streamlit server/theme configuration.
+- `requirements.txt` — pinned Python dependencies.
 
-**`app/dados/historico/`:**
-- Purpose: Per-lake status-change history extracted from Jira changelogs.
-- Naming pattern: `historico_completo-{LAKE}.csv` where LAKE is one of: `BMC`, `CLIENTE`, `COMERCIAL`, `COMPRAS`, `FINANCE`, `MOPAR`, `RH`, `SHAREDSERVICES`, `SUPPLYCHAIN`
-- Consumed by `calcular_ciclo_desenvolvimento()` inside `dashboard.py` to compute real development cycle time metrics.
+**Test Infrastructure:**
+- `conftest.py` (root) — adds `app/dashboard` to `sys.path` so tests can `import calculations` directly.
+- `tests/conftest.py` — secondary path setup for test-local imports.
+- `pytest.ini` — pytest settings.
 
-**`app/scripts/`:**
-- Purpose: Jira data extraction scripts. Run by GitHub Actions workflow. Not imported by the dashboard.
-- Files:
-  - `script_atualizacao.py` — full project extraction (Epics → Stories → Subtasks); produces `FASE_3.csv`
-  - `extrair_historico.py` — changelog extraction per epic/lake; produces `historico/historico_completo-{LAKE}.csv`
-  - `script_pendencias.py` — targeted extraction for epic `BF3E4-293`; produces `pendencias_BF3E4-293.csv` and `historico_BF3E4-293.csv`
+**Primary Data File:**
+- `app/dados/FASE_3.csv` — main dataset, overwritten each time `script_atualizacao.py` runs. 11 columns including Titulo Historia, Data-Lake, Status, Categoria_Analise, Data Criacao, Data Atualizacao, Start Date Historia, Deadline Historia.
 
-**`app/dashboard/`:**
-- Purpose: The Streamlit web application.
-- Files:
-  - `dashboard.py` — entire application (2,351 lines); no submodules
-  - `.streamlit/config.toml` — Streamlit theme configuration (dark theme defaults: `backgroundColor = "#0d1b2a"`, `primaryColor = "#1f77b4"`)
+## Module Organization
 
-**`.github/workflows/`:**
-- Purpose: CI/CD automation.
-- `atualizar_dados.yml` — scheduled workflow (4× weekdays) that runs all three ETL scripts and auto-commits updated CSVs with message `chore: atualização automática dos dados Jira - {TIMESTAMP} [skip ci]`
+The project has three logical layers:
 
-**`.devcontainer/`:**
-- Purpose: GitHub Codespaces configuration.
-- `devcontainer.json` — uses `mcr.microsoft.com/devcontainers/python:1-3.11-bookworm`, auto-installs requirements and starts Streamlit on port 8501.
+**1. ETL layer** (`app/scripts/`)
+- Standalone Python scripts. No shared module between them.
+- Communicate with dashboard exclusively via CSV files in `app/dados/`.
+- Require `EMAIL` and `API_TOKEN` env vars (from `.env` loaded via `python-dotenv`).
 
-## Module Boundaries
+**2. Dashboard layer** (`app/dashboard/`)
+- `data_loader.py` — I/O abstraction. Pure Python, no Streamlit.
+- `calculations.py` — computation layer. Pure Python, no Streamlit.
+- `dashboard.py` — orchestrates everything: loads data, applies filters, builds figures, renders tabs.
 
-There are two logical modules with no shared code between them:
+**3. Test layer** (`tests/`)
+- Tests exercise `calculations.py` functions directly (unit) and `dashboard.py` via Streamlit `AppTest` (smoke/integration).
 
-1. **ETL Module** (`app/scripts/`):
-   - Each script is self-contained and standalone
-   - Scripts share a common pattern: load `.env` → authenticate with Jira → paginate JQL → write CSV
-   - No shared utility module between scripts (pagination logic is duplicated across files)
-   - No imports from `app/dashboard/`
+## Entry Points
 
-2. **Dashboard Module** (`app/dashboard/`):
-   - Single-file Streamlit app with no internal imports from `app/scripts/`
-   - Reads only from `app/dados/` via `os.path` relative to `SCRIPT_DIR`
-   - Path resolution: `DADOS_DIR = os.path.join(os.path.dirname(SCRIPT_DIR), 'dados')`
+**Run the dashboard:**
+```bash
+cd app/dashboard
+streamlit run dashboard.py
+```
 
-## File Naming Conventions
+**Run ETL to refresh data:**
+```bash
+python app/scripts/script_atualizacao.py
+python app/scripts/script_pendencias.py
+python app/scripts/extrair_historico.py
+```
 
-**Python scripts:**
-- ETL scripts: `snake_case` descriptive names — `script_atualizacao.py`, `script_pendencias.py`, `extrair_historico.py`
-- Dashboard: single file, lowercase — `dashboard.py`
-
-**CSV data files:**
-- Main dataset: `UPPER_CASE` with underscores — `FASE_3.csv`
-- History files: `snake_case-UPPERCASE` with a dash separator — `historico_completo-FINANCE.csv`
-- Specific-epic files: `snake_case_{EPIC_KEY}` — `pendencias_BF3E4-293.csv`, `historico_BF3E4-293.csv`
-- Planning reference: `snake_case` — `datas_esperadas_por_lake.csv`, `processos_seguintes.csv`
-
-**Configuration files:**
-- Streamlit config: `config.toml` (inside `.streamlit/` directory)
-- Workflow: `atualizar_dados.yml` (snake_case)
-- Dev container: `devcontainer.json`
+**Run tests:**
+```bash
+pytest
+```
 
 ## Where to Add New Code
 
-**New ETL extraction script:**
-- Place in `app/scripts/` following the existing pattern: load `.env`, authenticate, paginate JQL, write to `app/dados/`
-- Register in `.github/workflows/atualizar_dados.yml` as a new step if it should run on schedule
+**New calculation or forecast algorithm:**
+- Add to `app/dashboard/calculations.py` as a pure function.
+- Add corresponding tests in `tests/test_calculations.py` or a new `tests/test_<name>.py`.
+- Import the function at the top of `dashboard.py` in the existing import block (line 9-13).
 
-**New CSV data source:**
-- Write output to `app/dados/` from an ETL script
-- Read from the dashboard using `os.path.join(DADOS_DIR, 'filename.csv')` pattern
+**New dashboard tab/view:**
+- Add the tab label to the `st.sidebar.radio` list at line ~604 in `dashboard.py`.
+- Add an `elif aba_selecionada == "..."` branch at the bottom of `dashboard.py` following the existing pattern.
+- Pre-compute any required figures/DataFrames at module level (before the tab branch) following the existing pattern.
 
-**New per-lake history data:**
-- Write to `app/dados/historico/historico_completo-{LAKE}.csv`
-- The dashboard's `calcular_ciclo_desenvolvimento()` function uses `glob` to discover all files matching that pattern automatically
+**New ETL script:**
+- Create a new file in `app/scripts/`.
+- Output CSV to `app/dados/` following the existing naming pattern.
+- Read `EMAIL`/`API_TOKEN` via `os.getenv()` after `load_dotenv()`.
 
-**New dashboard section/view:**
-- Add a new option to the `aba_selecionada` radio widget in the sidebar
-- Add a corresponding `if aba_selecionada == "..."` block in `dashboard.py` after line ~1429
-- Pre-compute any needed DataFrames/figures before the tab rendering blocks (current pattern: all computations happen before the `if aba_selecionada` blocks)
+**New data file:**
+- Place in `app/dados/` (static reference data) or `app/dados/historico/` (per-lake history).
+- Load in `dashboard.py` with `pd.read_csv(..., encoding='utf-8-sig')`.
 
-**New Plotly chart:**
-- Define the `go.Figure` or `px.*` call before the tab rendering blocks
-- Respect `plotly_template`, `plotly_paper_bgcolor`, `plotly_plot_bgcolor`, `plotly_font_color`, `plotly_axis_style`, `plotly_legend_style` variables for theme consistency
+## Special Directories
+
+**`app/dados/`:**
+- Purpose: all CSV data files consumed by the dashboard.
+- Generated: yes (by ETL scripts and Jira automation).
+- Committed: yes (CSV files are version-controlled so the dashboard works without running ETL).
+
+**`app/dados/historico/`:**
+- Purpose: per-lake Jira status-change history, one file per data-lake.
+- Read by: `calcular_ciclo_desenvolvimento()` in `dashboard.py` via `glob`.
+
+**`.venv/`:**
+- Purpose: Python virtual environment.
+- Committed: no (excluded by `.gitignore`).
+
+**`.planning/`:**
+- Purpose: GSD planning documents (architecture, conventions, phases, requirements).
+- Committed: yes.
 
 ---
 
-*Structure analysis: 2026-03-25*
+*Structure analysis: 2026-03-26*

@@ -1,115 +1,160 @@
 # Architecture
 
-**Analysis Date:** 2026-03-25
+**Analysis Date:** 2026-03-26
 
-## Pattern
+## System Overview
 
-Single-page data pipeline dashboard. The system is split into two distinct concerns:
+Single-page Streamlit dashboard for tracking the Stellantis Phase 3 migration project. Data originates in Jira (fcagil.atlassian.net), is extracted by standalone ETL scripts into CSV files, and then consumed and visualised by the dashboard at runtime. There is no backend server, no database, and no API layer — the entire application is a Python process rendered by Streamlit.
 
-1. **ETL Pipeline** — Python scripts that pull data from the Jira REST API and write CSV files to `app/dados/`
-2. **Streamlit Dashboard** — a single-file SPA (`dashboard.py`) that reads those CSV files and renders an interactive web UI
+## Design Patterns
 
-There is no shared module layer or service layer between these two parts. They communicate exclusively through CSV files on the filesystem. The GitHub Actions workflow (`atualizar_dados.yml`) runs the ETL scripts on a schedule and commits updated CSVs back to the repo, keeping data fresh without any live Jira connection from the dashboard.
+**Script-level module decomposition (not MVC):**
+- Business logic (pure calculations) is isolated in `app/dashboard/calculations.py`, importable without Streamlit.
+- All UI rendering and data wrangling lives in `app/dashboard/dashboard.py` (a single ~2600-line Streamlit script).
+- ETL is separated into `app/scripts/` — these scripts run out-of-band (e.g., via GitHub Actions cron) and produce CSV files that the dashboard reads.
 
-## Entry Points
+**Streamlit page model:**
+- The file `dashboard.py` is the entry point for `streamlit run`. Streamlit re-executes the entire script on every user interaction.
+- State is passed through variables that are re-computed each run, not through a state store.
+- `@st.cache_data(ttl=900)` is used to memoize heavy CSV loads and the development cycle calculation for 15 minutes.
 
-- `app/dashboard/dashboard.py`: The Streamlit application. Executed via `streamlit run app/dashboard/dashboard.py`. All dashboard logic, data loading, computation, and rendering lives in this single file (2,351 lines).
-- `app/scripts/script_atualizacao.py`: Main ETL script. Fetches all Epics → Stories → Subtasks from the Jira project `BF3E4` and writes `app/dados/FASE_3.csv` and `app/dados/processos_seguintes.csv`.
-- `app/scripts/extrair_historico.py`: Fetches status-change changelogs for all Stories under each Epic and writes per-lake CSV files to `app/dados/historico/historico_completo-{LAKE}.csv`.
-- `app/scripts/script_pendencias.py`: Fetches issues under epic `BF3E4-293` with full changelog and writes `app/dados/pendencias_BF3E4-293.csv` and `app/dados/historico_BF3E4-293.csv`.
-- `.github/workflows/atualizar_dados.yml`: Triggers all three ETL scripts on a schedule (4× per weekday) and commits data changes back to `main`.
+**Tab-based navigation:**
+- `st.sidebar.radio` selects from six named views: Executivo, Graficos, Detalhes, Impedimentos, Mapa de Migração, Previsão.
+- All figure objects and DataFrames are computed unconditionally at module level; rendering is conditional on `aba_selecionada`.
 
-## Core Components
-
-**Jira Data Extractor (`app/scripts/script_atualizacao.py`):**
-- Authenticates with Jira Cloud REST API v3 at `https://fcagil.atlassian.net/rest/api/3/search/jql`
-- Credentials loaded from `.env` via `python-dotenv` (env vars: `EMAIL`, `API_TOKEN`)
-- Handles paginated JQL queries via `buscar_com_paginacao()` using `nextPageToken`
-- Traverses 3 hierarchy levels: Epic → Story → Subtask
-- Classifies subtasks into categories (`RN`, `RN-FMK`, `Story Bug`, `Desenvolvimento/Outros`) via `classificar_subtarefa()`
-- Extracts Data-Lake identifier from story title bracket notation (e.g. `[FINANCE-1]`) via `extrair_data_lake()`
-- Output: `app/dados/FASE_3.csv` with columns: `Epico, Historia, Titulo Historia, Data-Lake, Chave, Titulo, Status, Data Criacao, Data Atualizacao, Quantidade Subtarefas, Categoria_Analise, Start Date Historia, Deadline Historia`
-
-**History Extractor (`app/scripts/extrair_historico.py`):**
-- Fixed Epic-to-Lake mapping: 9 epics mapped to lake names (BMC, COMPRAS, MOPAR, CLIENTE, SHAREDSERVICES, RH, FINANCE, SUPPLYCHAIN, COMERCIAL)
-- Fetches Stories under each Epic with `expand=changelog`
-- Writes one CSV per lake: `app/dados/historico/historico_completo-{LAKE}.csv` with columns: `Chave, Titulo, Data Criacao, Data Mudanca, Status Antigo, Status Novo, Autor`
-
-**Pendencies Extractor (`app/scripts/script_pendencias.py`):**
-- Targets a single hardcoded Epic (`BF3E4-293`)
-- Fetches 2-level hierarchy (direct children + subtasks) with changelog
-- Writes both a pendencies CSV and a status-history CSV for that specific epic
-- Includes `adf_para_texto()` to convert Atlassian Document Format JSON to plain text
-
-**Streamlit Dashboard (`app/dashboard/dashboard.py`):**
-- Monolithic single-file application
-- Sections in execution order:
-  1. Helper functions (`calcular_curva_aprendizado`, `calcular_dias_uteis`, `calcular_ciclo_desenvolvimento`, `calcular_ciclo_ideal`)
-  2. Page config + theme setup (light/dark via sidebar radio; CSS injected via `st.markdown(unsafe_allow_html=True)`)
-  3. Data loading: `carregar_dados()` reads `app/dados/FASE_3.csv` with CSV parse-error fallback
-  4. Filter computations (sidebar filters: Data-Lake, Historia, Categoria)
-  5. All metric and chart computations (burn-up/burn-down, projections, SLA indicators)
-  6. Tab-based rendering: `📊 Executivo`, `📈 Gráficos`, `📋 Detalhes`, `⚠️ Pendências`
+**Dual-theme support:**
+- A sidebar radio selects "Escuro" (default) or "Claro".
+- All Plotly layout dicts and Streamlit CSS injections are parameterised by `plotly_template`, `plotly_paper_bgcolor`, `plotly_plot_bgcolor`, `plotly_font_color`, and `plotly_axis_style`.
 
 ## Data Flow
 
+### ETL Path (offline, periodic)
+
+1. `app/scripts/script_atualizacao.py` — queries Jira REST API (`/rest/api/3/search/jql`) with `HTTPBasicAuth`, paginates results, writes `app/dados/FASE_3.csv` (one row per subtask).
+2. `app/scripts/script_pendencias.py` — queries a specific epic (`BF3E4-293`), writes `app/dados/pendencias_BF3E4-293.csv` and `app/dados/historico_BF3E4-293.csv`.
+3. `app/scripts/extrair_historico.py` — iterates over a hardcoded epic map (9 data-lake epics), fetches full status-change history, writes `app/dados/historico/historico_completo-{LAKE}.csv` per lake.
+
+### Dashboard Runtime Path
+
 ```
-Jira Cloud REST API
-        │
-        ▼
-app/scripts/script_atualizacao.py  ──► app/dados/FASE_3.csv
-app/scripts/extrair_historico.py   ──► app/dados/historico/historico_completo-{LAKE}.csv
-app/scripts/script_pendencias.py   ──► app/dados/pendencias_BF3E4-293.csv
-                                   ──► app/dados/historico_BF3E4-293.csv
-        │
-        │  (GitHub Actions commits CSVs to repo)
-        │
-        ▼
-app/dados/ (CSV files on filesystem)
-        │
-        ▼
-app/dashboard/dashboard.py
-  carregar_dados() → pd.DataFrame
-        │
-        ├─ Sidebar filters (Data-Lake, Historia, Categoria)
-        │         │
-        │         ▼
-        │   df_filtrado (filtered DataFrame)
-        │
-        ├─ Metric calculations (burn-up, burn-down, projections, SLA, cycle time)
-        │
-        └─ Tab rendering:
-               📊 Executivo  →  KPI metrics, progress cards
-               📈 Gráficos   →  Plotly charts (burn-up, burn-down, pie, bar, gauge)
-               📋 Detalhes   →  Filterable HTML tables
-               ⚠️ Pendências →  BF3E4-293 issues table
+app/dados/FASE_3.csv
+    |
+    v
+carregar_dados_csv()          # data_loader.py: raw CSV parse, comma-in-title fallback
+    | @st.cache_data(ttl=900)
+    v
+carregar_dados()              # dashboard.py: Streamlit cache wrapper
+    |
+    v
+df (raw DataFrame)
+    |
+    v
+Sidebar filters               # Data-Lake -> Historia -> Categoria chain
+    |
+    v
+df_filtrado
+    |
+    v
+Metric calculations           # inline in dashboard.py
+    |
+    v
+Plotly figures                # built unconditionally at module scope
+    |
+    v
+aba_selecionada branch        # renders the appropriate tab
 ```
 
-**Secondary data sources read by the dashboard:**
-- `app/dados/datas_esperadas_por_lake.csv` — fallback for planned dates per story when `Start Date Historia`/`Deadline Historia` columns are absent from `FASE_3.csv`
-- `app/dados/historico/historico_completo-{LAKE}.csv` — consumed by `calcular_ciclo_desenvolvimento()` to compute real development cycle time
-- `app/dados/pendencias_BF3E4-293.csv` — rendered in the Pendencias tab
-- `app/dados/historico_BF3E4-293.csv` — rendered in the Pendencias tab
+### Burndown/Burnup calculation sub-flow
+
+```
+df_lake (from FASE_3.csv Jira dates OR datas_esperadas_por_lake.csv fallback)
+    |
+    v
+burn_planejado (cumulative plan by data_fim)
+    | merged with
+burn_real (histories fully completed by max(Data Atualizacao))
+    |
+    v
+projetar_burndown()           # calculations.py: linear projection +-30%
+calcular_curva_aprendizado()  # calculations.py: sigmoid "expected delivery" curve
+```
+
+### Forecast tab sub-flow
+
+```
+burn_real_acum daily throughput array
+    |
+    v
+monte_carlo_forecast()        # calculations.py: 5000-sim Monte Carlo -> P50/P85 dates
+forecast_linear_range()       # calculations.py: linear best/current/worst scenarios
+```
+
+## Key Components
+
+**`app/dashboard/dashboard.py`** (~2600 lines)
+- Streamlit entry point; executed in full on every user interaction.
+- Defines rendering functions: `_render_indicadores`, `_compute_heatmap_pivot`, `renderizar_tabela`.
+- Builds all Plotly figure objects (`fig_burn`, `fig_burnup`, `fig_progress`, `fig_categoria`, `fig_data_lake`, `fig_critico`) at module scope before the tab branch.
+- Contains duplicate implementations of some functions already in `calculations.py` (historical remnants): `calcular_dias_uteis`, `normalizar_id_historia`, `parse_data_criacao`.
+- Imports from `calculations.py`: `calcular_curva_aprendizado`, `calcular_dias_uteis`, `colorir_status`, `normalizar_id_historia`, `parse_data_criacao`, `classificar_subtarefa`, `projetar_burndown`, `monte_carlo_forecast`, `forecast_linear_range`.
+
+**`app/dashboard/calculations.py`** (~218 lines)
+- Pure Python/NumPy/Pandas functions with zero Streamlit dependency.
+- Designed for testability; all logic is covered by tests in `tests/`.
+- Key functions: `calcular_curva_aprendizado` (sigmoid curve), `monte_carlo_forecast` (5000 simulations, seed=42), `forecast_linear_range` (best/current/worst), `projetar_burndown` (daily rate projection), `calcular_dias_uteis` (business days via numpy.busday_count), `classificar_subtarefa` (RN/RN-FMK/Story Bug classifier via regex).
+
+**`app/dashboard/data_loader.py`** (~47 lines)
+- `carregar_dados_csv(arquivo)` reads CSV with `utf-8-sig` encoding.
+- Custom fallback parser handles rows where the `Titulo` field contains unquoted commas (assumes exactly 11 columns: 5 prefix + Titulo + 5 suffix).
+
+**`app/scripts/script_atualizacao.py`**
+- Main Jira extractor: project BF3E4, subtask level. Reads `EMAIL`/`API_TOKEN` from `.env`. Disables SSL verification (`verify=False`) for corporate network. Writes `app/dados/FASE_3.csv`.
+
+**`app/scripts/script_pendencias.py`**
+- Impedimento extractor for epic BF3E4-293. Converts Atlassian Document Format (ADF) JSON to plain text via `adf_para_texto()`. Writes `pendencias_BF3E4-293.csv` and `historico_BF3E4-293.csv`.
+
+**`app/scripts/extrair_historico.py`**
+- Status-change history extractor. Iterates over 9 hardcoded epics (one per data-lake). Writes `historico_completo-{LAKE}.csv` to `app/dados/historico/`.
 
 ## State Management
 
-All state is Streamlit session state (implicit). There is no explicit `st.session_state` usage — all state derives from:
-- Sidebar widget values (Data-Lake selectbox, Historia selectbox, Categoria selectbox, tab radio, theme radio)
-- The filtered DataFrame `df_filtrado` recomputed on each render cycle
-- All charts and metrics are recomputed from scratch on each Streamlit rerun triggered by widget interaction
+Streamlit has no persistent client-side state across reruns. Mechanisms used:
 
-No caching (`@st.cache_data`) is used. Every user interaction triggers a full script rerun from line 1.
+- **`@st.cache_data(ttl=900)`** — memoises `carregar_dados()` and `calcular_ciclo_desenvolvimento()` for 15 minutes. Invalidated by the "Atualizar dados" sidebar button via `st.cache_data.clear()` then `st.rerun()`.
+- **Sidebar widgets** — `data_lake_selecionado`, `historia_selecionada`, `categoria_selecionada`, `aba_selecionada`, `tema_selecionado` drive all conditional rendering. Values persist across reruns via Streamlit's internal session state.
+- **Module-level variables** — `df`, `df_filtrado`, `burn`, `fig_*` objects are recomputed on every script execution. No explicit `st.session_state` is used anywhere.
 
-## Key Design Decisions
+## Entry Points
 
-- **CSV-as-database**: All data exchange between ETL scripts and dashboard uses CSV files committed to git. This avoids any database infrastructure but means the dashboard is always read-only and data is as fresh as the last GitHub Actions run.
-- **Monolithic dashboard**: All 2,351 lines of the dashboard are in one file with no module imports from the project. This makes the file large but deployment trivial — a single `streamlit run` command.
-- **Hardcoded project key**: The Jira project `BF3E4` and epic-to-lake mapping are hardcoded in the scripts. Changing project requires editing source code.
-- **Scheduled CI refresh**: GitHub Actions runs extraction 4× per weekday (05:00, 10:00, 14:00, 16:00 BRT) and auto-commits data, so the deployed dashboard served from the repo always has up-to-date data without requiring the user to run scripts manually.
-- **SSL verification disabled**: All Jira API calls use `verify=False` with `urllib3` warnings suppressed — a workaround for corporate proxy/certificate environments.
-- **Dual theme**: The dashboard supports light and dark themes via sidebar toggle. Theme state is managed through CSS injection and Plotly template switching, not through Streamlit's built-in theme config.
-- **Sigmoid learning curve**: A custom sigmoid function (`calcular_curva_aprendizado`) models expected team delivery acceleration, shown as "Entrega Esperada" line on burn-up charts.
+**Dashboard:**
+- `streamlit run app/dashboard/dashboard.py` — must be run from within `app/dashboard/` for relative imports to resolve.
+- Streamlit config: `app/dashboard/.streamlit/config.toml` (dark theme, primaryColor #1f77b4).
+
+**ETL scripts (run independently or via CI):**
+- `python app/scripts/script_atualizacao.py` — primary data refresh.
+- `python app/scripts/script_pendencias.py` — impedimento/blocker refresh.
+- `python app/scripts/extrair_historico.py` — full history rebuild per lake.
+
+## Error Handling
+
+- `data_loader.py` catches `ParserError` and falls back to a manual line parser.
+- `dashboard.py` calls `st.stop()` if `FASE_3.csv` is missing.
+- `calcular_ciclo_desenvolvimento` wraps each file load in `except Exception: continue`.
+- Date parsing is wrapped in `try/except Exception` that silently sets `issues_abertos_1_semana = 0` on failure.
+- No structured logging; errors surface via `st.error()` inline or are silently swallowed.
+
+## Cross-Cutting Concerns
+
+**Data normalisation:**
+- `Data-Lake` values normalised to uppercase via `.str.strip().str.upper()` in multiple callsites.
+- History IDs normalised via `normalizar_id_historia()`: strips brackets, collapses whitespace, normalises hyphens.
+
+**Theme:**
+- Plotly template and CSS `st.markdown` injection both react to `tema_selecionado` resolved at dashboard startup.
+
+**Timezone handling:**
+- Jira timestamps arrive in UTC with timezone info. Converted to UTC then tz-stripped for Plotly display.
 
 ---
 
-*Architecture analysis: 2026-03-25*
+*Architecture analysis: 2026-03-26*

@@ -1,11 +1,11 @@
 # External Integrations
 
-**Analysis Date:** 2026-03-25
+**Analysis Date:** 2026-03-26
 
 ## APIs & External Services
 
 **Jira Cloud (Atlassian):**
-- Purpose: sole external data source — epics, stories, subtasks, status history, pending items
+- Purpose: sole external data source — epics, stories, subtasks, status history, pending/impediment items
 - Base URL: `https://fcagil.atlassian.net/rest/api/3/`
 - Endpoints used:
   - `GET /rest/api/3/search/jql` — paginated JQL search (all three extraction scripts)
@@ -16,10 +16,11 @@
 - Pagination: cursor-based via `nextPageToken` + `isLast` fields from Jira API v3
 - Custom fields used: `customfield_11309` (Start Date), `duedate`
 - Changelog expansion: used in `app/scripts/script_atualizacao.py` to extract status transition history
+- ADF parsing: `app/scripts/script_pendencias.py` contains `adf_para_texto()` to convert Atlassian Document Format to plain text
 
 **Jira Project scope:**
 - Project key: `BF3E4` (mapped to `FASE_3` internally)
-- Epic tracked for pending items: `BF3E4-293`
+- Epic tracked for pending/impediment items: `BF3E4-293`
 - Epics with history extraction (9 business domains):
   - `BF3E4-1` (BMC), `BF3E4-9` (COMPRAS), `BF3E4-10` (MOPAR), `BF3E4-17` (CLIENTE)
   - `BF3E4-18` (RH), `BF3E4-19` (FINANCE), `BF3E4-20` (SUPPLYCHAIN)
@@ -34,7 +35,7 @@
 
 - None — no relational or NoSQL database in use
 - All data persisted as CSV files under `app/dados/` (committed to git)
-- The dashboard reads CSV files at startup from `app/dados/` relative to its script location
+- The dashboard reads CSV files at startup from `app/dados/` relative to `app/dashboard/dashboard.py`
 
 ## File Storage
 
@@ -43,7 +44,7 @@
 
 ## Caching
 
-- None detected
+- None detected — no Redis, Memcached, or Streamlit `@st.cache_data` decorators found
 
 ## Authentication & Identity
 
@@ -63,7 +64,7 @@
 | `EMAIL` | Jira account email for HTTP Basic Auth | `.env` file | `secrets.JIRA_EMAIL` |
 | `API_TOKEN` | Jira API token for HTTP Basic Auth | `.env` file | `secrets.JIRA_API_TOKEN` |
 
-Note: no `.env.example` found in repo; variable names must be inferred from script source.
+Note: `.env` is present on disk but gitignored. No `.env.example` exists; variable names are inferred from script source.
 
 ## Third-party SDKs
 
@@ -80,9 +81,9 @@ Note: no `.env.example` found in repo; variable names must be inferred from scri
   1. `actions/checkout@v4` with write token (`secrets.GITHUB_TOKEN`)
   2. `actions/setup-python@v5` — Python 3.11 with pip cache
   3. `pip install -r requirements.txt`
-  4. Run `app/scripts/script_atualizacao.py` (secrets: `EMAIL`, `API_TOKEN`)
-  5. Run `app/scripts/extrair_historico.py` (secrets: `EMAIL`, `API_TOKEN`)
-  6. Run `app/scripts/script_pendencias.py` (secrets: `EMAIL`, `API_TOKEN`)
+  4. Run `app/scripts/script_atualizacao.py` (env: `EMAIL`, `API_TOKEN`)
+  5. Run `app/scripts/extrair_historico.py` (env: `EMAIL`, `API_TOKEN`)
+  6. Run `app/scripts/script_pendencias.py` (env: `EMAIL`, `API_TOKEN`)
   7. `git add app/dados/` → commit with UTC timestamp `[skip ci]` → push (skipped if no diff)
 
 ## Webhooks & Callbacks
@@ -99,4 +100,4 @@ Note: no `.env.example` found in repo; variable names must be inferred from scri
 
 ---
 
-*Integration audit: 2026-03-25*
+*Integration audit: 2026-03-26*
