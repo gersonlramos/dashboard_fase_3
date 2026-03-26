@@ -198,6 +198,14 @@ if tema_selecionado == "☀️ Claro":
         [data-testid="stSidebar"] div[data-testid="stButton"] > button:hover,
         [data-testid="stSidebar"] button[kind="secondary"]:hover {
             background-color: #155a8a !important;
+            outline: none !important;
+            box-shadow: none !important;
+        }
+        [data-testid="stSidebar"] div[data-testid="stButton"] > button:focus,
+        [data-testid="stSidebar"] div[data-testid="stButton"] > button:active,
+        [data-testid="stSidebar"] div[data-testid="stButton"] > button:focus-visible {
+            outline: none !important;
+            box-shadow: none !important;
         }
     </style>
     """, unsafe_allow_html=True)
@@ -292,6 +300,14 @@ else:
         [data-testid="stSidebar"] div[data-testid="stButton"] > button:hover,
         [data-testid="stSidebar"] button[kind="secondary"]:hover {
             background-color: #2a9bd4 !important;
+            outline: none !important;
+            box-shadow: none !important;
+        }
+        [data-testid="stSidebar"] div[data-testid="stButton"] > button:focus,
+        [data-testid="stSidebar"] div[data-testid="stButton"] > button:active,
+        [data-testid="stSidebar"] div[data-testid="stButton"] > button:focus-visible {
+            outline: none !important;
+            box-shadow: none !important;
         }
     </style>
     """, unsafe_allow_html=True)
