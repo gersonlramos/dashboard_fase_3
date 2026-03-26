@@ -537,7 +537,7 @@ else:
         _df_lake_pct = pd.DataFrame(columns=['id_historia', 'lake', 'data_fim'])
 
 # Botão de atualização de dados
-if st.sidebar.button("🔄 Atualizar dados", help="Limpa o cache e recarrega os CSVs"):
+if st.sidebar.button("🔄 Atualizar dados"):
     st.cache_data.clear()  # limpa carregar_dados + calcular_ciclo_desenvolvimento
     st.rerun()
 
