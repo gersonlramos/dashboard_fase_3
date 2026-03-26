@@ -1,3 +1,19 @@
+---
+gsd_state_version: 1.0
+milestone: v1.0
+milestone_name: milestone
+status: executing
+stopped_at: Phase 5 complete. 116 tests passing. Heatmap tab added (go.Heatmap, metric cards, cross-filter, details). STATUS_COLOR_MAP centralized. VIS-01,02,03,04 done. Ready for Phase 6.
+last_updated: "2026-03-26T04:42:33.231Z"
+last_activity: 2026-03-26 -- Phase 05 complete (3 plans: 05-01, 05-02, 05-03)
+progress:
+  total_phases: 6
+  completed_phases: 5
+  total_plans: 16
+  completed_plans: 16
+  percent: 83
+---
+
 # Project State
 
 ## Project Reference
@@ -5,20 +21,21 @@
 See: .planning/PROJECT.md (updated 2026-03-25)
 
 **Core value:** The migration team must always know how many items are done, how many remain, and when it will finish — with a forecast range honest enough to plan around.
-**Current focus:** Phase 5 — Migration Heatmap
+**Current focus:** Phase 06 — Monte Carlo
 
 ## Current Position
 
-Phase: 4 of 6 (Test Suite — Data Pipeline) — COMPLETE
-Plan: 4 of 4 completed
-Status: Phase complete — ready for Phase 5
-Last activity: 2026-03-26 — Phase 4 executed: importable ETL scripts, data_loader.py extraction, 44 new tests (ETL helpers, HTTP mocks, CSV loader, ADF converter), 89% coverage on calculations.py
+Phase: 05 (Migration Heatmap) — COMPLETE
+Plan: 3 of 3
+Status: Ready for Phase 06
+Last activity: 2026-03-26 -- Phase 05 execution started
 
 Progress: [███████░░░] 67% (phases 1-4/6 done)
 
 ## Performance Metrics
 
 **Velocity:**
+
 - Total plans completed: 11
 - Average duration: —
 - Total execution time: <1 hour
@@ -30,6 +47,7 @@ Progress: [███████░░░] 67% (phases 1-4/6 done)
 | Phase 1 | 4 | <1h | — |
 
 **Recent Trend:**
+
 - Last 5 plans: 03-02, 03-03, 04-01, 04-02, 04-03
 - Trend: all completed across four sessions
 
