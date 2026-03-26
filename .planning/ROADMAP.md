@@ -120,13 +120,12 @@ Plans:
 **Depends on:** Phase 2
 **UI hint**: yes
 
-### Plans
+**Plans:** 3 plans
 
-1. **Add heatmap tab and data transform** — Append "Mapa de Migração" to the sidebar radio list; write the status-bucket pivot (`STATUS_BUCKET` mapping Open/To Do → Backlog, In Progress/In Test/Waiting Test → Em andamento, Done → Concluido, Canceled → Cancelado, remainder → Bloqueado); produce a (9 × 5) percentage DataFrame using `groupby` + `unstack` + `div`.
-2. **Render px.imshow heatmap** — Write `_render_heatmap(df_base)` in the render helpers block; call `px.imshow()` with `text_auto=".0f"`, discrete colorscale (green = Concluido, blue = Em andamento, gray = Backlog, red = Cancelado/Bloqueado), and `template=plotly_template` for dark/light theme support; add item-count annotations in each cell.
-3. **Add summary metrics row** — Place `st.metric` cards above the heatmap showing overall Done%, total In Progress count, and total Backlog count; derive directly from the pivot DataFrame so no additional CSV reads are needed.
-4. **Implement cell cross-filter** — Add a lake dropdown below the heatmap that filters `df_filtrado` by the selected lake and passes it to the existing Detalhes tab rendering function; sync the dropdown with the sidebar Data-Lake filter so both controls stay consistent.
-5. **Apply visual clarity improvements across all charts** — Add `<extra></extra>` to all Plotly `hovertemplate` strings (VIS-01); enrich key chart tooltips with item title, status, assignee, remaining days (VIS-02); define a single `STATUS_COLOR_MAP` dict and reference it in all charts and the heatmap (VIS-03); audit all chart axes for missing labels and add descriptive titles (VIS-04).
+Plans:
+- [ ] 05-01-PLAN.md — Nav entry + STATUS_COLOR_MAP/STATUS_BUCKET/BUCKET_ORDER/BUCKET_COLORS constants + _compute_heatmap_pivot() + elif stub (HEAT-01, HEAT-02, HEAT-03)
+- [ ] 05-02-PLAN.md — Full go.Heatmap render + metric cards + cross-filter selectbox + Detalhes table (HEAT-04, HEAT-05, HEAT-06, HEAT-07)
+- [ ] 05-03-PLAN.md — VIS pass: centralize STATUS_COLOR_MAP, suppress trace-name boxes, enrich tooltips, add axis labels (VIS-01, VIS-02, VIS-03, VIS-04)
 
 **Success criteria:**
 - [ ] "Mapa de Migração" tab appears in the sidebar and renders without exceptions on the live CSV data.
