@@ -6,6 +6,11 @@ import numpy as np
 from datetime import datetime, timezone, timedelta
 import os
 from pandas.errors import ParserError
+from calculations import (
+    calcular_curva_aprendizado, calcular_dias_uteis, colorir_status,
+    normalizar_id_historia, parse_data_criacao, classificar_subtarefa,
+    projetar_burndown,
+)
 
 # Obter o diretório do script e do diretório de dados
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -1000,23 +1005,15 @@ if not burn_real_acum.empty and pd.notna(ultima_data_real_bh) and pd.notna(prazo
 
         historias_faltantes = total_planejado - realizado_atual
 
-        def gerar_projecao(ritmo, prazo_limite):
-            datas, valores = [], []
-            dias_necessarios = int(np.ceil(historias_faltantes / ritmo))
-            for i in range(dias_necessarios + 1):
-                data_proj = ultima_data_real_bh + pd.Timedelta(days=i)
-                if pd.notna(prazo_limite) and data_proj > prazo_limite:
-                    break
-                valor_proj = realizado_atual + ritmo * i
-                datas.append(data_proj)
-                valores.append(min(valor_proj, total_planejado))
-                if valor_proj >= total_planejado:
-                    break
-            return datas, valores
-
-        datas_proj, valores_proj = gerar_projecao(ritmo_hist_dia, prazo_final_planejado)
-        datas_proj_melhor, valores_proj_melhor = gerar_projecao(ritmo_hist_dia * 1.3, prazo_final_planejado)
-        datas_proj_pior, valores_proj_pior = gerar_projecao(ritmo_hist_dia * 0.7, prazo_final_planejado)
+        _proj_args = dict(
+            historias_faltantes=historias_faltantes,
+            total_planejado=total_planejado,
+            realizado_atual=realizado_atual,
+            ultima_data_real_bh=ultima_data_real_bh,
+        )
+        datas_proj, valores_proj = projetar_burndown(ritmo_hist_dia, prazo_final_planejado, **_proj_args)
+        datas_proj_melhor, valores_proj_melhor = projetar_burndown(ritmo_hist_dia * 1.3, prazo_final_planejado, **_proj_args)
+        datas_proj_pior, valores_proj_pior = projetar_burndown(ritmo_hist_dia * 0.7, prazo_final_planejado, **_proj_args)
 
 # ── BURN-UP POR PONTOS ────────────────────────────────────────────────────────
 # (cálculos permanecem fora das abas)
