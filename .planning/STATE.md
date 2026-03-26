@@ -5,21 +5,21 @@
 See: .planning/PROJECT.md (updated 2026-03-25)
 
 **Core value:** The migration team must always know how many items are done, how many remain, and when it will finish — with a forecast range honest enough to plan around.
-**Current focus:** Phase 3 — Extract Calculations Module
+**Current focus:** Phase 4 — Test Suite: Data Pipeline
 
 ## Current Position
 
-Phase: 2 of 6 (Performance) — COMPLETE
-Plan: 2 of 2 completed
-Status: Phase complete — ready for Phase 3
-Last activity: 2026-03-26 — Phase 2 executed: cache decorators + refresh button + orjson
+Phase: 3 of 6 (Test Suite — Calculations) — COMPLETE
+Plan: 3 of 3 completed
+Status: Phase complete — ready for Phase 4
+Last activity: 2026-03-26 — Phase 3 executed: calculations.py extraction + 57 unit tests + AppTest smoke test
 
-Progress: [████░░░░░░] 33% (phases 1-2/6 done)
+Progress: [██████░░░░] 50% (phases 1-3/6 done)
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 4
+- Total plans completed: 7
 - Average duration: —
 - Total execution time: <1 hour
 
@@ -30,8 +30,8 @@ Progress: [████░░░░░░] 33% (phases 1-2/6 done)
 | Phase 1 | 4 | <1h | — |
 
 **Recent Trend:**
-- Last 5 plans: 01-01, 01-02, 01-03, 01-04, 02-01, 02-02
-- Trend: all completed across two sessions
+- Last 5 plans: 02-01, 02-02, 03-01, 03-02, 03-03
+- Trend: all completed across three sessions
 
 *Updated after each plan completion*
 
@@ -53,13 +53,12 @@ None yet.
 ### Blockers/Concerns
 
 - Installed pandas (2.1.4) differs from pinned version (2.2.3); verify deployment target before any upgrade path during Phase 1.
-- `calcular_ciclo_ideal` reads module-level `df_lake` — flag during Phase 3 extraction; may need to pass `df_lake` as a parameter instead of extracting verbatim.
 - As of 2026-03-25 only COMPRAS has meaningful Done counts; Monte Carlo in Phase 6 will fall back to ±30% linear projection for most lakes — display this limitation clearly to users.
 
 ## Session Continuity
 
-Last session: 2026-03-25
-Stopped at: Roadmap and STATE.md initialized; no plans executed yet.
+Last session: 2026-03-26
+Stopped at: Phase 3 complete. 72 tests passing (14 phase1 + 57 unit + 1 smoke). Ready for Phase 4.
 Resume file: None
 
 ### Technique Notes

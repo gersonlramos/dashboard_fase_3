@@ -63,9 +63,9 @@ Plans:
 **Plans:** 3 plans
 
 Plans:
-- [ ] 03-01-PLAN.md — Extract calculation functions to calculations.py + conftest fixture (TEST-01)
-- [ ] 03-02-PLAN.md — TDD unit tests for all 6 functions, ≥90% coverage (TEST-02 to TEST-06)
-- [ ] 03-03-PLAN.md — AppTest smoke test: dashboard loads without exception (TEST-07)
+- [x] 03-01-PLAN.md — Extract calculation functions to calculations.py + conftest fixture (TEST-01)
+- [x] 03-02-PLAN.md — TDD unit tests for all 6 functions, ≥90% coverage (TEST-02 to TEST-06)
+- [x] 03-03-PLAN.md — AppTest smoke test: dashboard loads without exception (TEST-07)
 
 ### Plans
 
