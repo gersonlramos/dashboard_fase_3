@@ -181,6 +181,18 @@ if tema_selecionado == "☀️ Claro":
             border: 1px solid #1f77b4 !important;
             border-radius: 6px !important;
         }
+        /* Botão Atualizar dados */
+        [data-testid="stSidebar"] .stButton > button {
+            background-color: #1f77b4 !important;
+            color: #ffffff !important;
+            border: none !important;
+            border-radius: 6px !important;
+            width: 100% !important;
+            font-weight: 600 !important;
+        }
+        [data-testid="stSidebar"] .stButton > button:hover {
+            background-color: #155a8a !important;
+        }
     </style>
     """, unsafe_allow_html=True)
 else:
@@ -256,6 +268,18 @@ else:
         [data-testid="stExpander"] {
             border: 1px solid #1f77b4 !important;
             border-radius: 6px !important;
+        }
+        /* Botão Atualizar dados */
+        [data-testid="stSidebar"] .stButton > button {
+            background-color: #1f77b4 !important;
+            color: #ffffff !important;
+            border: none !important;
+            border-radius: 6px !important;
+            width: 100% !important;
+            font-weight: 600 !important;
+        }
+        [data-testid="stSidebar"] .stButton > button:hover {
+            background-color: #2a9bd4 !important;
         }
     </style>
     """, unsafe_allow_html=True)
@@ -454,8 +478,7 @@ else:
 
 # Botão de atualização de dados
 if st.sidebar.button("🔄 Atualizar dados", help="Limpa o cache e recarrega os CSVs"):
-    carregar_dados.clear()
-    calcular_ciclo_desenvolvimento.clear()
+    st.cache_data.clear()  # limpa carregar_dados + calcular_ciclo_desenvolvimento
     st.rerun()
 
 # Filtros na sidebar
