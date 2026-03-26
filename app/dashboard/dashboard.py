@@ -2466,5 +2466,47 @@ elif aba_selecionada == "🗺️ Mapa de Migração":
 
     _pct_df, _count_df = _compute_heatmap_pivot(df_filtrado)
 
-    # Renderização completa no plano 05-02
-    st.info("Heatmap em construção — execute o plano 05-02 para a renderização completa.")
+    # ── Métricas resumo ─────────────────────────────────────────────────────────────────────────────────────
+    _total_hm = len(df_filtrado)
+    _done_pct   = (df_filtrado['Status'].isin(['Done','Closed','Resolved']).sum() / _total_hm * 100) if _total_hm > 0 else 0
+    _em_and     = df_filtrado['Status'].isin(['In progress', 'In Test', 'Waiting Test']).sum()
+    _nao_ini    = df_filtrado['Status'].isin(['Open', 'To Do']).sum()
+    _mc1, _mc2, _mc3 = st.columns(3)
+    _mc1.metric("✅ Concluído", f"{_done_pct:.1f}%")
+    _mc2.metric("🔄 Em Andamento", int(_em_and))
+    _mc3.metric("📝 Não Iniciado", int(_nao_ini))
+    st.markdown(hr_style, unsafe_allow_html=True)
+
+    # ── Heatmap ───────────────────────────────────────────────────────────────────────────────────────
+    _lakes = _pct_df.index.tolist()
+    _n     = len(BUCKET_ORDER)
+    _z = np.tile(np.arange(_n), (len(_lakes), 1)).astype(float)
+    _text = [[f"{_pct_df.loc[_lake, _bkt]:.0f}%\n{int(_count_df.loc[_lake, _bkt])} itens"
+              for _bkt in BUCKET_ORDER] for _lake in _lakes]
+    _cs = []
+    for _i, _c in enumerate(BUCKET_COLORS):
+        _cs += [[_i / _n, _c], [(_i + 1) / _n, _c]]
+    _fig_heat = go.Figure(go.Heatmap(
+        z=_z, x=BUCKET_ORDER, y=_lakes, text=_text, texttemplate="%{text}",
+        textfont=dict(size=11, color=plotly_font_color),
+        colorscale=_cs, zmin=0, zmax=_n, showscale=False,
+        hovertemplate="<b>%{y}</b><br>%{x}<br>%{text}<extra></extra>",
+    ))
+    _fig_heat.update_layout(
+        height=380, xaxis_title='Status', yaxis_title='Data-Lake',
+        template=plotly_template, paper_bgcolor=plotly_paper_bgcolor,
+        plot_bgcolor=plotly_plot_bgcolor, font=dict(color=plotly_font_color),
+        xaxis=dict(**plotly_axis_style), yaxis=dict(**plotly_axis_style),
+        margin=dict(l=20, r=20, t=30, b=20),
+    )
+    st.plotly_chart(_fig_heat, use_container_width=True)
+
+    # ── Cross-filter ─────────────────────────────────────────────────────────────────────────────────
+    st.markdown(hr_style, unsafe_allow_html=True)
+    _lakes_opts = ['Todos'] + sorted(df_filtrado['Data-Lake'].dropna().unique().tolist())
+    _lake_heatmap = st.selectbox("🔍 Filtrar Detalhes por Data-Lake:", _lakes_opts, key="heatmap_lake_filter")
+    _df_heatmap_detail = df_filtrado.copy() if _lake_heatmap == 'Todos' else df_filtrado[df_filtrado['Data-Lake'] == _lake_heatmap].copy()
+    _colunas_hm = [c for c in ['Epico','Historia','Titulo Historia','Data-Lake','Status','Categoria_Analise','Start Date Historia','Deadline Historia'] if c in _df_heatmap_detail.columns]
+    st.subheader("📋 Detalhes — Mapa de Migração")
+    st.caption(f"{len(_df_heatmap_detail)} item(s) | Data-Lake: {_lake_heatmap}")
+    renderizar_tabela(_df_heatmap_detail[_colunas_hm].sort_index(ascending=False), tema_selecionado)
