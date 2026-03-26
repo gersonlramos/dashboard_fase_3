@@ -216,6 +216,15 @@ if tema_selecionado == "☀️ Claro":
             outline: none !important;
             box-shadow: none !important;
         }
+        /* Tooltip do botao Atualizar dados - tema claro */
+        [data-baseweb="tooltip"],
+        [data-testid="tooltipContent"],
+        div[role="tooltip"] {
+            background-color: #1f77b4 !important;
+            color: #ffffff !important;
+            border-radius: 4px !important;
+            font-size: 0.85em !important;
+        }
     </style>
     """, unsafe_allow_html=True)
 else:
