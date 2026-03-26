@@ -181,29 +181,38 @@ if tema_selecionado == "☀️ Claro":
             border: 1px solid #1f77b4 !important;
             border-radius: 6px !important;
         }
-        /* Botão Atualizar dados */
+        /* Botao Atualizar dados */
         [data-testid="stSidebar"] div[data-testid="stButton"] > button,
-        [data-testid="stSidebar"] button[kind="secondary"] {
+        [data-testid="stSidebar"] button[kind="secondary"],
+        [data-testid="stSidebar"] [data-baseweb="button"] {
             background-color: #1f77b4 !important;
             color: #ffffff !important;
             border: none !important;
             border-radius: 6px !important;
             width: 100% !important;
             font-weight: 600 !important;
+            outline: none !important;
+            box-shadow: none !important;
         }
         [data-testid="stSidebar"] div[data-testid="stButton"] > button p,
-        [data-testid="stSidebar"] div[data-testid="stButton"] > button span {
+        [data-testid="stSidebar"] div[data-testid="stButton"] > button span,
+        [data-testid="stSidebar"] [data-baseweb="button"] p,
+        [data-testid="stSidebar"] [data-baseweb="button"] span {
             color: #ffffff !important;
         }
         [data-testid="stSidebar"] div[data-testid="stButton"] > button:hover,
-        [data-testid="stSidebar"] button[kind="secondary"]:hover {
+        [data-testid="stSidebar"] button[kind="secondary"]:hover,
+        [data-testid="stSidebar"] [data-baseweb="button"]:hover {
             background-color: #155a8a !important;
             outline: none !important;
             box-shadow: none !important;
         }
         [data-testid="stSidebar"] div[data-testid="stButton"] > button:focus,
         [data-testid="stSidebar"] div[data-testid="stButton"] > button:active,
-        [data-testid="stSidebar"] div[data-testid="stButton"] > button:focus-visible {
+        [data-testid="stSidebar"] div[data-testid="stButton"] > button:focus-visible,
+        [data-testid="stSidebar"] [data-baseweb="button"]:focus,
+        [data-testid="stSidebar"] [data-baseweb="button"]:active,
+        [data-testid="stSidebar"] [data-baseweb="button"]:focus-visible {
             outline: none !important;
             box-shadow: none !important;
         }
@@ -283,29 +292,38 @@ else:
             border: 1px solid #1f77b4 !important;
             border-radius: 6px !important;
         }
-        /* Botão Atualizar dados */
+        /* Botao Atualizar dados */
         [data-testid="stSidebar"] div[data-testid="stButton"] > button,
-        [data-testid="stSidebar"] button[kind="secondary"] {
+        [data-testid="stSidebar"] button[kind="secondary"],
+        [data-testid="stSidebar"] [data-baseweb="button"] {
             background-color: #1f77b4 !important;
             color: #ffffff !important;
             border: none !important;
             border-radius: 6px !important;
             width: 100% !important;
             font-weight: 600 !important;
+            outline: none !important;
+            box-shadow: none !important;
         }
         [data-testid="stSidebar"] div[data-testid="stButton"] > button p,
-        [data-testid="stSidebar"] div[data-testid="stButton"] > button span {
+        [data-testid="stSidebar"] div[data-testid="stButton"] > button span,
+        [data-testid="stSidebar"] [data-baseweb="button"] p,
+        [data-testid="stSidebar"] [data-baseweb="button"] span {
             color: #ffffff !important;
         }
         [data-testid="stSidebar"] div[data-testid="stButton"] > button:hover,
-        [data-testid="stSidebar"] button[kind="secondary"]:hover {
+        [data-testid="stSidebar"] button[kind="secondary"]:hover,
+        [data-testid="stSidebar"] [data-baseweb="button"]:hover {
             background-color: #2a9bd4 !important;
             outline: none !important;
             box-shadow: none !important;
         }
         [data-testid="stSidebar"] div[data-testid="stButton"] > button:focus,
         [data-testid="stSidebar"] div[data-testid="stButton"] > button:active,
-        [data-testid="stSidebar"] div[data-testid="stButton"] > button:focus-visible {
+        [data-testid="stSidebar"] div[data-testid="stButton"] > button:focus-visible,
+        [data-testid="stSidebar"] [data-baseweb="button"]:focus,
+        [data-testid="stSidebar"] [data-baseweb="button"]:active,
+        [data-testid="stSidebar"] [data-baseweb="button"]:focus-visible {
             outline: none !important;
             box-shadow: none !important;
         }
