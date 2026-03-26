@@ -2480,7 +2480,7 @@ elif aba_selecionada == "🗺️ Mapa de Migração":
         _cs += [[_i / _n, _c], [(_i + 1) / _n, _c]]
     _fig_heat = go.Figure(go.Heatmap(
         z=_z, x=BUCKET_ORDER, y=_lakes, text=_text, texttemplate="%{text}",
-        textfont=dict(size=11, color=plotly_font_color),
+        textfont=dict(size=11, color="black"),
         colorscale=_cs, zmin=0, zmax=_n, showscale=False,
         hovertemplate="<b>%{y}</b><br>%{x}<br>%{text}<extra></extra>",
     ))
@@ -2493,12 +2493,9 @@ elif aba_selecionada == "🗺️ Mapa de Migração":
     )
     st.plotly_chart(_fig_heat, use_container_width=True)
 
-    # ── Cross-filter ─────────────────────────────────────────────────────────────────────────────────
+    # ── Detalhes ───────────────────────────────────────────────────────────────────────────────
     st.markdown(hr_style, unsafe_allow_html=True)
-    _lakes_opts = ['Todos'] + sorted(df_filtrado['Data-Lake'].dropna().unique().tolist())
-    _lake_heatmap = st.selectbox("🔍 Filtrar Detalhes por Data-Lake:", _lakes_opts, key="heatmap_lake_filter")
-    _df_heatmap_detail = df_filtrado.copy() if _lake_heatmap == 'Todos' else df_filtrado[df_filtrado['Data-Lake'] == _lake_heatmap].copy()
-    _colunas_hm = [c for c in ['Epico','Historia','Titulo Historia','Data-Lake','Status','Categoria_Analise','Start Date Historia','Deadline Historia'] if c in _df_heatmap_detail.columns]
+    _colunas_hm = [c for c in ['Epico','Historia','Titulo Historia','Data-Lake','Status','Categoria_Analise','Start Date Historia','Deadline Historia'] if c in df_filtrado.columns]
     st.subheader("📋 Detalhes — Mapa de Migração")
-    st.caption(f"{len(_df_heatmap_detail)} item(s) | Data-Lake: {_lake_heatmap}")
-    renderizar_tabela(_df_heatmap_detail[_colunas_hm].sort_index(ascending=False), tema_selecionado)
+    st.caption(f"{len(df_filtrado)} item(s)")
+    renderizar_tabela(df_filtrado[_colunas_hm].sort_index(ascending=False), tema_selecionado)
