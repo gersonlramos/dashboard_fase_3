@@ -88,6 +88,13 @@ Plans:
 **Goal:** ETL script helper functions are unit-tested with mocked HTTP, CSV parsing is tested against a real-schema fixture, and overall line coverage on `calculations.py` reaches 70%.
 **Requirements:** TEST-08, TEST-09, TEST-10, TEST-11, TEST-12
 **Depends on:** Phase 3
+**Plans:** 4 plans
+
+Plans:
+- [ ] 04-01-PLAN.md — Guard script_atualizacao.py + extract carregar_dados_csv to data_loader.py
+- [ ] 04-02-PLAN.md — Unit tests for extrair_data_lake, classificar_subtarefa, buscar_com_paginacao (TEST-08, TEST-09)
+- [ ] 04-03-PLAN.md — Unit tests for carregar_dados_csv and adf_para_texto (TEST-10, TEST-11)
+- [ ] 04-04-PLAN.md — Coverage gate: assert calculations.py ≥70% line coverage (TEST-12)
 
 ### Plans
 
