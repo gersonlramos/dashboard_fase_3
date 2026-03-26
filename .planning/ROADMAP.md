@@ -147,9 +147,9 @@ Plans:
 **Plans:** 3 plans
 
 Plans:
-- [ ] 06-01-PLAN.md — Add Previsao nav + forecast contracts (monte_carlo/fallback) + insufficient-data guard + cache wiring
-- [ ] 06-02-PLAN.md — Build P50/P85 confidence band chart + +/-30% fallback + milestone add_vline markers
-- [ ] 06-03-PLAN.md — Add rolling velocity 7d/14d trend + forecast metric cards + filtered consolidation
+- [x] 06-01-PLAN.md — Add Previsao nav + forecast contracts (monte_carlo/fallback) + insufficient-data guard + cache wiring
+- [x] 06-02-PLAN.md — Build P50/P85 confidence band chart + +/-30% fallback + milestone add_vline markers
+- [x] 06-03-PLAN.md — Add rolling velocity 7d/14d trend + forecast metric cards + filtered consolidation
 
 ### Plans
 

@@ -9,7 +9,7 @@ from pandas.errors import ParserError
 from calculations import (
     calcular_curva_aprendizado, calcular_dias_uteis, colorir_status,
     normalizar_id_historia, parse_data_criacao, classificar_subtarefa,
-    projetar_burndown,
+    projetar_burndown, monte_carlo_forecast, forecast_linear_range,
 )
 from data_loader import carregar_dados_csv
 
