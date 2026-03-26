@@ -603,7 +603,7 @@ st.sidebar.markdown("---")
 st.sidebar.markdown("**Visualize:**")
 aba_selecionada = st.sidebar.radio(
     "Visualize:",
-    ["📊 Executivo", "📈 Gráficos", "📋 Detalhes", "⚠️ Pendências", "🗺️ Mapa de Migração"],
+    ["📊 Executivo", "📈 Gráficos", "📋 Detalhes", "⚠️ Impedimentos", "🗺️ Mapa de Migração"],
     label_visibility="collapsed"
 )
 
@@ -2018,38 +2018,38 @@ elif aba_selecionada == "📋 Detalhes":
         renderizar_tabela(df_filtrado[colunas_resumo].sort_index(ascending=False), tema_selecionado)
 
 
-# ── PENDÊNCIAS ────────────────────────────────────────────────────────────────
-elif aba_selecionada == "⚠️ Pendências":
-    arquivo_pendencias  = os.path.join(DADOS_DIR, "pendencias_BF3E4-293.csv")
-    arquivo_hist_pend   = os.path.join(DADOS_DIR, "historico_BF3E4-293.csv")
+# ── IMPEDIMENTOS ────────────────────────────────────────────────────────────────
+elif aba_selecionada == "⚠️ Impedimentos":
+    arquivo_impedimentos  = os.path.join(DADOS_DIR, "impedimentos_BF3E4-293.csv")
+    arquivo_hist_imped    = os.path.join(DADOS_DIR, "historico_BF3E4-293.csv")
 
-    if not os.path.exists(arquivo_pendencias):
-        st.warning("Arquivo de pendências não encontrado. Execute o script `script_pendencias.py` primeiro.")
+    if not os.path.exists(arquivo_impedimentos):
+        st.warning("Arquivo de impedimentos não encontrado. Execute o script `script_impedimentos.py` primeiro.")
         st.stop()
 
-    df_pend = pd.read_csv(arquivo_pendencias, encoding="utf-8-sig")
-    df_hist_pend = pd.read_csv(arquivo_hist_pend, encoding="utf-8-sig") if os.path.exists(arquivo_hist_pend) else pd.DataFrame()
+    df_imp = pd.read_csv(arquivo_impedimentos, encoding="utf-8-sig")
+    df_hist_imp = pd.read_csv(arquivo_hist_imped, encoding="utf-8-sig") if os.path.exists(arquivo_hist_imped) else pd.DataFrame()
 
     # ── Normalizar status ──────────────────────────────────────────────────
-    df_pend["Status"] = df_pend["Status"].astype(str).str.strip()
-    status_done_pend      = {"Done", "Closed", "Resolved"}
-    status_canceled_pend  = {"Canceled", "Cancelled", "Cancelado"}
+    df_imp["Status"] = df_imp["Status"].astype(str).str.strip()
+    status_done_imp      = {"Done", "Closed", "Resolved"}
+    status_canceled_imp  = {"Canceled", "Cancelled", "Cancelado"}
 
-    total_pend    = len(df_pend)
-    qtd_done      = df_pend["Status"].isin(status_done_pend).sum()
-    qtd_canceled  = df_pend["Status"].isin(status_canceled_pend).sum()
-    qtd_aberta    = total_pend - qtd_done - qtd_canceled
-    pct_resolucao = ((qtd_done + qtd_canceled) / total_pend * 100) if total_pend > 0 else 0
+    total_imp    = len(df_imp)
+    qtd_done      = df_imp["Status"].isin(status_done_imp).sum()
+    qtd_canceled  = df_imp["Status"].isin(status_canceled_imp).sum()
+    qtd_aberta    = total_imp - qtd_done - qtd_canceled
+    pct_resolucao = ((qtd_done + qtd_canceled) / total_imp * 100) if total_imp > 0 else 0
 
-    st.subheader("⚠️ Pendências")
+    st.subheader("⚠️ Impedimentos")
     st.markdown(hr_style, unsafe_allow_html=True)
 
     # ── Métricas principais ────────────────────────────────────────────────
     c1, c2, c3, c4, c5 = st.columns(5)
-    c1.metric("Total de Pendências",  total_pend)
+    c1.metric("Total de Impedimentos",  total_imp)
     c2.metric("Em Aberto",            int(qtd_aberta))
-    c3.metric("Concluídas (Done)",    int(qtd_done))
-    c4.metric("Canceladas",           int(qtd_canceled))
+    c3.metric("Concluídos (Done)",    int(qtd_done))
+    c4.metric("Cancelados",           int(qtd_canceled))
     c5.metric("% Resolução",          f"{pct_resolucao:.1f}%")
 
     st.markdown(hr_style, unsafe_allow_html=True)
@@ -2057,14 +2057,14 @@ elif aba_selecionada == "⚠️ Pendências":
     # ── Ciclo de tempo: Start Date → Done ─────────────────────────────────
     st.subheader("⏱️ Ciclo de Tempo (Start Date → Done)")
 
-    df_ciclo = df_pend.copy()
+    df_ciclo = df_imp.copy()
     df_ciclo["Start Date"] = pd.to_datetime(df_ciclo["Start Date"], errors="coerce")
 
     # Busca data de conclusão no histórico
-    if not df_hist_pend.empty:
-        df_hist_pend["Data Mudanca"] = pd.to_datetime(df_hist_pend["Data Mudanca"], errors="coerce")
+    if not df_hist_imp.empty:
+        df_hist_imp["Data Mudanca"] = pd.to_datetime(df_hist_imp["Data Mudanca"], errors="coerce")
         datas_done = (
-            df_hist_pend[df_hist_pend["Status Novo"].isin(status_done_pend)]
+            df_hist_imp[df_hist_imp["Status Novo"].isin(status_done_imp)]
             .sort_values("Data Mudanca")
             .groupby("Chave")["Data Mudanca"]
             .last()
@@ -2114,7 +2114,7 @@ elif aba_selecionada == "⚠️ Pendências":
     st.markdown(hr_style, unsafe_allow_html=True)
 
     # ── Gráficos ───────────────────────────────────────────────────────────
-    st.subheader("📊 Distribuição das Pendências")
+    st.subheader("📊 Distribuição dos Impedimentos")
     gc1, gc2 = st.columns(2)
 
     # Donut: distribuição por status
@@ -2189,8 +2189,8 @@ elif aba_selecionada == "⚠️ Pendências":
 
     st.markdown(hr_style, unsafe_allow_html=True)
 
-    # ── Alerta: pendências abertas há mais de 5 dias ───────────────────────
-    st.subheader("🚨 Alertas — Pendências Abertas há mais de 5 dias")
+    # ── Alerta: impedimentos abertas há mais de 5 dias ───────────────────────
+    st.subheader("🚨 Alertas — Impedimentos Abertos há mais de 5 dias")
 
     df_pend["Start Date"] = pd.to_datetime(df_pend["Start Date"], errors="coerce").dt.tz_localize(None)
     hoje_pend = pd.Timestamp.now().normalize()
@@ -2250,8 +2250,8 @@ elif aba_selecionada == "⚠️ Pendências":
 
     st.markdown(hr_style, unsafe_allow_html=True)
 
-    # ── SLA de Escalonamento de Dependências ───────────────────────────────
-    st.subheader("🚦 SLA de Escalonamento de Dependências")
+    # ── SLA de Escalonamento de Impedimentos ───────────────────────────────
+    st.subheader("🚦 SLA de Escalonamento de Impedimentos")
 
     # Configuração dos níveis SLA
     # Pré-impedimento: baseado em dias úteis até o Deadline
@@ -2354,7 +2354,7 @@ elif aba_selecionada == "⚠️ Pendências":
 
     st.markdown("<br>", unsafe_allow_html=True)
 
-    # ── Gantt de pendências abertas ──
+    # ── Gantt de Impedimentos abertos ──
     df_gantt = df_sla[df_sla["Start Date"].notna() & df_sla["Deadline"].notna()].copy()
     if not df_gantt.empty:
         fig_gantt = go.Figure()
@@ -2387,7 +2387,7 @@ elif aba_selecionada == "⚠️ Pendências":
         )
 
         fig_gantt.update_layout(
-            title="Linha do Tempo das Pendências Abertas",
+            title="Linha do Tempo dos Impedimentos Abertos",
             barmode="overlay",
             template=plotly_template,
             paper_bgcolor=plotly_paper_bgcolor,
@@ -2402,8 +2402,8 @@ elif aba_selecionada == "⚠️ Pendências":
 
     st.markdown("<br>", unsafe_allow_html=True)
 
-    # ── Cards por pendência com nível SLA ──
-    st.markdown("**Detalhamento por Pendência**")
+    # ── Cards por impedimento com nível SLA ──
+    st.markdown("**Detalhamento por Impedimento**")
     for _, row in df_sla.iterrows():
         du      = row["DU Restantes"]
         di      = int(row["Dias Impedimento"]) if pd.notna(row["Dias Impedimento"]) else None
