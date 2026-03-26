@@ -1,4 +1,4 @@
-import streamlit as st
+﻿import streamlit as st
 import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
@@ -603,7 +603,7 @@ st.sidebar.markdown("---")
 st.sidebar.markdown("**Visualize:**")
 aba_selecionada = st.sidebar.radio(
     "Visualize:",
-    ["📊 Executivo", "📈 Gráficos", "📋 Detalhes", "⚠️ Impedimentos", "🗺️ Mapa de Migração"],
+    ["📊 Executivo", "📈 Gráficos", "📋 Detalhes", "⚠️ Impedimentos", "🗺️ Mapa de Migração", "📅 Previsão"],
     label_visibility="collapsed"
 )
 
@@ -615,7 +615,7 @@ total_subtarefas = len(df_filtrado)
 concluidas = len(df_filtrado[df_filtrado['Status'].isin(status_concluidos)])
 pendentes = total_subtarefas - concluidas
 percentual_concluido = (concluidas / total_subtarefas * 100) if total_subtarefas > 0 else 0
-percentual_pendente = 100 - percentual_concluido
+percentual_impente = 100 - percentual_concluido
 
 # Calcular issues abertos há mais de 1 semana (Story Bug, RN, RN-FMK)
 categorias_criticas = ['Story Bug', 'RN', 'RN-FMK']
@@ -1597,13 +1597,13 @@ if aba_selecionada == "📊 Executivo":
         st.metric(
             label="Pendentes",
             value=pendentes,
-            delta=f"-{percentual_pendente:.1f}%",
+            delta=f"-{percentual_impente:.1f}%",
             delta_color="red"
         )
     with col4:
         st.metric(
             label="% Falta",
-            value=f"{percentual_pendente:.1f}%"
+            value=f"{percentual_impente:.1f}%"
         )
     with col5:
         st.metric(
@@ -2020,11 +2020,11 @@ elif aba_selecionada == "📋 Detalhes":
 
 # ── IMPEDIMENTOS ────────────────────────────────────────────────────────────────
 elif aba_selecionada == "⚠️ Impedimentos":
-    arquivo_impedimentos  = os.path.join(DADOS_DIR, "impedimentos_BF3E4-293.csv")
+    arquivo_impedimentos  = os.path.join(DADOS_DIR, "pendencias_BF3E4-293.csv")
     arquivo_hist_imped    = os.path.join(DADOS_DIR, "historico_BF3E4-293.csv")
 
     if not os.path.exists(arquivo_impedimentos):
-        st.warning("Arquivo de impedimentos não encontrado. Execute o script `script_impedimentos.py` primeiro.")
+        st.warning("Arquivo de impedimentos não encontrado. Execute o script `script_impencias.py` primeiro.")
         st.stop()
 
     df_imp = pd.read_csv(arquivo_impedimentos, encoding="utf-8-sig")
@@ -2118,7 +2118,7 @@ elif aba_selecionada == "⚠️ Impedimentos":
     gc1, gc2 = st.columns(2)
 
     # Donut: distribuição por status
-    contagem_status = df_pend["Status"].value_counts().reset_index()
+    contagem_status = df_imp["Status"].value_counts().reset_index()
     contagem_status.columns = ["Status", "Quantidade"]
     fig_donut = px.pie(
         contagem_status, names="Status", values="Quantidade",
@@ -2135,7 +2135,7 @@ elif aba_selecionada == "⚠️ Impedimentos":
     gc1.plotly_chart(fig_donut, use_container_width=True)
 
     # Barras: distribuição por prioridade
-    contagem_prior = df_pend["Prioridade"].fillna("Não definida").value_counts().reset_index()
+    contagem_prior = df_imp["Prioridade"].fillna("Não definida").value_counts().reset_index()
     contagem_prior.columns = ["Prioridade", "Quantidade"]
     cores_prior = {"Highest": "#d62728", "High": "#ff7f0e", "Medium": "#1f77b4",
                    "Low": "#2ca02c", "Lowest": "#9467bd", "Não definida": "#7f7f7f"}
@@ -2159,7 +2159,7 @@ elif aba_selecionada == "⚠️ Impedimentos":
     st.subheader("📅 Tasks Abertas por Dia")
 
     # Conta tasks por Start Date (quantas foram abertas em cada dia)
-    df_abertura = df_pend[["Chave", "Start Date"]].copy()
+    df_abertura = df_imp[["Chave", "Start Date"]].copy()
     df_abertura["Start Date"] = pd.to_datetime(df_abertura["Start Date"], errors="coerce").dt.tz_localize(None)
     df_abertura = df_abertura.dropna(subset=["Start Date"])
     df_abertura["Data"] = df_abertura["Start Date"].dt.strftime("%d/%m/%Y")
@@ -2192,26 +2192,26 @@ elif aba_selecionada == "⚠️ Impedimentos":
     # ── Alerta: impedimentos abertas há mais de 5 dias ───────────────────────
     st.subheader("🚨 Alertas — Impedimentos Abertos há mais de 5 dias")
 
-    df_pend["Start Date"] = pd.to_datetime(df_pend["Start Date"], errors="coerce").dt.tz_localize(None)
-    hoje_pend = pd.Timestamp.now().normalize()
+    df_imp["Start Date"] = pd.to_datetime(df_imp["Start Date"], errors="coerce").dt.tz_localize(None)
+    hoje_imp = pd.Timestamp.now().normalize()
 
     # Sobrescreve o status com o mais recente do histórico (fonte mais atualizada)
-    if not df_hist_pend.empty:
-        df_hist_pend["Data Mudanca"] = pd.to_datetime(df_hist_pend["Data Mudanca"], errors="coerce")
+    if not df_hist_imp.empty:
+        df_hist_imp["Data Mudanca"] = pd.to_datetime(df_hist_imp["Data Mudanca"], errors="coerce")
         status_recente = (
-            df_hist_pend.sort_values("Data Mudanca")
+            df_hist_imp.sort_values("Data Mudanca")
             .groupby("Chave")["Status Novo"]
             .last()
             .reset_index()
             .rename(columns={"Status Novo": "Status Historico"})
         )
-        df_pend = df_pend.merge(status_recente, on="Chave", how="left")
-        df_pend["Status"] = df_pend["Status Historico"].combine_first(df_pend["Status"])
-        df_pend.drop(columns=["Status Historico"], inplace=True)
+        df_imp = df_imp.merge(status_recente, on="Chave", how="left")
+        df_imp["Status"] = df_imp["Status Historico"].combine_first(df_imp["Status"])
+        df_imp.drop(columns=["Status Historico"], inplace=True)
 
-    mask_aberta = ~df_pend["Status"].isin(status_done_pend | status_canceled_pend)
-    df_alerta = df_pend[mask_aberta].copy()
-    df_alerta["Dias Aberto"] = (hoje_pend - df_alerta["Start Date"]).dt.days
+    mask_aberta = ~df_imp["Status"].isin(status_done_imp | status_canceled_imp)
+    df_alerta = df_imp[mask_aberta].copy()
+    df_alerta["Dias Aberto"] = (hoje_imp - df_alerta["Start Date"]).dt.days
     df_alerta = df_alerta[df_alerta["Dias Aberto"] > 5].sort_values("Dias Aberto", ascending=False)
 
     if df_alerta.empty:
@@ -2271,7 +2271,7 @@ elif aba_selecionada == "⚠️ Impedimentos":
         d2 = (pd.Timestamp(deadline) + pd.Timedelta(days=1)).date()
         return int(np.busday_count(d1, d2))
 
-    df_sla = df_pend[~df_pend["Status"].isin(status_done_pend | status_canceled_pend)].copy()
+    df_sla = df_imp[~df_imp["Status"].isin(status_done_imp | status_canceled_imp)].copy()
     df_sla["Start Date"] = pd.to_datetime(df_sla["Start Date"], errors="coerce").dt.tz_localize(None)
     df_sla["Deadline"]   = pd.to_datetime(df_sla["Deadline"],   errors="coerce").dt.tz_localize(None)
     hoje_sla = pd.Timestamp.now().normalize()
@@ -2499,3 +2499,98 @@ elif aba_selecionada == "🗺️ Mapa de Migração":
     st.subheader("📋 Detalhes — Mapa de Migração")
     st.caption(f"{len(df_filtrado)} item(s)")
     renderizar_tabela(df_filtrado[_colunas_hm].sort_index(ascending=False), tema_selecionado)
+
+elif aba_selecionada == "📅 Previsão":
+    st.subheader("📅 Previsão")
+    st.markdown(hr_style, unsafe_allow_html=True)
+
+    @st.cache_data(ttl=900)
+    def _build_forecast_inputs(_burn_real, _total_planejado, _realizado_atual):
+        if _burn_real is None or _burn_real.empty:
+            return [], 0, 0.0
+
+        _throughput = _burn_real.sort_values('data')['realizado'].astype(float).tolist()
+        _remaining = max(float(_total_planejado) - float(_realizado_atual), 0.0)
+        _ritmo = float(np.mean(_throughput)) if len(_throughput) > 0 else 0.0
+        return _throughput, _remaining, _ritmo
+
+    _throughput, _remaining, _ritmo = _build_forecast_inputs(burn_real, total_planejado, realizado_atual)
+
+    _base_date = pd.Timestamp.now().normalize()
+    if not burn_real_acum.empty:
+        _base_date = pd.Timestamp(burn_real_acum['data'].max()).normalize()
+
+    _mc = monte_carlo_forecast(_throughput, _remaining, n_simulations=5000, seed=42)
+    _lin = forecast_linear_range(_ritmo, _remaining)
+
+    _has_mc = _mc is not None and _remaining > 0
+    if not _has_mc and (_remaining > 0):
+        st.info("Dados insuficientes - projecao indisponivel para este lago")
+
+    _p50_date = _base_date if _remaining <= 0 else (_base_date + pd.Timedelta(days=int(_mc['p50'])) if _has_mc else pd.NaT)
+    _p85_date = _base_date if _remaining <= 0 else (_base_date + pd.Timedelta(days=int(_mc['p85'])) if _has_mc else pd.NaT)
+
+    _vel7 = float(np.mean(_throughput[-7:])) if len(_throughput) >= 1 else 0.0
+    _vel14 = float(np.mean(_throughput[-14:])) if len(_throughput) >= 1 else 0.0
+    _delta_vel = _vel7 - _vel14
+
+    _m1, _m2, _m3 = st.columns(3)
+    _m1.metric("Previsão Central (P50)", _p50_date.strftime('%d/%m/%Y') if pd.notna(_p50_date) else "N/A")
+    _m2.metric("Previsão Conservadora (P85)", _p85_date.strftime('%d/%m/%Y') if pd.notna(_p85_date) else "N/A")
+    _m3.metric("Delta Velocidade (7d - 14d)", f"{_delta_vel:.2f}")
+
+    _fig_prev = go.Figure()
+    if _has_mc:
+        _fig_prev.add_trace(go.Scatter(
+            x=[_base_date, _p50_date], y=[realizado_atual, total_planejado],
+            mode='lines+markers', name='Forecast P50', line=dict(color='royalblue', width=3),
+            hovertemplate="%{x|%d/%m/%Y}<br>%{y:.0f}<extra></extra>"
+        ))
+        _fig_prev.add_trace(go.Scatter(
+            x=[_base_date, _p85_date], y=[realizado_atual, total_planejado],
+            mode='lines', name='Forecast P85', line=dict(color='rgba(65,105,225,0.1)', width=0),
+            fill='tonexty', fillcolor='rgba(65,105,225,0.20)',
+            hovertemplate="%{x|%d/%m/%Y}<br>%{y:.0f}<extra></extra>"
+        ))
+    elif _lin.get('atual'):
+        _fig_prev.add_trace(go.Scatter(
+            x=[_base_date, _base_date + pd.Timedelta(days=int(_lin['atual']))],
+            y=[realizado_atual, total_planejado],
+            mode='lines', name='Projeção Linear (Atual)', line=dict(color='darkorange', dash='dash', width=3),
+            hovertemplate="%{x|%d/%m/%Y}<br>%{y:.0f}<extra></extra>"
+        ))
+
+    if 'data_fim' in lakes_fase.columns and 'lake' in lakes_fase.columns and not lakes_fase.empty:
+        _milestones = lakes_fase.dropna(subset=['data_fim']).groupby('lake', as_index=False)['data_fim'].max()
+        for _, _mk in _milestones.iterrows():
+            _dt = pd.to_datetime(_mk['data_fim'], errors='coerce')
+            if pd.notna(_dt):
+                _fig_prev.add_vline(
+                    x=str(_dt.date()), line_dash='dot', line_color='gray',
+                    annotation_text=str(_mk['lake']), annotation_position='top'
+                )
+
+    _fig_prev.update_layout(
+        height=420,
+        title='Forecast de Conclusão',
+        xaxis_title='Data',
+        yaxis_title='Acumulado',
+        template=plotly_template,
+        paper_bgcolor=plotly_paper_bgcolor,
+        plot_bgcolor=plotly_plot_bgcolor,
+        font=dict(color=plotly_font_color),
+        xaxis=dict(**plotly_axis_style),
+        yaxis=dict(**plotly_axis_style),
+        legend=plotly_legend_style,
+    )
+    st.plotly_chart(_fig_prev, use_container_width=True)
+
+    if len(_throughput) > 0:
+        _vx = pd.DataFrame({'dia': pd.date_range(end=_base_date, periods=len(_throughput), freq='D'), 'throughput': _throughput})
+        _vx['vel7'] = _vx['throughput'].rolling(7, min_periods=1).mean()
+        _vx['vel14'] = _vx['throughput'].rolling(14, min_periods=1).mean()
+        _fig_vel = go.Figure()
+        _fig_vel.add_trace(go.Scatter(x=_vx['dia'], y=_vx['vel7'], mode='lines', name='Velocidade 7d', yaxis='y2', hovertemplate="%{x|%d/%m/%Y}<br>%{y:.2f}<extra></extra>"))
+        _fig_vel.add_trace(go.Scatter(x=_vx['dia'], y=_vx['vel14'], mode='lines', name='Velocidade 14d', yaxis='y2', hovertemplate="%{x|%d/%m/%Y}<br>%{y:.2f}<extra></extra>"))
+        _fig_vel.update_layout(height=320, title='Tendência de Velocidade', xaxis_title='Data', yaxis2=dict(title='Velocidade', overlaying='y', side='right'), template=plotly_template, paper_bgcolor=plotly_paper_bgcolor, plot_bgcolor=plotly_plot_bgcolor, font=dict(color=plotly_font_color), xaxis=dict(**plotly_axis_style), legend=plotly_legend_style)
+        st.plotly_chart(_fig_vel, use_container_width=True)
