@@ -101,6 +101,39 @@ plotly_legend_style = dict(
     borderwidth=1
 )
 
+# ── Heatmap: constantes de bucket e cor ────────────────────────────────────────────────
+STATUS_COLOR_MAP = {
+    'Done':        '#90EE90',
+    'Closed':      '#90EE90',
+    'Resolved':    '#90EE90',
+    'In progress': '#87CEEB',
+    'In Test':     '#87CEEB',
+    'Waiting Test':'#87CEEB',
+    'Open':        '#D3D3D3',
+    'To Do':       '#D3D3D3',
+    'Canceled':    '#FFD700',
+    'Cancelled':   '#FFD700',
+    'Cancelado':   '#FFD700',
+    'Bloqueado':   '#FF6B6B',
+}
+
+STATUS_BUCKET = {
+    'Open':         'Não Iniciado',
+    'To Do':        'Não Iniciado',
+    'In progress':  'Em Andamento',
+    'In Test':      'Em Andamento',
+    'Waiting Test': 'Em Andamento',
+    'Done':         'Concluído',
+    'Closed':       'Concluído',
+    'Resolved':     'Concluído',
+    'Canceled':     'Cancelado',
+    'Cancelled':    'Cancelado',
+}
+
+BUCKET_ORDER  = ['Não Iniciado', 'Em Andamento', 'Concluído', 'Cancelado', 'Bloqueado']
+BUCKET_COLORS = ['#D3D3D3',          '#87CEEB',       '#90EE90',        '#FFD700',   '#FF6B6B']
+
+
 hr_style = "<hr style='margin: 10px 0; border: 1px solid #1a3a5c;'/>" if tema_selecionado == "☀️ Claro" else "<hr style='margin: 10px 0; border: 1px solid #2a4a6b;'/>"
 
 # Aplicar CSS customizado baseado no tema
@@ -469,6 +502,32 @@ def _render_indicadores(df_base):
                 """, unsafe_allow_html=True)
 
 
+
+def _compute_heatmap_pivot(df):
+    """Retorna (pct_df, count_df) para o heatmap de migração.
+
+    Linhas = Data-Lakes ordenados; colunas = BUCKET_ORDER (5 buckets).
+    pct_df: percentual de itens por célula (0-100, uma casa decimal).
+    count_df: contagem absoluta de itens por célula.
+    """
+    _df = df.copy()
+    _df['_bucket'] = (
+        _df['Status'].astype(str).str.strip()
+        .map(STATUS_BUCKET)
+        .fillna('Bloqueado')
+    )
+    count_df = (
+        _df.groupby(['Data-Lake', '_bucket'])
+        .size()
+        .unstack(fill_value=0)
+        .reindex(columns=BUCKET_ORDER, fill_value=0)
+    )
+    _total = count_df.sum(axis=1).replace(0, 1)  # evita divisao por zero
+    pct_df = (count_df.div(_total, axis=0) * 100).round(1)
+    _lakes = sorted(count_df.index.tolist())
+    return pct_df.reindex(_lakes), count_df.reindex(_lakes)
+
+
 # Função para carregar dados
 @st.cache_data(ttl=900)
 def carregar_dados(arquivo):
@@ -544,7 +603,7 @@ st.sidebar.markdown("---")
 st.sidebar.markdown("**Visualize:**")
 aba_selecionada = st.sidebar.radio(
     "Visualize:",
-    ["📊 Executivo", "📈 Gráficos", "📋 Detalhes", "⚠️ Pendências"],
+    ["📊 Executivo", "📈 Gráficos", "📋 Detalhes", "⚠️ Pendências", "🗺️ Mapa de Migração"],
     label_visibility="collapsed"
 )
 
@@ -2399,3 +2458,13 @@ elif aba_selecionada == "⚠️ Pendências":
         </div>
         """, unsafe_allow_html=True)
 
+
+
+elif aba_selecionada == "🗺️ Mapa de Migração":
+    st.subheader("🗺️ Mapa de Migração")
+    st.markdown(hr_style, unsafe_allow_html=True)
+
+    _pct_df, _count_df = _compute_heatmap_pivot(df_filtrado)
+
+    # Renderização completa no plano 05-02
+    st.info("Heatmap em construção — execute o plano 05-02 para a renderização completa.")
