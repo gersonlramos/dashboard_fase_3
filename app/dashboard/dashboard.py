@@ -45,7 +45,7 @@ def calcular_curva_aprendizado(data_inicio, data_fim, total, inflexao=0.6, incli
         df_plan = df_plan.sort_values('data')
         df_datas = pd.DataFrame({'data': datas})
         df_interpolado = pd.merge_asof(df_datas, df_plan, on='data', direction='forward')
-        valores_plan_interp = df_interpolado['valor'].fillna(method='ffill').fillna(0).tolist()
+        valores_plan_interp = df_interpolado['valor'].ffill().fillna(0).tolist()
         
         # Aplica a sigmoide sobre os valores planejados interpolados
         valores_finais = [v_sig * v_plan for v_sig, v_plan in zip(valores_sigmoide_norm, valores_plan_interp)]
@@ -533,7 +533,7 @@ try:
                         data_str_sem_tz = data_str[:data_str.rfind('+' if '+' in data_str else '-')] if ('+' in data_str or data_str.rfind('-') > 10) else data_str
                         return pd.to_datetime(data_str_sem_tz)
                 return pd.to_datetime(data_str, format=fmt)
-            except:
+            except (ValueError, TypeError):
                 continue
         
         # Se nenhum formato funcionou, tenta o parsing automático do pandas
@@ -1211,7 +1211,7 @@ def renderizar_tabela(df_render, tema):
         st.markdown(html, unsafe_allow_html=True)
     else:
         st.dataframe(
-            df_render.style.applymap(colorir_status, subset=['Status']),
+            df_render.style.map(colorir_status, subset=['Status']),
             use_container_width=True,
             height=300
         )
@@ -1909,10 +1909,11 @@ elif aba_selecionada == "📋 Detalhes":
     st.subheader("Detalhes")
     exibir_todas = st.checkbox("Exibir todas as colunas", value=False)
     if exibir_todas:
-        colunas_todas = ['Data-Lake', 'Historia'] + [c for c in df_filtrado.columns if c not in ['Data-Lake', 'Historia']]
+        colunas_todas = [c for c in ['Data-Lake', 'Historia'] if c in df_filtrado.columns] +                         [c for c in df_filtrado.columns if c not in ['Data-Lake', 'Historia']]
         renderizar_tabela(df_filtrado[colunas_todas].sort_index(ascending=False), tema_selecionado)
     else:
-        colunas_resumo = ['Data-Lake', 'Historia', 'Titulo Historia', 'Chave', 'Titulo', 'Status', 'Categoria_Analise']
+        colunas_resumo_base = ['Data-Lake', 'Historia', 'Titulo Historia', 'Chave', 'Titulo', 'Status', 'Categoria_Analise']
+        colunas_resumo = [c for c in colunas_resumo_base if c in df_filtrado.columns]
         renderizar_tabela(df_filtrado[colunas_resumo].sort_index(ascending=False), tema_selecionado)
 
 
@@ -2162,13 +2163,12 @@ elif aba_selecionada == "⚠️ Pendências":
         hoje_d = pd.Timestamp.now().normalize()
         if deadline < hoje_d:
             return -int((hoje_d - deadline).days)  # negativo = já passou
-        count = 0
-        cur = hoje_d
-        while cur < deadline:
-            cur += pd.Timedelta(days=1)
-            if cur.weekday() < 5:
-                count += 1
-        return count
+        # np.busday_count(d1, d2) counts [d1, d2) — inclusive start.
+        # The original while-loop excluded hoje_d, so shift both bounds by +1 day
+        # to reproduce (hoje_d, deadline] semantics exactly.
+        d1 = (hoje_d + pd.Timedelta(days=1)).date()
+        d2 = (pd.Timestamp(deadline) + pd.Timedelta(days=1)).date()
+        return int(np.busday_count(d1, d2))
 
     df_sla = df_pend[~df_pend["Status"].isin(status_done_pend | status_canceled_pend)].copy()
     df_sla["Start Date"] = pd.to_datetime(df_sla["Start Date"], errors="coerce").dt.tz_localize(None)
