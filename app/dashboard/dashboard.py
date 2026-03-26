@@ -182,7 +182,8 @@ if tema_selecionado == "☀️ Claro":
             border-radius: 6px !important;
         }
         /* Botão Atualizar dados */
-        [data-testid="stSidebar"] .stButton > button {
+        [data-testid="stSidebar"] div[data-testid="stButton"] > button,
+        [data-testid="stSidebar"] button[kind="secondary"] {
             background-color: #1f77b4 !important;
             color: #ffffff !important;
             border: none !important;
@@ -190,7 +191,12 @@ if tema_selecionado == "☀️ Claro":
             width: 100% !important;
             font-weight: 600 !important;
         }
-        [data-testid="stSidebar"] .stButton > button:hover {
+        [data-testid="stSidebar"] div[data-testid="stButton"] > button p,
+        [data-testid="stSidebar"] div[data-testid="stButton"] > button span {
+            color: #ffffff !important;
+        }
+        [data-testid="stSidebar"] div[data-testid="stButton"] > button:hover,
+        [data-testid="stSidebar"] button[kind="secondary"]:hover {
             background-color: #155a8a !important;
         }
     </style>
@@ -270,7 +276,8 @@ else:
             border-radius: 6px !important;
         }
         /* Botão Atualizar dados */
-        [data-testid="stSidebar"] .stButton > button {
+        [data-testid="stSidebar"] div[data-testid="stButton"] > button,
+        [data-testid="stSidebar"] button[kind="secondary"] {
             background-color: #1f77b4 !important;
             color: #ffffff !important;
             border: none !important;
@@ -278,7 +285,12 @@ else:
             width: 100% !important;
             font-weight: 600 !important;
         }
-        [data-testid="stSidebar"] .stButton > button:hover {
+        [data-testid="stSidebar"] div[data-testid="stButton"] > button p,
+        [data-testid="stSidebar"] div[data-testid="stButton"] > button span {
+            color: #ffffff !important;
+        }
+        [data-testid="stSidebar"] div[data-testid="stButton"] > button:hover,
+        [data-testid="stSidebar"] button[kind="secondary"]:hover {
             background-color: #2a9bd4 !important;
         }
     </style>
