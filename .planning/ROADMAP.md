@@ -33,7 +33,13 @@ Plans:
 **Requirements:** PERF-01, PERF-02, PERF-03, PERF-04
 **Depends on:** Phase 1
 
-### Plans
+**Plans:** 2 plans
+
+Plans:
+- [ ] 02-01-PLAN.md — Add @st.cache_data(ttl=900) to carregar_dados and calcular_ciclo_desenvolvimento (PERF-01, PERF-02)
+- [ ] 02-02-PLAN.md — Add Atualizar dados button + orjson dependency (PERF-03, PERF-04)
+
+### Plans (original outline)
 
 1. **Cache carregar_dados** — Decorate `carregar_dados()` with `@st.cache_data(ttl=900)` so the FASE_3.csv disk read happens at most once per 15 minutes across all user interactions.
 2. **Cache calcular_ciclo_desenvolvimento** — Decorate `calcular_ciclo_desenvolvimento()` with `@st.cache_data(ttl=900)` so the 9 history-CSV glob-and-read cycle is eliminated on every sidebar filter change.
