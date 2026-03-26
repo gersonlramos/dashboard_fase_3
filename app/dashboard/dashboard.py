@@ -380,6 +380,7 @@ def _render_indicadores(df_base):
 
 
 # Função para carregar dados
+@st.cache_data(ttl=900)
 def carregar_dados(arquivo):
     if os.path.exists(arquivo):
         try:
@@ -450,6 +451,12 @@ else:
         _df_lake_pct['lake'] = _df_lake_pct['lake'].astype(str).str.strip().str.upper()
     else:
         _df_lake_pct = pd.DataFrame(columns=['id_historia', 'lake', 'data_fim'])
+
+# Botão de atualização de dados
+if st.sidebar.button("🔄 Atualizar dados", help="Limpa o cache e recarrega os CSVs"):
+    carregar_dados.clear()
+    calcular_ciclo_desenvolvimento.clear()
+    st.rerun()
 
 # Filtros na sidebar
 st.sidebar.markdown("---")
@@ -606,6 +613,7 @@ def calcular_dias_uteis(data_inicio, data_fim):
     # busday_count conta dias úteis (seg-sex)
     return np.busday_count(d1, d2)
 
+@st.cache_data(ttl=900)
 def calcular_ciclo_desenvolvimento(data_lake_filtro='Todos'):
     """
     Calcula o ciclo de desenvolvimento médio das histórias baseado nos arquivos de histórico.

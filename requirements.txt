@@ -12,3 +12,6 @@ urllib3==2.2.3
 python-dotenv==1.0.0
 
 pytest
+
+# Serializacao (usado automaticamente pelo Plotly para JSON mais rapido)
+orjson
