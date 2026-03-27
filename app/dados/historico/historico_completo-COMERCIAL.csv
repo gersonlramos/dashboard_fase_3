@@ -1,57 +1,14 @@
 ﻿Chave,Titulo,Data Criacao,Data Mudanca,Status Antigo,Status Novo,Autor
-BF3E4-2086,[COMERCIAL - 13] Vendas - Analytics Índices Codificação e 2022 - TAMANHO: G,2026-03-10T18:48:28.814-0300,2026-03-27T09:39:11.094-0300,To Do,IN DEVELOPMENT,marina.bueno
-BF3E4-2086,[COMERCIAL - 13] Vendas - Analytics Índices Codificação e 2022 - TAMANHO: G,2026-03-10T18:48:28.814-0300,2026-03-25T19:46:47.125-0300,Refined,To Do,marina.bueno
-BF3E4-2086,[COMERCIAL - 13] Vendas - Analytics Índices Codificação e 2022 - TAMANHO: G,2026-03-10T18:48:28.814-0300,2026-03-25T19:46:43.996-0300,IN REFINEMENT,Refined,marina.bueno
-BF3E4-2086,[COMERCIAL - 13] Vendas - Analytics Índices Codificação e 2022 - TAMANHO: G,2026-03-10T18:48:28.814-0300,2026-03-25T19:46:40.173-0300,WAITING REFINEMENT,IN REFINEMENT,marina.bueno
-BF3E4-2086,[COMERCIAL - 13] Vendas - Analytics Índices Codificação e 2022 - TAMANHO: G,2026-03-10T18:48:28.814-0300,2026-03-25T19:46:35.687-0300,Open,WAITING REFINEMENT,marina.bueno
-BF3E4-2074,[COMERCIAL - 12] Vendas - Analytics Banco de Respostas e Índices Base - TAMANHO: G,2026-03-10T18:48:10.390-0300,2026-03-27T09:11:09.822-0300,To Do,IN DEVELOPMENT,bruno.sanchez
-BF3E4-2074,[COMERCIAL - 12] Vendas - Analytics Banco de Respostas e Índices Base - TAMANHO: G,2026-03-10T18:48:10.390-0300,2026-03-25T19:41:52.785-0300,Refined,To Do,marina.bueno
-BF3E4-2074,[COMERCIAL - 12] Vendas - Analytics Banco de Respostas e Índices Base - TAMANHO: G,2026-03-10T18:48:10.390-0300,2026-03-25T19:41:48.102-0300,IN REFINEMENT,Refined,marina.bueno
-BF3E4-2074,[COMERCIAL - 12] Vendas - Analytics Banco de Respostas e Índices Base - TAMANHO: G,2026-03-10T18:48:10.390-0300,2026-03-25T19:41:45.125-0300,WAITING REFINEMENT,IN REFINEMENT,marina.bueno
-BF3E4-2074,[COMERCIAL - 12] Vendas - Analytics Banco de Respostas e Índices Base - TAMANHO: G,2026-03-10T18:48:10.390-0300,2026-03-25T19:41:36.590-0300,Open,WAITING REFINEMENT,marina.bueno
-BF3E4-2062,[COMERCIAL - 11] Vendas - Analytics Entrevistas e Qualidade - TAMANHO: M,2026-03-10T18:47:52.645-0300,2026-03-26T23:19:58.856-0300,To Do,IN DEVELOPMENT,lucivan.batista
-BF3E4-2062,[COMERCIAL - 11] Vendas - Analytics Entrevistas e Qualidade - TAMANHO: M,2026-03-10T18:47:52.645-0300,2026-03-25T19:38:07.638-0300,Refined,To Do,marina.bueno
-BF3E4-2062,[COMERCIAL - 11] Vendas - Analytics Entrevistas e Qualidade - TAMANHO: M,2026-03-10T18:47:52.645-0300,2026-03-25T19:37:54.939-0300,IN REFINEMENT,Refined,marina.bueno
-BF3E4-2062,[COMERCIAL - 11] Vendas - Analytics Entrevistas e Qualidade - TAMANHO: M,2026-03-10T18:47:52.645-0300,2026-03-25T19:35:35.347-0300,WAITING REFINEMENT,IN REFINEMENT,marina.bueno
-BF3E4-2062,[COMERCIAL - 11] Vendas - Analytics Entrevistas e Qualidade - TAMANHO: M,2026-03-10T18:47:52.645-0300,2026-03-25T19:30:56.746-0300,Open,WAITING REFINEMENT,marina.bueno
-BF3E4-2048,"[COMERCIAL - 10] Vendas - Cancelamento, Cotas e Qualidade - TAMANHO: G",2026-03-10T18:47:28.448-0300,2026-03-26T12:35:01.487-0300,To Do,IN DEVELOPMENT,miguel.machado2
-BF3E4-2048,"[COMERCIAL - 10] Vendas - Cancelamento, Cotas e Qualidade - TAMANHO: G",2026-03-10T18:47:28.448-0300,2026-03-25T19:38:04.512-0300,Refined,To Do,marina.bueno
-BF3E4-2048,"[COMERCIAL - 10] Vendas - Cancelamento, Cotas e Qualidade - TAMANHO: G",2026-03-10T18:47:28.448-0300,2026-03-25T19:23:41.368-0300,IN REFINEMENT,Refined,marina.bueno
-BF3E4-2048,"[COMERCIAL - 10] Vendas - Cancelamento, Cotas e Qualidade - TAMANHO: G",2026-03-10T18:47:28.448-0300,2026-03-25T19:23:34.508-0300,WAITING REFINEMENT,IN REFINEMENT,marina.bueno
-BF3E4-2048,"[COMERCIAL - 10] Vendas - Cancelamento, Cotas e Qualidade - TAMANHO: G",2026-03-10T18:47:28.448-0300,2026-03-25T19:23:30.267-0300,Open,WAITING REFINEMENT,marina.bueno
-BF3E4-2032,[COMERCIAL - 9] Vendas - Entrevistas e Questionários - TAMANHO: G,2026-03-10T18:47:03.734-0300,2026-03-26T10:09:42.299-0300,To Do,IN DEVELOPMENT,marina.bueno
-BF3E4-2032,[COMERCIAL - 9] Vendas - Entrevistas e Questionários - TAMANHO: G,2026-03-10T18:47:03.734-0300,2026-03-25T19:38:00.627-0300,Refined,To Do,marina.bueno
-BF3E4-2032,[COMERCIAL - 9] Vendas - Entrevistas e Questionários - TAMANHO: G,2026-03-10T18:47:03.734-0300,2026-03-25T19:21:43.068-0300,IN REFINEMENT,Refined,marina.bueno
-BF3E4-2032,[COMERCIAL - 9] Vendas - Entrevistas e Questionários - TAMANHO: G,2026-03-10T18:47:03.734-0300,2026-03-25T19:21:24.760-0300,WAITING REFINEMENT,IN REFINEMENT,marina.bueno
-BF3E4-2032,[COMERCIAL - 9] Vendas - Entrevistas e Questionários - TAMANHO: G,2026-03-10T18:47:03.734-0300,2026-03-25T19:21:18.941-0300,Open,WAITING REFINEMENT,marina.bueno
-BF3E4-2019,[COMERCIAL - 8] Vendas - Cadastros de Perguntas e Metadados - TAMANHO: G,2026-03-10T18:46:42.885-0300,2026-03-26T10:09:39.771-0300,To Do,IN DEVELOPMENT,marina.bueno
-BF3E4-2019,[COMERCIAL - 8] Vendas - Cadastros de Perguntas e Metadados - TAMANHO: G,2026-03-10T18:46:42.885-0300,2026-03-25T10:24:23.989-0300,Refined,To Do,marina.bueno
-BF3E4-2019,[COMERCIAL - 8] Vendas - Cadastros de Perguntas e Metadados - TAMANHO: G,2026-03-10T18:46:42.885-0300,2026-03-25T10:18:29.834-0300,IN REFINEMENT,Refined,marina.bueno
-BF3E4-2019,[COMERCIAL - 8] Vendas - Cadastros de Perguntas e Metadados - TAMANHO: G,2026-03-10T18:46:42.885-0300,2026-03-25T10:18:24.432-0300,WAITING REFINEMENT,IN REFINEMENT,marina.bueno
-BF3E4-2019,[COMERCIAL - 8] Vendas - Cadastros de Perguntas e Metadados - TAMANHO: G,2026-03-10T18:46:42.885-0300,2026-03-25T10:17:52.475-0300,Open,WAITING REFINEMENT,marina.bueno
-BF3E4-2004,[COMERCIAL - 7] Cadastros Básicos e Metadados - TAMANHO: G,2026-03-10T18:46:17.321-0300,2026-03-25T19:43:59.473-0300,To Do,IN DEVELOPMENT,marina.bueno
-BF3E4-2004,[COMERCIAL - 7] Cadastros Básicos e Metadados - TAMANHO: G,2026-03-10T18:46:17.321-0300,2026-03-25T19:43:56.053-0300,Refined,To Do,marina.bueno
-BF3E4-2004,[COMERCIAL - 7] Cadastros Básicos e Metadados - TAMANHO: G,2026-03-10T18:46:17.321-0300,2026-03-25T19:43:52.500-0300,IN REFINEMENT,Refined,marina.bueno
-BF3E4-2004,[COMERCIAL - 7] Cadastros Básicos e Metadados - TAMANHO: G,2026-03-10T18:46:17.321-0300,2026-03-25T19:43:48.215-0300,WAITING REFINEMENT,IN REFINEMENT,marina.bueno
-BF3E4-2004,[COMERCIAL - 7] Cadastros Básicos e Metadados - TAMANHO: G,2026-03-10T18:46:17.321-0300,2026-03-25T19:43:44.035-0300,Open,WAITING REFINEMENT,marina.bueno
-BF3E4-2004,[COMERCIAL - 7] Cadastros Básicos e Metadados - TAMANHO: G,2026-03-10T18:46:17.321-0300,2026-03-25T19:43:39.341-0300,WAITING REFINEMENT,Open,marina.bueno
-BF3E4-2004,[COMERCIAL - 7] Cadastros Básicos e Metadados - TAMANHO: G,2026-03-10T18:46:17.321-0300,2026-03-25T19:43:35.165-0300,Open,WAITING REFINEMENT,marina.bueno
-BF3E4-1994,[COMERCIAL - 6] Rankings e Históricos - TAMANHO: M,2026-03-10T18:46:00.524-0300,2026-03-26T14:49:56.417-0300,Canceled,Open,marina.bueno
-BF3E4-1994,[COMERCIAL - 6] Rankings e Históricos - TAMANHO: M,2026-03-10T18:46:00.524-0300,2026-03-25T17:56:39.833-0300,Open,Canceled,marina.bueno
-BF3E4-1986,[COMERCIAL - 5] Analytics e Consolidação - TAMANHO: M,2026-03-10T18:45:46.721-0300,2026-03-26T14:49:52.392-0300,Canceled,Open,marina.bueno
-BF3E4-1986,[COMERCIAL - 5] Analytics e Consolidação - TAMANHO: M,2026-03-10T18:45:46.721-0300,2026-03-25T17:55:48.640-0300,Open,Canceled,marina.bueno
-BF3E4-1979,"[COMERCIAL - 4] Processamento ML Parte 2 (Entity, Ranking) - TAMANHO: M",2026-03-10T18:45:34.938-0300,2026-03-26T14:49:49.249-0300,Canceled,Open,marina.bueno
-BF3E4-1979,"[COMERCIAL - 4] Processamento ML Parte 2 (Entity, Ranking) - TAMANHO: M",2026-03-10T18:45:34.938-0300,2026-03-25T17:53:22.922-0300,Open,Canceled,marina.bueno
-BF3E4-1971,"[COMERCIAL - 3] Processamento ML Parte 1 (Topics, Summary, Translation) - TAMANHO: M",2026-03-10T18:45:21.346-0300,2026-03-26T14:49:43.984-0300,Canceled,Open,marina.bueno
-BF3E4-1971,"[COMERCIAL - 3] Processamento ML Parte 1 (Topics, Summary, Translation) - TAMANHO: M",2026-03-10T18:45:21.346-0300,2026-03-25T17:51:53.495-0300,Open,Canceled,marina.bueno
-BF3E4-1964,[COMERCIAL - 2] Ingestão Base e Auxiliares - TAMANHO: P,2026-03-10T18:45:08.326-0300,2026-03-26T14:49:40.913-0300,Canceled,Open,marina.bueno
-BF3E4-1964,[COMERCIAL - 2] Ingestão Base e Auxiliares - TAMANHO: P,2026-03-10T18:45:08.326-0300,2026-03-25T17:21:34.759-0300,To Do,Canceled,marina.bueno
-BF3E4-1964,[COMERCIAL - 2] Ingestão Base e Auxiliares - TAMANHO: P,2026-03-10T18:45:08.326-0300,2026-03-24T08:31:47.021-0300,Refined,To Do,marina.bueno
-BF3E4-1964,[COMERCIAL - 2] Ingestão Base e Auxiliares - TAMANHO: P,2026-03-10T18:45:08.326-0300,2026-03-20T18:58:29.988-0300,IN REFINEMENT,Refined,marina.bueno
-BF3E4-1964,[COMERCIAL - 2] Ingestão Base e Auxiliares - TAMANHO: P,2026-03-10T18:45:08.326-0300,2026-03-20T18:58:27.733-0300,WAITING REFINEMENT,IN REFINEMENT,marina.bueno
-BF3E4-1964,[COMERCIAL - 2] Ingestão Base e Auxiliares - TAMANHO: P,2026-03-10T18:45:08.326-0300,2026-03-20T18:58:24.004-0300,Open,WAITING REFINEMENT,marina.bueno
-BF3E4-1916,[COMERCIAL - 1] Entidade: Aprovação Comercial - TAMANHO: P,2026-03-10T18:12:51.569-0300,2026-03-23T10:47:46.214-0300,To Do,IN DEVELOPMENT,marina.bueno
-BF3E4-1916,[COMERCIAL - 1] Entidade: Aprovação Comercial - TAMANHO: P,2026-03-10T18:12:51.569-0300,2026-03-23T10:47:37.060-0300,Refined,To Do,marina.bueno
-BF3E4-1916,[COMERCIAL - 1] Entidade: Aprovação Comercial - TAMANHO: P,2026-03-10T18:12:51.569-0300,2026-03-20T17:15:07.291-0300,IN REFINEMENT,Refined,marina.bueno
-BF3E4-1916,[COMERCIAL - 1] Entidade: Aprovação Comercial - TAMANHO: P,2026-03-10T18:12:51.569-0300,2026-03-20T17:15:03.737-0300,WAITING REFINEMENT,IN REFINEMENT,marina.bueno
-BF3E4-1916,[COMERCIAL - 1] Entidade: Aprovação Comercial - TAMANHO: P,2026-03-10T18:12:51.569-0300,2026-03-20T17:14:57.632-0300,Open,WAITING REFINEMENT,marina.bueno
+BF3E4-2063,[1] DAG - data-lake-commercial-carga-analytics-proprietario-vendas-entrevista-fca,2026-03-10T18:47:54.756-0300,2026-03-26T23:20:08.542-0300,Open,In progress,lucivan.batista
+BF3E4-2033,[1] DAG - data-lake-commercial-carga-dm-proprietario-vendas-cabecalho-entrevista-fca,2026-03-10T18:47:05.671-0300,2026-03-26T09:55:52.654-0300,To Do,In progress,henrique.damaceno
+BF3E4-2033,[1] DAG - data-lake-commercial-carga-dm-proprietario-vendas-cabecalho-entrevista-fca,2026-03-10T18:47:05.671-0300,2026-03-26T09:55:47.867-0300,In progress,To Do,henrique.damaceno
+BF3E4-2033,[1] DAG - data-lake-commercial-carga-dm-proprietario-vendas-cabecalho-entrevista-fca,2026-03-10T18:47:05.671-0300,2026-03-26T09:55:15.334-0300,Open,In progress,henrique.damaceno
+BF3E4-2020,[1] DAG - data-lake-commercial-carga-dm-proprietario-vendas-pergunta-fca,2026-03-10T18:46:45.506-0300,2026-03-26T09:53:57.884-0300,Open,In progress,henrique.damaceno
+BF3E4-2007,1.2 DataMart_CSIProprietarioBR.tb_csiproprietario_metadata,2026-03-10T18:46:21.824-0300,2026-03-27T09:09:12.867-0300,Open,In progress,wesley.bomfim
+BF3E4-2006,1.1 Staging_CSIProprietarioBR.tb_csiproprietario_metadata,2026-03-10T18:46:20.563-0300,2026-03-27T09:09:10.916-0300,In Test,In progress,wesley.bomfim
+BF3E4-2006,1.1 Staging_CSIProprietarioBR.tb_csiproprietario_metadata,2026-03-10T18:46:20.563-0300,2026-03-27T09:09:05.866-0300,To Do,In Test,wesley.bomfim
+BF3E4-2006,1.1 Staging_CSIProprietarioBR.tb_csiproprietario_metadata,2026-03-10T18:46:20.563-0300,2026-03-24T17:57:47.903-0300,Open,To Do,marina.bueno
+BF3E4-2005,[1] Cloud Function Template - fn_load_gcs_bgq_csiproprietario_metadata,2026-03-10T18:46:19.324-0300,2026-03-26T09:49:02.027-0300,Open,In progress,henrique.damaceno
+BF3E4-1919,[2] Views Analíticas,2026-03-10T18:12:57.245-0300,2026-03-25T10:08:16.952-0300,Open,In progress,marina.bueno
+BF3E4-1918,1.1 Analytics_Aprovacao.tb_aprovacao_comercial,2026-03-10T18:12:55.856-0300,2026-03-25T10:08:12.838-0300,Open,In progress,marina.bueno
+BF3E4-1917,[1] DAG - data-lake-commercial-aprovacao_especial,2026-03-10T18:12:54.416-0300,2026-03-25T10:08:10.345-0300,Open,In progress,marina.bueno
