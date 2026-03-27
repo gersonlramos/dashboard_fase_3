@@ -447,7 +447,22 @@ if os.path.exists(_arquivo_proc):
         "Produção Assistida": "#9467bd",
     }
     _ordem_fase   = ["Desenvolvimento", "Homologação", "Preparo Produção", "Produção Assistida"]
-    _lakes_ordem  = sorted(_df_gantt["Lake"].unique())
+    _lake_ordem_idx = {
+        "BMC": 0,
+        "COMPRAS": 1,
+        "MOPAR": 2,
+        "CLIENTE": 3,
+        "SHAREDSERVICES": 4,
+        "RH": 5,
+        "FINANCE": 6,
+        "SUPPLYCHAIN": 7,
+        "COMMERCIAL": 8,
+        "COMERCIAL": 8,
+    }
+    _lakes_ordem = sorted(
+        _df_gantt["Lake"].dropna().unique(),
+        key=lambda _l: (_lake_ordem_idx.get(str(_l).strip().upper().replace(" ", ""), 999), str(_l)),
+    )
 
     if not _df_gantt.empty:
         _fig_gantt = go.Figure()
