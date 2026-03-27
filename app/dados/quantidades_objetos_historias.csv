@@ -1,0 +1,524 @@
+Id;Titulo Historia;tabelas;views
+BF3E4-61;[BMC - 1] Entidade: BMC - Tamanho M;10;7
+BF3E4-1535;[CLIENTE - 1] Assunto: Salesforce CDC - Staging (Parte 1) - TAMANHO: G;7;3
+BF3E4-1550;[CLIENTE - 2] Assunto: CRM e Audiência (Parte 2) - TAMANHO: G;4;4
+BF3E4-1574;[CLIENTE - 3] Assunto: Campanhas Marketing Cloud (Parte 1) - TAMANHO: G;10;0
+BF3E4-1589;[CLIENTE - 4] Assunto: Campanhas Marketing Cloud (Parte 2) - TAMANHO: G;10;0
+BF3E4-1604;[CLIENTE - 5] Assunto: Marketing Cloud - Target & Views (Parte 3) - TAMANHO: G;7;2
+BF3E4-1619;[CLIENTE - 6] Assunto: Dados Públicos CNPJ - Staging (Parte 1) - TAMANHO: M;5;2
+BF3E4-1634;[CLIENTE - 7] Assunto: Dados Públicos CNPJ - Target & Views (Parte 2) - TAMANHO: G;5;1
+BF3E4-1648;[CLIENTE - 8] Assunto: Staging (Parte 1) - TAMANHO: G;10;0
+BF3E4-1663;[CLIENTE - 9] Assunto: Staging (Parte 2) - TAMANHO: G;7;0
+BF3E4-1675;[CLIENTE - 10] Assunto: Integrações Externas (Parte 1) - TAMANHO: G;10;0
+BF3E4-1690;[CLIENTE - 11] Assunto: Integrações Externas (Parte 2) - TAMANHO: P;3;0
+BF3E4-1698;[CLIENTE - 12] Assunto: Relacionamento Cliente (Parte 1) - TAMANHO: G;4;2
+BF3E4-1711;[CLIENTE - 13] Assunto: Relacionamento Cliente (Parte 2) - TAMANHO: M;7;3
+BF3E4-1715;[CLIENTE - 14] Assunto: Relacionamento Cliente (Parte 3) - TAMANHO: M;2;5
+BF3E4-1719;[CLIENTE - 15] Assunto: Serviços Financeiros (Parte 1) - TAMANHO: M;6;0
+BF3E4-1731;[CLIENTE - 16] Assunto: Golden Cliente (Parte 1) - TAMANHO: G;9;1
+BF3E4-1746;[CLIENTE - 17] Assunto: Golden Cliente (Parte 2) - TAMANHO: G;3;7
+BF3E4-1761;[CLIENTE - 18] Assunto: Golden Cliente (Parte 3) - TAMANHO: G;0;10
+BF3E4-1776;[CLIENTE - 19] Assunto: Golden Cliente (Parte 4) - TAMANHO: G;;10
+BF3E4-1788;[CLIENTE - 20] Assunto: Golden Cliente (Parte 5) - TAMANHO: P;3;1
+BF3E4-1790;[CLIENTE - 21] Assunto: Privacidade LGPD (Parte 1) - TAMANHO: G;5;2
+BF3E4-1792;[CLIENTE - 22] Assunto: Qualidade e Validação (Parte 1) - TAMANHO: G;6;3
+BF3E4-1807;[CLIENTE - 23] Assunto: Qualidade e Validação (Parte 2) - TAMANHO: G;4;4
+BF3E4-1811;[CLIENTE - 24] Assunto: Hub Cart e Hub User (Parte 1) - TAMANHO: G;9;0
+BF3E4-1816;[CLIENTE - 25] Assunto: Hub Cart e Hub User (Parte 2) - TAMANHO: G;10;0
+BF3E4-1818;[CLIENTE - 26] Assunto: Hub Cart e Hub User (Parte 3) - TAMANHO: G;10;0
+BF3E4-1820;[CLIENTE - 27] Assunto: Hub Cart e Hub User (Parte 4) - TAMANHO: G;10;0
+BF3E4-1822;[CLIENTE - 28] Assunto: Hub Cart e Hub User (Parte 5) - TAMANHO: G;8;1
+BF3E4-1824;[CLIENTE - 29] Assunto: Visão 360 (Parte 1) - TAMANHO: G;6;0
+BF3E4-1826;[CLIENTE - 30] Assunto: Visão 360 (Parte 2) - TAMANHO: G;5;5
+BF3E4-1828;[CLIENTE - 31] Assunto: Visão 360 (Parte 3) - TAMANHO: P;;6
+BF3E4-1830;[CLIENTE - 32] Assunto: EDI - Envio CCDB (Parte 1) - TAMANHO: G;;
+BF3E4-1841;[CLIENTE - 33] Assunto: EDI - Envio CCDB (Parte 2) - TAMANHO: G;;
+BF3E4-1852;[CLIENTE - 34] Assunto: API - Carga Diária e Integrações - TAMANHO: G;;
+BF3E4-1866;[CLIENTE - 35] Assunto: EDI - Staging Salesforce e Venda Direta (Parte 1) - TAMANHO: P;;
+BF3E4-1872;[CLIENTE - 36] Assunto: EDI - SSH/FTP On-Premise (Parte 2) - TAMANHO: G;;
+BF3E4-1886;[CLIENTE - 37] Assunto: EDI - SSH/FTP On-Premise (Parte 3) - TAMANHO: G;;
+BF3E4-1897;[CLIENTE - 38] Assunto: Marketing Cloud - Target & Views (Parte 4) - TAMANHO: P;2;0
+BF3E4-1899;[CLIENTE - 39] Assunto: Dados Públicos CNPJ - Staging (Parte 3) - TAMANHO: M;4;0
+BF3E4-1907;[CLIENTE - 40] Assunto: Dados Públicos CNPJ - Target & Views (Parte 4) - TAMANHO: P;1;0
+BF3E4-1912;[CLIENTE - 41] Assunto: Relacionamento Cliente (Parte 4) - TAMANHO: M;3;0
+BF3E4-1914;[CLIENTE - 42] Assunto: Hub Cart e Hub User (Parte 6) - TAMANHO: P;1;0
+BF3E4-1916;[COMERCIAL - 1] Entidade: Aprovação Comercial - TAMANHO: P;1;0
+BF3E4-1964;[COMERCIAL - 2] Ingestão Base e Auxiliares - TAMANHO: P;3;0
+BF3E4-1971;[COMERCIAL - 3] Processamento ML Parte 1 (Topics, Summary, Translation) - TAMANHO: M;5;0
+BF3E4-1979;[COMERCIAL - 4] Processamento ML Parte 2 (Entity, Ranking) - TAMANHO: M;4;0
+BF3E4-1986;[COMERCIAL - 5] Analytics e Consolidação - TAMANHO: M;3;1
+BF3E4-1994;[COMERCIAL - 6] Rankings e Históricos - TAMANHO: M;4;2
+BF3E4-2004;[COMERCIAL - 7] Cadastros Básicos e Metadados - TAMANHO: G;6;3
+BF3E4-2019;[COMERCIAL - 8] Vendas - Cadastros de Perguntas e Metadados - TAMANHO: G;6;1
+BF3E4-2032;[COMERCIAL - 9] Vendas - Entrevistas e Questionários - TAMANHO: G;5;4
+BF3E4-2048;[COMERCIAL - 10] Vendas - Cancelamento, Cotas e Qualidade - TAMANHO: G;6;2
+BF3E4-2062;[COMERCIAL - 11] Vendas - Analytics Entrevistas e Qualidade - TAMANHO: M;6;0
+BF3E4-2074;[COMERCIAL - 12] Vendas - Analytics Banco de Respostas e Índices Base - TAMANHO: G;4;3
+BF3E4-2086;[COMERCIAL - 13] Vendas - Analytics Índices Codificação e 2022 - TAMANHO: G;6;3
+BF3E4-2101;[COMERCIAL - 14] Pós-Vendas - Cadastros de Perguntas e Metadados - TAMANHO: G;6;1
+BF3E4-2114;[COMERCIAL - 15] Pós-Vendas - Entrevistas e Questionários - TAMANHO: G;5;4
+BF3E4-2130;[COMERCIAL - 16] Pós-Vendas - Cancelamento, Cotas e Qualidade - TAMANHO: M;5;1
+BF3E4-2143;[COMERCIAL - 17] Pós-Vendas - Analytics Entrevistas e Qualidade - TAMANHO: M;6;0
+BF3E4-2155;[COMERCIAL - 18] Pós-Vendas - Analytics Banco de Respostas e Índices Base - TAMANHO: G;4;3
+BF3E4-2168;[COMERCIAL - 19] Pós-Vendas - Analytics Índices Codificação e 2022 - TAMANHO: G;6;3
+BF3E4-2184;[COMERCIAL - 20] Vendas PSA - Entrevistas e Cancelamentos - TAMANHO: G;8;3
+BF3E4-2203;[COMERCIAL - 21] Pós-Vendas PSA - Entrevistas e Cancelamentos - TAMANHO: G;8;3
+BF3E4-2222;[COMERCIAL - 22] Ingestão Staging AURA - Entrevistas e Cancelamentos - TAMANHO: M;4;0
+BF3E4-2230;[COMERCIAL - 23] Ingestão Staging IPSOS - Entrevistas, Perguntas e Qualidade - TAMANHO: G;10;0
+BF3E4-2244;[COMERCIAL - 24] Ingestão Staging IPSOS - Cancelamento, Fechamento e Metadata - TAMANHO: M;6;0
+BF3E4-2255;[COMERCIAL - 25] DataMart AURA - Entrevistas, Verbalizações e Cancelamento - TAMANHO: M;6;0
+BF3E4-2266;[COMERCIAL - 26] DataMart IPSOS - Perguntas e Entrevistas Estruturadas - TAMANHO: G;8;0
+BF3E4-2278;[COMERCIAL - 27] DataMart IPSOS - Verbalização e Qualidade Metadados - TAMANHO: M;6;0
+BF3E4-2289;[COMERCIAL - 28] DataMart IPSOS - Qualidade Final, Fechamento, Cancelamento e Governança - TAMANHO: G;8;0
+BF3E4-2305;[COMERCIAL - 29] Analytics Restricted - Entrevistas e Banco Resposta - TAMANHO: G;8;0
+BF3E4-2319;[COMERCIAL - 30] Analytics Restricted + Tabelas Abertas Base - TAMANHO: G;8;2
+BF3E4-2335;[COMERCIAL - 31] Views Analytics - AURA e Cadastros Proprietário - TAMANHO: G;0;7
+BF3E4-2354;[COMERCIAL - 32] Views Analytics - IPSOS Operacional (Pergunta/Resposta/Verbalização) - TAMANHO: G;0;8
+BF3E4-2376;[COMERCIAL - 33] Views Analytics - IPSOS Entrevistas, Long, Qualidade e Banco Resposta Aberto - TAMANHO: G;0;8
+BF3E4-2398;[COMERCIAL - 34] Views Analytics - Fechados, Índices e Codificação - TAMANHO: G;0;8
+BF3E4-2420;[COMERCIAL - 35] Dimensões Geográficas - TAMANHO: M;4;0
+BF3E4-2427;[COMERCIAL - 36] Dimensões Demográficas - TAMANHO: M;6;0
+BF3E4-2436;[COMERCIAL - 37] Dimensões Veiculares - TAMANHO: G;10;0
+BF3E4-2449;[COMERCIAL - 38] Concessionárias e Segmentos - TAMANHO: M;5;0
+BF3E4-2459;[COMERCIAL - 39] CSI Vendas - Staging Base - TAMANHO: G;10;0
+BF3E4-2472;[COMERCIAL - 40] CSI Vendas - DataMart - TAMANHO: G;10;0
+BF3E4-2493;[COMERCIAL - 41] CSI Pós-Vendas - Staging Base - TAMANHO: G;10;0
+BF3E4-2506;[COMERCIAL - 42] CSI Pós-Vendas - DataMart - TAMANHO: G;10;0
+BF3E4-2527;[COMERCIAL - 43] Metadados e Controle - TAMANHO: G;2;8
+BF3E4-2542;[COMERCIAL - 44] After Sales - Argentina e Chile - TAMANHO: G;5;2
+BF3E4-2559;[COMERCIAL - 45] After Sales - Brasil - TAMANHO: M;2;2
+BF3E4-2568;[COMERCIAL - 46] New Vehicle - Brasil - TAMANHO: M;3;3
+BF3E4-2580;[COMERCIAL - 47] New Vehicle - Argentina, Chile e Leapmotor - TAMANHO: M;2;3
+BF3E4-2559;[COMERCIAL - 45] After Sales - Brasil - TAMANHO: M;5;2
+BF3E4-2602;[COMERCIAL - 49] Call Center e Integrações Especiais - TAMANHO: P;1;2
+BF3E4-2609;[COMERCIAL - 50] Emplacamentos Pessoa Jurídica (PJ) - TAMANHO: P;2;1
+BF3E4-2616;[COMERCIAL - 51] Emplacamentos Pessoa Física (PF) - TAMANHO: P;2;1
+BF3E4-2623;[COMERCIAL - 52] Vendas de Veículos Leves (Light Vehicle Sales) - TAMANHO: M;3;1
+BF3E4-2632;[COMERCIAL - 53] Powertrain de Veículos Leves (Light Vehicle Powertrain) - TAMANHO: M;3;1
+BF3E4-2641;[COMERCIAL - 54] Capacidade de Plantas de Veículos (Vehicle Plant Capacity) - TAMANHO: M;4;1
+BF3E4-2651;[COMERCIAL - 55] Ciclos de Planejamento de Veículos (Vehicle Cycle Plans) - TAMANHO: M;4;2
+BF3E4-2662;[COMERCIAL - 56] Segmentação de Produtos e Previsões (Product Segmentation) - TAMANHO: M;3;1
+BF3E4-2671;[COMERCIAL - 57] Governança e Histórico Consolidado (Governance & CCP Hist) - TAMANHO: P;2;1
+BF3E4-2679;[COMERCIAL - 58] Auditoria e Logs - TAMANHO: P;1;1
+BF3E4-2685;[COMERCIAL - 59] Catálogo e Características Básicas - TAMANHO: G;4;4
+BF3E4-2698;[COMERCIAL - 60] Preços e Mercado - TAMANHO: G;4;5
+BF3E4-2711;[COMERCIAL - 61] BR Cadastros de Veículos (Parte 1) - TAMANHO: G;10;0
+BF3E4-2724;[COMERCIAL - 62] BR Cadastros de Veículos (Parte 2) e Demográficos - TAMANHO: G;10;0
+BF3E4-2737;[COMERCIAL - 63] BR Cadastros de Pesquisa e Concessionárias - TAMANHO: G;10;0
+BF3E4-2750;[COMERCIAL - 64] BR Cadastros de Respostas e Metadados - TAMANHO: G;10;0
+BF3E4-2763;[COMERCIAL - 65] BR DataMart - Entidades Principais - TAMANHO: G;7;0
+BF3E4-2773;[COMERCIAL - 66] BR Analytics Restricted - Tabelas SPSS - TAMANHO: G;7;0
+BF3E4-2783;[COMERCIAL - 67] BR Analytics Restricted - Views - TAMANHO: G;0;8
+BF3E4-2794;[COMERCIAL - 68] BR Analytics - Tabelas SPSS - TAMANHO: M;6;0
+BF3E4-2803;[COMERCIAL - 69] BR Analytics Views - Dimensões de Veículos - TAMANHO: G;0;10
+BF3E4-2816;[COMERCIAL - 70] BR Analytics Views - Demográficos e Perfil - TAMANHO: G;0;10
+BF3E4-2829;[COMERCIAL - 71] BR Analytics Views - Satisfação e Fidelidade - TAMANHO: G;0;10
+BF3E4-2842;[COMERCIAL - 72] BR Analytics Views - Comportamento de Compra - TAMANHO: G;0;10
+BF3E4-2855;[COMERCIAL - 73] BR Analytics Views - Questionários e Logs - TAMANHO: G;0;10
+BF3E4-2868;[COMERCIAL - 74] AR Staging e DataMart - TAMANHO: G;10;0
+BF3E4-2882;[COMERCIAL - 75] AR DataMart (cont) e Analytics Restricted - TAMANHO: G;8;2
+BF3E4-2897;[COMERCIAL - 76] AR Analytics Restricted (cont) e Analytics Tabelas - TAMANHO: G;5;5
+BF3E4-2912;[COMERCIAL - 77] AR Analytics Views (Parte 1) - TAMANHO: G;0;10
+BF3E4-2925;[COMERCIAL - 78] AR Analytics Views (Parte 2) e Cockpit - TAMANHO: G;0;10
+BF3E4-2939;[COMERCIAL - 79] QFS Brasil - Metadata e Population (Staging e DataMart) - TAMANHO: M;4;2
+BF3E4-2954;[COMERCIAL - 80] QFS Brasil - Respondent (Staging e DataMart) - TAMANHO: M;4;2
+BF3E4-2965;[COMERCIAL - 81] QFS Brasil - Respondent (Analytics) - TAMANHO: M;4;0
+BF3E4-2972;[COMERCIAL - 82] QFS Brasil - Checkbox (Staging e DataMart) - TAMANHO: M;4;0
+BF3E4-2980;[COMERCIAL - 83] QFS Brasil - Checkbox (Analytics) - TAMANHO: M;4;0
+BF3E4-2987;[COMERCIAL - 84] QFS Brasil - Verbatim e Canceled (Staging e DataMart) - TAMANHO: G;6;3
+BF3E4-3002;[COMERCIAL - 85] QFS Brasil - KPIs e Logs - TAMANHO: M;1;5
+BF3E4-3012;[COMERCIAL - 86] QFS Argentina - Metadata e Population (Staging e DataMart) - TAMANHO: M;5;3
+BF3E4-3030;[COMERCIAL - 87] QFS Argentina - Respondent (Staging e DataMart) - TAMANHO: M;4;0
+BF3E4-3038;[COMERCIAL - 88] QFS Argentina - Respondent (Analytics) - TAMANHO: M;4;0
+BF3E4-3045;[COMERCIAL - 89] QFS Argentina - Checkbox (Staging e DataMart) - TAMANHO: M;4;0
+BF3E4-3053;[COMERCIAL - 90] QFS Argentina - Checkbox (Analytics) - TAMANHO: M;4;0
+BF3E4-3060;[COMERCIAL - 91] QFS Argentina - Verbatim e Canceled - TAMANHO: G;6;3
+BF3E4-3075;[COMERCIAL - 92] QFS Global - Analytics Restricted e Population - TAMANHO: M;4;1
+BF3E4-3084;[COMERCIAL - 93] QFS Global - Analytics - TAMANHO: M;4;0
+BF3E4-3091;[COMERCIAL - 94] QFS Legacy - Dashboards e Atributos - TAMANHO: M;6;0
+BF3E4-3100;[COMERCIAL - 95] QFS Legacy - Base - TAMANHO: M;4;0
+BF3E4-3107;[COMERCIAL - 96] QFS Legacy - Testes e Logs - TAMANHO: M;4;0
+BF3E4-3114;[COMERCIAL - 97] Entidade: Sigma - TAMANHO: P;1;0
+BF3E4-91;[COMPRAS - 1] Entidade: Datamart Tratativa - Parte 1 (Dimensões Básicas 1-4) - TAMANHO: G;4;6
+BF3E4-107;[COMPRAS - 2] Entidade: Datamart Tratativa - Parte 2 (Dimensões Básicas 5-8) - TAMANHO: G;4;6
+BF3E4-149;[COMPRAS - 3] Entidade: Datamart Tratativa - Parte 3 (Fornecedores e Materiais) - TAMANHO: G;3;6
+BF3E4-163;[COMPRAS - 4] Entidade: Datamart Tratativa - Parte 4 (Documentos de Compra) - TAMANHO: G;4;6
+BF3E4-177;[COMPRAS - 5] Entidade: Datamart Tratativa - Parte 5 (Curva de Compra Base - Curva, Histórico e Causais) - TAMANHO: G;4;6
+BF3E4-191;[COMPRAS - 6] Entidade: Datamart Tratativa - Parte 6 (Curva de Compra Mensal e Despivotada) - TAMANHO: M;0;6
+BF3E4-199;[COMPRAS - 7] Entidade: Datamart Tratativa - Parte 7 (Variação e Programação) - TAMANHO: G;3;7
+BF3E4-213;[COMPRAS - 8] Entidade: Datamart Tratativa - Parte 8 (APV - Análise Preço Volume) - TAMANHO: G;5;5
+BF3E4-230;[COMPRAS - 9] Entidade: RDA (Requisição de Autorização) - TAMANHO: G;1;6
+BF3E4-239;[COMPRAS - 10] Entidade: Estrutura Veicular - TAMANHO: P;1;1
+BF3E4-245;[COMPRAS - 11] Entidade: Flow Causais (MySQL) - TAMANHO: M;4;2
+BF3E4-256;[COMPRAS - 12] Entidade: Integração TM1 (IBM Planning Analytics) - TAMANHO: P;1;1
+BF3E4-263;[COMPRAS - 13] Entidade: Integração Power BI (Material Indireto) - TAMANHO: G;0;0
+BF3E4-782;[FINANCE - 2] Entidade: NFe Entrada FPT - TAMANHO: M;4;1
+BF3E4-796;[FINANCE - 3] Entidade: NFe Entrada CMA - TAMANHO: M;4;1
+BF3E4-810;[FINANCE - 4] Entidade: NFe Entrada CMP - TAMANHO: M;4;1
+BF3E4-824;[FINANCE - 5] Entidade: NFe Entrada PCMA - TAMANHO: M;4;1
+BF3E4-838;[FINANCE - 6] Entidade: NFe Entrada Teksid - TAMANHO: M;4;1
+BF3E4-852;[FINANCE - 7] Entidade: CTe Entrada FIAT - TAMANHO: M;4;1
+BF3E4-866;[FINANCE - 8] Entidade: CTe Entrada FPT - TAMANHO: M;4;1
+BF3E4-880;[FINANCE - 9] Entidade: CTe Entrada CMA - TAMANHO: M;4;1
+BF3E4-894;[FINANCE - 10] Entidade: CTe Entrada CMP - TAMANHO: M;4;1
+BF3E4-908;[FINANCE - 11] Entidade: CTe Entrada PCMA - TAMANHO: M;4;1
+BF3E4-922;[FINANCE - 12] Entidade: CTe Entrada Teksid - TAMANHO: M;4;1
+BF3E4-936;[FINANCE - 13] Entidade: NFe/CTe Saída FIAT - TAMANHO: M;4;2
+BF3E4-951;[FINANCE - 14] Entidade: NFe/CTe Saída FPT - TAMANHO: G;4;3
+BF3E4-967;[FINANCE - 15] Entidade: NFe/CTe Saída CMA - TAMANHO: M;4;0
+BF3E4-979;[FINANCE - 16] Entidade: NFe/CTe Saída CMP - TAMANHO: M;4;0
+BF3E4-991;[FINANCE - 17] Entidade: NFe/CTe Saída PCMA - TAMANHO: M;4;0
+BF3E4-1003;[FINANCE - 18] Entidade: NFe/CTe Saída Teksid - TAMANHO: M;4;0
+BF3E4-1015;[FINANCE - 19] Entidade: Manifesto Destinatário e Elog - TAMANHO: P;2;0
+BF3E4-1023;[FINANCE - 20] Entidade: User Parameters TaxOpe - Parte 1 - TAMANHO: M;5;1
+BF3E4-1039;[FINANCE - 21] Entidade: User Parameters TaxOpe - Parte 2 (CNPJs e Argentina) - TAMANHO: G;6;1
+BF3E4-1056;[FINANCE - 22] Entidade: User Parameters TaxOpe - Parte 3 (Estabelecimento e Fornecedor) - TAMANHO: G;6;4
+BF3E4-1076;[FINANCE - 23] Entidade: Recuperação Fiscal - Carga Fria - TAMANHO: G;3;5
+BF3E4-1083;[FINANCE - 24] Entidade: Interfaces SAP ZRFI - Parte 1 (410, 430, 431) - TAMANHO: G;3;3
+BF3E4-1098;[FINANCE - 25] Entidade: Interfaces SAP ZRFI - Parte 2 (440, 441, 442, 300) - TAMANHO: G;4;4
+BF3E4-1111;[FINANCE - 26] Entidade: Cloud Functions Storage Trigger - Parte 1 - TAMANHO: G;9;0
+BF3E4-1130;[FINANCE - 27] Entidade: Cloud Functions Storage Trigger - Parte 2 - TAMANHO: G;7;0
+BF3E4-1154;[FINANCE - 28] Entidade: Cloud Functions Storage Trigger - Parte 3 - TAMANHO: P;1;1
+BF3E4-1176;[FINANCE - 29] Entidade: SAP Hana Conciliação - Cloud Functions Storage Trigger - TAMANHO: M;2;2
+BF3E4-1191;[FINANCE - 30] Entidade: Padrões Fisco Argentina - Storage Trigger - Parte 1 - TAMANHO: G;10;0
+BF3E4-1209;[FINANCE - 31] Entidade: Padrões Fisco Argentina - Storage Trigger - Parte 2 - TAMANHO: G;9;0
+BF3E4-1232;[FINANCE - 32] Entidade: Análise Alíquota Mensal e Novos Fornecedores - TAMANHO: G;6;4
+BF3E4-1244;[FINANCE - 33] Entidade: Análises Divergências Padrões Argentina - Parte 1 - TAMANHO: P;2;2
+BF3E4-1256;[FINANCE - 34] Entidade: Classificação Outros Ingressos Argentina - TAMANHO: G;5;3
+BF3E4-1262;[FINANCE - 35] Entidade: User Parameters TaxOpe - Parte 4 (De-Para Estabelecimento) - TAMANHO: P;1;0
+BF3E4-1270;[FINANCE - 36] Entidade: Recuperação Fiscal - Garantia e Bonus - TAMANHO: M;3;2
+BF3E4-1293;[FINANCE - 37] Entidade: Recuperação Fiscal - Outros Processos Parte 2 - TAMANHO: M;2;2
+BF3E4-1306;[FINANCE - 38] Entidade: Análises Divergências Padrões CABA e Entre Rios - TAMANHO: M;3;3
+BF3E4-1323;[FINANCE - 39] Entidade: Análises Divergências Padrões Argentina - Parte 2 - TAMANHO: G;5;5
+BF3E4-1344;[FINANCE - 40] Entidade: Análises Divergências Padrões Argentina - Parte 3 - TAMANHO: G;4;4
+BF3E4-1359;[FINANCE - 41] Entidade: Tax NF Head e Customaterial - TAMANHO: M;3;2
+BF3E4-1392;[FINANCE - 42] Entidade: Recuperação Fiscal - Advertising - TAMANHO: M;3;2
+BF3E4-1419;[FINANCE - 43] Entidade: Recuperação Fiscal - Frete - TAMANHO: G;2;4
+BF3E4-1440;[FINANCE - 44] Entidade: Recuperação Fiscal - Outros Processos Parte 1 - TAMANHO: G;5;4
+BF3E4-1464;[FINANCE - 45] Entidade: Análise IPI Rota 20/30 e Apurações - TAMANHO: G;4;4
+BF3E4-1483;[FINANCE - 46] Entidade: Análise Malha Fina - TAMANHO: G;4;3
+BF3E4-1502;[FINANCE - 47] Entidade: Vinculação NFe/CTe - TAMANHO: G;4;4
+BF3E4-1518;[FINANCE - 48] Entidade: TPC Integração AWS/Azure via DataStage - Parte 1 - TAMANHO: G;9;0
+BF3E4-1526;[FINANCE - 49] Entidade: TPC Integração AWS/Azure via DataStage - Parte 2 - TAMANHO: G;8;0
+BF3E4-1529;[FINANCE - 50] Entidade: TPC Integração AWS/Azure via DataStage - Parte 3 - TAMANHO: G;9;0
+BF3E4-1532;[FINANCE - 51] Entidade: TPC Integração AWS/Azure via DataStage - Parte 3 - TAMANHO: G;8;0
+BF3E4-331;[MOPAR - 2] Assunto: Bonus - TAMANHO: G;6;3
+BF3E4-345;[MOPAR - 3] Assunto: Claim Master - TAMANHO: M;5;1
+BF3E4-355;[MOPAR - 4] Assunto: Comissionamento DFS - TAMANHO: G;7;3
+BF3E4-374;[MOPAR - 5] Assunto: CSPS - TAMANHO: G;7;0
+BF3E4-385;[MOPAR - 6] Assunto: CSPS - TAMANHO: M;2;3
+BF3E4-399;[MOPAR - 7] Assunto: Mopar Results - TAMANHO: M;2;0
+BF3E4-409;[MOPAR - 8] Assunto: NDC - Parte 1 (Tabelas 1-4) - TAMANHO: G;6;3
+BF3E4-422;[MOPAR - 9] Assunto: NDC - Parte 2 - TAMANHO: G;6;3
+BF3E4-435;[MOPAR - 10] Assunto: NDC - Parte 3 - TAMANHO: M;4;2
+BF3E4-445;[MOPAR - 11] Assunto: SCP - Parte 1 (Garantia SG e Item) - TAMANHO: M;4;2
+BF3E4-456;[MOPAR - 12] Assunto: SCP - Parte 2 (Operação e Peça) - TAMANHO: M;4;2
+BF3E4-467;[MOPAR - 13] Assunto: SCP - Parte 3 (Débitos) - TAMANHO: M;4;2
+BF3E4-478;[MOPAR - 14] Assunto: Sell IN xF e xP - TAMANHO: G;8;2
+BF3E4-492;[MOPAR - 15] Assunto: SELL OUT xF e xP - TAMANHO: G;0;10
+BF3E4-501;[MOPAR - 16] Assunto: Veiculo Conectado - TAMANHO: G;2;6
+BF3E4-511;[MOPAR - 17] Assunto: Ingestão Staging - SG Liquidadas e Estornadas - TAMANHO: M;4;0
+BF3E4-521;[MOPAR - 18] Assunto: Ingestão Staging - Claims e Erros SG - TAMANHO: P;2;0
+BF3E4-528;[MOPAR - 19] Assunto: Ingestão Staging - User Parameters Flow API - TAMANHO: G;8;0
+BF3E4-541;[MOPAR - 20] Assunto: Ingestão Staging - IRPV, Red Dealers e Devoluções - TAMANHO: M;6;0
+BF3E4-556;[MOPAR - 21] Assunto: Ingestão Staging - Carga Fria e RAM - TAMANHO: P;2;0
+BF3E4-563;[MOPAR - 22] Assunto: SG Liquidadas - Principal e Itens - TAMANHO: G;6;4
+BF3E4-584;[MOPAR - 23] Assunto: SG Liquidadas - Operações, Desenhos e Cubo - TAMANHO: G;4;3
+BF3E4-599;[MOPAR - 24] Assunto: Claims GCS - TAMANHO: P;1;1
+BF3E4-605;[MOPAR - 25] Assunto: Erros SG - TAMANHO: P;1;1
+BF3E4-611;[MOPAR - 26] Assunto: User Parameters - Tipos, Anomalias, Estorno, Budget - TAMANHO: G;4;4
+BF3E4-623;[MOPAR - 27] Assunto: User Parameters - Grupos, Local, Operações, Tesis - TAMANHO: M;4;0
+BF3E4-631;[MOPAR - 28] Assunto: Garantia Revisões DataStage - TAMANHO: P;1;1
+BF3E4-638;[MOPAR - 29] Assunto: IRPV MySQL - TAMANHO: M;3;3
+BF3E4-651;[MOPAR - 30] Assunto: IRPV2 Consolidação - TAMANHO: P;1;1
+BF3E4-657;[MOPAR - 31] Assunto: Red Dealers - TAMANHO: M;2;2
+BF3E4-667;[MOPAR - 32] Assunto: Click - Parte 1 (Armazém e Estoque) - TAMANHO: G;8;2
+BF3E4-681;[MOPAR - 33] Assunto: Click - Parte 2 (Pedidos, Notas e Faturamento) - TAMANHO: G;8;2
+BF3E4-695;[MOPAR - 34] Assunto: Click - Parte 3 (Transporte, Viagens e Volumes) - TAMANHO: G;6;4
+BF3E4-709;[MOPAR - 35] Assunto: Click - Parte 4 (Produtos e Estatísticas) - TAMANHO: G;6;2
+BF3E4-721;[MOPAR - 36] Assunto: Click - Parte 5 (Produtos e Estatísticas) - TAMANHO: G;4;4
+BF3E4-733;[MOPAR - 37] Assunto: Click - Parte 5 (Produtos e Estatísticas) - TAMANHO: G;6;3
+BF3E4-760;[MOPAR - 39] Assunto: Click - Parte 6 - TAMANHO: P;4;2
+BF3E4-760;[MOPAR - 39] Assunto: Click - Parte 6 - TAMANHO: P;2;1
+BF3E4-3126;[RH - 2] Entidade: Vetorh - Cargos e Vínculos - TAMANHO: G;10;0
+BF3E4-3158;[RH - 3] Entidade: Vetorh - Dados de Colaboradores Parte 1 - TAMANHO: G;10;0
+BF3E4-3173;[RH - 4] Entidade: Vetorh - View PCD - TAMANHO: P;0;1
+BF3E4-3177;[RH - 5] Entidade: Vetorh - Históricos de Movimentação - TAMANHO: G;10;0
+BF3E4-3191;[RH - 6] Entidade: Vetorh - Ponto e Jornada Parte 1 - TAMANHO: G;10;0
+BF3E4-3206;[RH - 7] Entidade: Vetorh - Ponto e Jornada Parte 2 - TAMANHO: P;2;0
+BF3E4-3212;[RH - 8] Entidade: Vetorh - Saúde e Segurança Parte 1 - TAMANHO: G;10;0
+BF3E4-3227;[RH - 9] Entidade: Vetorh - Saúde e Segurança Parte 2 + View Marcações - TAMANHO: P;1;1
+BF3E4-3233;[RH - 10] Entidade: Vetorh - Saúde e Segurança Parte 3 + Views Acidentes - TAMANHO: G;8;2
+BF3E4-3248;[RH - 11] Entidade: Vetorh - Medicina do Trabalho Parte 1 - TAMANHO: G;9;0
+BF3E4-3262;[RH - 12] Entidade:  Vetorh - Views Absenteísmo e Medicina - TAMANHO: P;0;3
+BF3E4-3268;[RH - 13] Entidade: Vetorh - Treinamento - TAMANHO: G;8;0
+BF3E4-3282;[RH - 14] Entidade: Vetorh - Views Medicina Analytics - TAMANHO: P;0;2
+BF3E4-3287;[RH - 15] Entidade: Vetorh - Riscos Ambientais - TAMANHO: G;9;0
+BF3E4-3301;[RH - 16] Entidade: Vetorh - Tabelas Usuário Parte 1 - TAMANHO: G;7;1
+BF3E4-3314;[RH - 17] Entidade: Vetorh - Tabelas Usuário Parte 2 + Views Manufacturing - TAMANHO: G;3;4
+BF3E4-3326;[RH - 18] Entidade: Vetorh - Tabelas Usuário Parte 3 - TAMANHO: G;7;0
+BF3E4-3338;[RH - 19] Entidade: Vetorh - Tabelas Usuário Parte 4 + Views HRBP - TAMANHO: G;7;3
+BF3E4-3354;[RH - 20] Entidade: Vetorh - Tabelas Usuário Parte 5 + Views Qualidade - TAMANHO: M;5;1
+BF3E4-3365;[RH - 21] Entidade: Vetorh - Tabelas Usuário Finais + Views Cross Parte 1 - TAMANHO: G;8;2
+BF3E4-3381;[RH - 22] Entidade: Vetorh - Views Cross Parte 2 (Dependem de H18-21) - TAMANHO: G;0;10
+BF3E4-3394;[RH - 23] Entidade: Vetorh - Views People Analytics - TAMANHO: M;0;6
+BF3E4-3403;[RH - 24] Entidade: Vetorh - Views Medicina e Saúde - TAMANHO: G;0;7
+BF3E4-3413;[RH - 25] Entidade: Vetorh - Views Segurança e Facilities - TAMANHO: M;0;5
+BF3E4-3421;[RH - 26] Entidade: Vetorh - Views Manufacturing - TAMANHO: G;0;8
+BF3E4-3432;[RH - 27] Entidade: Vetorh - Views Qualidade e Compliance - TAMANHO: G;0;8
+BF3E4-3443;[RH - 28] Entidade: Vetorh - Views NEA e Teletrabalho - TAMANHO: M;0;5
+BF3E4-3451;[RH - 29] Entidade: Vetorh - Views Cross-FSE Rubi e SOI (Final) - TAMANHO: G;0;7
+BF3E4-3461;[RH - 30] Entidade: Vetorh - Views Talent Acquisition - TAMANHO: G;0;9
+BF3E4-3473;[RH - 31] Entidade: Vetorh R066sit Online - TAMANHO: P;1;0
+BF3E4-3480;[RH - 32] Entidade: Vetorh R070acc Online - TAMANHO: P;1;0
+BF3E4-3487;[RH - 33] Entidade: Vetorh R086cat Online - TAMANHO: P;1;0
+BF3E4-3494;[RH - 34] Entidade: Vetorh R066apu (Sequences) - TAMANHO: P;1;0
+BF3E4-3501;[RH - 35] Entidade: Vetorh R066sit (Sequences) - TAMANHO: P;1;0
+BF3E4-3508;[RH - 36] Entidade: ELAW Processos - TAMANHO: M;2;2
+BF3E4-3517;[RH - 37] Entidade: ELAW Bloqueio - TAMANHO: P;2;0
+BF3E4-3523;[RH - 38] Entidade: ELAW Acordo - TAMANHO: M;2;2
+BF3E4-3532;[RH - 39] Entidade: ELAW Andamento - TAMANHO: P;2;0
+BF3E4-3539;[RH - 40] Entidade: ELAW Audiência - TAMANHO: M;2;2
+BF3E4-3548;[RH - 41] Entidade: ELAW Centro de Custo - TAMANHO: M;2;2
+BF3E4-3557;[RH - 42] Entidade: ELAW Decisão - TAMANHO: M;2;2
+BF3E4-3566;[RH - 43] Entidade: ELAW Garantia - TAMANHO: M;2;2
+BF3E4-3575;[RH - 44] Entidade: ELAW Levantamento - TAMANHO: P;2;0
+BF3E4-3582;[RH - 45] Entidade: ELAW OBF - TAMANHO: P;2;0
+BF3E4-3589;[RH - 46] Entidade: ELAW Pagamento - TAMANHO: P;2;0
+BF3E4-3596;[RH - 47] Entidade: ELAW Pauta - TAMANHO: P;2;0
+BF3E4-3603;[RH - 48] Entidade: ELAW Perícia - TAMANHO: M;2;2
+BF3E4-3612;[RH - 49] Entidade: ELAW Recebimento - TAMANHO: P;2;0
+BF3E4-3619;[RH - 50] Entidade: ELAW Recurso - TAMANHO: P;2;0
+BF3E4-3626;[RH - 51] Entidade: ELAW Reserva - TAMANHO: P;2;0
+BF3E4-3635;[RH - 52] Entidade: ELAW Tutela - TAMANHO: P;2;0
+BF3E4-3642;[RH - 53] Entidade: ELAW Valores Pedidos - TAMANHO: G;2;6
+BF3E4-3655;[RH - 54] Entidade: ELAW Valores Totais - TAMANHO: P;2;0
+BF3E4-3662;[RH - 55] Entidade: Espaider - TAMANHO: G;4;3
+BF3E4-3673;[RH - 56] Entidade: Elaw - Índice de Judicialização (Analytics Cross-Domain) - TAMANHO: P;0;3
+BF3E4-3679;[RH - 57] Entidade: iTransport Itinerary Performance - TAMANHO: P;2;0
+BF3E4-3685;[RH - 58] Entidade: iTransport Unit Arrival - TAMANHO: P;2;0
+BF3E4-3692;[RH - 59] Entidade: iTransport Arrival To Garage - TAMANHO: P;2;0
+BF3E4-3699;[RH - 60] Entidade: iTransport Punctuality Vehicle - TAMANHO: P;2;0
+BF3E4-3706;[RH - 61] Entidade: iTransport User Presence - TAMANHO: P;2;0
+BF3E4-3713;[RH - 62] Entidade: Absenteismo - TAMANHO: G;1;8
+BF3E4-3728;[RH - 63] Entidade: Org Design Lider Substituto - TAMANHO: P;2;1
+BF3E4-3738;[RH - 64] Entidade: People Analytics Restricted R048 - TAMANHO: P;2;0
+BF3E4-3746;[RH - 65] Entidade: Learning - Carga desconhecida - TAMANHO: P;2;0
+BF3E4-3752;[RH - 66] Entidade: Learning Completed Training (Ano Corrente) - TAMANHO: P;2;2
+BF3E4-3764;[RH - 67] Entidade: People_Analytics_Restricted - Carga desconhecida - TAMANHO: P;3;0
+BF3E4-3770;[RH - 68] Entidade: People_Analytics - Diversity - TAMANHO: P;4;0
+BF3E4-3779;[RH - 69] Entidade: Talent_Acquisition - Lote 1 - TAMANHO: P;2;0
+BF3E4-3785;[RH - 70] Entidade: External Tables - Lote 1 - TAMANHO: G;4;4
+BF3E4-3793;[RH - 71] Entidade: External Tables - Lote 2 - TAMANHO: G;6;3
+BF3E4-3800;[RH - 72] Entidade: External Tables - Lote 3 - TAMANHO: P;1;2
+BF3E4-4694;[SHARED SERVICES - 1] Entidade: Rubi - Empresas e Filiais - Parte 1 (Cadastros Principais) - TAMANHO: G;5;5
+BF3E4-4709;[SHARED SERVICES - 2] Entidade: Rubi - Calendário e Feriados - TAMANHO: P;2;0
+BF3E4-4714;[SHARED SERVICES - 3] Entidade: Rubi - Escalas e Eventos de Folha - TAMANHO: G;4;4
+BF3E4-4726;[SHARED SERVICES - 4] Entidade: Rubi - Situações e Sindicatos - TAMANHO: G;3;4
+BF3E4-4737;[SHARED SERVICES - 5] Entidade: Rubi - Estrutura Organizacional (Organograma) - TAMANHO: G;3;6
+BF3E4-4750;[SHARED SERVICES - 6] Entidade: Rubi - Postos de Trabalho, Centros de Custo e Deficiências - TAMANHO: G;3;5
+BF3E4-4762;[SHARED SERVICES - 7] Entidade: Rubi - Cadastros de Grau de Instrução, Vínculos e Nacionalidades - TAMANHO: G;3;6
+BF3E4-4775;[SHARED SERVICES - 8] Entidade: Rubi - Cargos e CBO (Classificação Brasileira de Ocupações) - TAMANHO: M;2;2
+BF3E4-4783;[SHARED SERVICES - 9] Entidade: Rubi - FPAS e Terceiros (Previdência Social) - TAMANHO: G;3;2
+BF3E4-4792;[SHARED SERVICES - 10] Entidade: Rubi - Empresas e Filiais - Parte 2 (Liminares) - TAMANHO: G;3;7
+BF3E4-4806;[SHARED SERVICES - 11] Entidade: Rubi - Empresas e Filiais - Parte 3 (Views Analíticas Restantes) - TAMANHO: M;0;4
+BF3E4-4813;[SHARED SERVICES - 12] Entidade: Rubi - Outras Empresas e Anuidades de Colaboradores - TAMANHO: M;2;4
+BF3E4-4823;[SHARED SERVICES - 13] Entidade: Rubi - Ficha Complementar e Informações de Estágio - TAMANHO: M;2;6
+BF3E4-4835;[SHARED SERVICES - 14] Entidade: Rubi - Percentuais Livres do Empregado - TAMANHO: P;1;2
+BF3E4-4842;[SHARED SERVICES - 15] Entidade: Rubi - Ficha Básica do Colaborador - TAMANHO: G;1;8
+BF3E4-4855;[SHARED SERVICES - 16] Entidade: Rubi - Históricos de Colaboradores - Parte 1 - TAMANHO: G;3;7
+BF3E4-4869;[SHARED SERVICES - 17] Entidade: Rubi - Históricos de Colaboradores - Parte 2 - TAMANHO: G;3;7
+BF3E4-4883;[SHARED SERVICES - 18] Entidade: Rubi - Históricos de Colaboradores - Parte 3 - TAMANHO: G;4;6
+BF3E4-4897;[SHARED SERVICES - 19] Entidade: Rubi - Históricos de Colaboradores - Parte 4 - TAMANHO: G;0;7
+BF3E4-4907;[SHARED SERVICES - 20] Entidade: Rubi - Afastamentos de Colaboradores - TAMANHO: P;1;3
+BF3E4-4915;[SHARED SERVICES - 21] Entidade: Rubi - Férias - Parte 1 (Recibos e Períodos) - TAMANHO: M;2;4
+BF3E4-4925;[SHARED SERVICES - 22] Entidade: Rubi - Férias - Parte 2 (Programação) - TAMANHO: P;1;3
+BF3E4-4933;[SHARED SERVICES - 23] Entidade: Rubi - Causas de Demissão - TAMANHO: P;1;2
+BF3E4-4940;[SHARED SERVICES - 24] Entidade: Rubi - Rescisão - Parte 1 (Mestre e Complementar) - TAMANHO: M;2;4
+BF3E4-4950;[SHARED SERVICES - 25] Entidade: Rubi - Rescisão - Parte 2 (Eventos) - TAMANHO: M;1;3
+BF3E4-4958;[SHARED SERVICES - 26] Entidade: Rubi - Códigos de Cálculo - TAMANHO: P;1;2
+BF3E4-4965;[SHARED SERVICES - 27] Entidade: Rubi - Movimento para Folha - TAMANHO: M;1;2
+BF3E4-4972;[SHARED SERVICES - 28] Entidade: Rubi - Informações Demonstrativo Pagamento - TAMANHO: P;1;0
+BF3E4-4976;[SHARED SERVICES - 29] Entidade: Rubi - Ficha Financeira (PARTICIONADA CRÍTICA) - TAMANHO: G;1;6
+BF3E4-4987;[SHARED SERVICES - 30] Entidade: Rubi - Códigos Lançamento Contábil e Naturezas de Despesa - TAMANHO: M;2;4
+BF3E4-4997;[SHARED SERVICES - 31] Entidade: Rubi - Contabilização (PARTICIONADA) - TAMANHO: M;1;3
+BF3E4-5005;[SHARED SERVICES - 32] Entidade: Rubi - Dados Geográficos (Bairros, Cidades, Países) - TAMANHO: G;3;6
+BF3E4-5018;[SHARED SERVICES - 33] Entidade: Rubi - Motivos de Movimentação - TAMANHO: P;1;2
+BF3E4-5025;[SHARED SERVICES - 34] Entidade: Rubi - Ficha Médica e Deficiências - TAMANHO: M;2;4
+BF3E4-5035;[SHARED SERVICES - 35] Entidade: Rubi - eSocial - Pendências - TAMANHO: P;1;2
+BF3E4-5042;[SHARED SERVICES - 36] Entidade: Rubi - eSocial - Status (PARTICIONADAS STAGING) - TAMANHO: M;2;4
+BF3E4-5052;[SHARED SERVICES - 37] Entidade: Rubi - Listas Definidas pelo Usuário - TAMANHO: M;2;5
+BF3E4-5062;[SHARED SERVICES - 38] Entidade: Rubi - Tabelas Usuário - Crédito Bancário - TAMANHO: G;7;1
+BF3E4-5074;[SHARED SERVICES - 39] Entidade: Rubi - Tabelas Usuário - Cronograma e Registro de Encargos - TAMANHO: G;9;1
+BF3E4-5088;[SHARED SERVICES - 40] Entidade: Rubi - Views Analíticas RH - Parte 1 - TAMANHO: M;0;6
+BF3E4-5097;[SHARED SERVICES - 41] Entidade: Rubi - Views Analíticas Especiais e Integração Qlik - TAMANHO: M;0;2
+BF3E4-5102;[SHARED SERVICES - 42] Entidade: Rubi - Tabelas Schema-Only / GTS Analytics - TAMANHO: G;10;0
+BF3E4-5114;[SHARED SERVICES - 43] Entidade: Rubi - Tabelas Schema-Only - Lote 2 - TAMANHO: G;8;0
+BF3E4-5124;[SHARED SERVICES - 44] Entidade: CIC - Controle de Compensação - TAMANHO: P (MUDAR PARA G);2;1
+BF3E4-5133;[SHARED SERVICES - 45] Entidade: Egate - Notas Fiscais de Serviço e Gestão BP - TAMANHO: M;2;2
+BF3E4-5141;[SHARED SERVICES - 46] Entidade: Egate - Movimentação e Entrada de Notas - TAMANHO: P;2;0
+BF3E4-5147;[SHARED SERVICES - 47] Entidade: Egate - Complemento de Preço e Garantias - TAMANHO: P;3;0
+BF3E4-5154;[SHARED SERVICES - 48] Entidade: Egate - Refaturamento - TAMANHO: P;1;0
+BF3E4-5159;[SHARED SERVICES - 49] Entidade: Logs de SLA de Itens - Portal GT - TAMANHO: P;1;0
+BF3E4-5163;[SHARED SERVICES - 50] Entidade: Documentos Fiscais TaxOne - Ingestão API Síncrona - TAMANHO: G;8;0
+BF3E4-5174;[SHARED SERVICES - 51] Entidade: Documentos Fiscais TaxOne - Views Analíticas - TAMANHO: M;0;4
+BF3E4-5181;[SHARED SERVICES - 52] Entidade: Tabelas Manuais - TAMANHO: P;3;0
+BF3E4-5186;[SHARED SERVICES - 53] Entidade: Workday - Dados Pessoais, Remuneração, Benefícios e Financeiro - Ingestão Base - TAMANHO: G;8;0
+BF3E4-5200;[SHARED SERVICES - 54] Entidade: Workday - Contratação e Organização - Ingestão Base - TAMANHO: G;6;3
+BF3E4-5213;[SHARED SERVICES - 55] Entidade: Workday - Dados Pessoais, Remuneração, Benefícios e Financeiro - Views Analíticas - TAMANHO: M;0;5
+BF3E4-5221;[SHARED SERVICES - 56] Entidade: Workday - Views Normalized - Dados Pessoais Parte 1 - TAMANHO: G;0;9
+BF3E4-5233;[SHARED SERVICES - 57] Entidade: Workday - Views Normalized - Contratação - TAMANHO: M;0;6
+BF3E4-5242;[SHARED SERVICES - 58] Entidade: Workday - Views Normalized - Estrutura Organizacional Parte 1 - TAMANHO: G;0;6
+BF3E4-5251;[SHARED SERVICES - 59] Entidade: Workday - Views Normalized - Estrutura Organizacional Parte 2 - TAMANHO: M;0;5
+BF3E4-5259;[SHARED SERVICES - 60] Entidade: Workday - Views Normalized - Movimentação de Pessoal Parte 1 - TAMANHO: G;0;7
+BF3E4-5269;[SHARED SERVICES - 61] Entidade: Workday - Views Normalized - Movimentação de Pessoal Parte 2 - TAMANHO: G;0;7
+BF3E4-5279;[SHARED SERVICES - 62] Entidade: Workday - Views Normalized - Remuneração Parte 1 - TAMANHO: G;0;7
+BF3E4-5289;[SHARED SERVICES - 63] Entidade: Workday - Views Normalized - Remuneração Parte 2 - TAMANHO: P;0;3
+BF3E4-5295;[SHARED SERVICES - 64] Entidade: Workday - Views Normalized - Benefícios Parte 1 - TAMANHO: G;0;8
+BF3E4-5306;[SHARED SERVICES - 65] Entidade: Workday - Views Normalized - Desligamento - TAMANHO: P;0;3
+BF3E4-5312;[SHARED SERVICES - 66] Entidade: Workday - Views Analytics - Remuneração e Desligamento - TAMANHO: M;0;1
+BF3E4-5316;[SHARED SERVICES - 67] Entidade: SOI - Tabelas Base (Family Members, PLM, WT8) - TAMANHO: P;3;0
+BF3E4-5322;[SHARED SERVICES - 68] Entidade: SOI - Tabelas Particionadas (Basic Data, Local Data, Actions) - TAMANHO: P;3;0
+BF3E4-5328;[SHARED SERVICES - 69] Entidade: SOI - Tabelas de Configuração - TAMANHO: G;10;0
+BF3E4-5340;[SHARED SERVICES - 70] Entidade: SOI - Tabelas de Configuração - Parte 2 - TAMANHO: G;10;0
+BF3E4-5352;[SHARED SERVICES - 71] Entidade: SOI - Tabelas de Configuração - Parte 3 - TAMANHO: G;9;0
+BF3E4-5363;[SHARED SERVICES - 72] Entidade: SOI - Tabelas de Staging (Schema Only) - Parte 4 - TAMANHO: G;3;0
+BF3E4-5368;[SHARED SERVICES - 73] Entidade: SOI - Views Base (Check Grupo FCA) - TAMANHO: P;0;2
+BF3E4-5373;[SHARED SERVICES - 74] Entidade: SOI - Views Primárias FCA_RH_SOI - Parte 1 (PSA e Dados Base) - TAMANHO: G;0;10
+BF3E4-5386;[SHARED SERVICES - 75] Entidade: SOI - Views Primárias FCA_RH_SOI - Parte 2 (Basic Data) - TAMANHO: M;0;4
+BF3E4-5394;[SHARED SERVICES - 76] Entidade: SOI - Views de Validação e Check - TAMANHO: M;0;5
+BF3E4-5402;[SHARED SERVICES - 77] Entidade: SOI - Views de Employee Data - TAMANHO: M;0;4
+BF3E4-5409;[SHARED SERVICES - 78] Entidade: SOI - Views de Forecast e Budget - TAMANHO: P;0;2
+BF3E4-5414;[SHARED SERVICES - 79] Entidade: SOI - Views Stellantis Employee - Parte 1 (Core) - TAMANHO: G;0;6
+BF3E4-5423;[SHARED SERVICES - 80] Entidade: SOI - Views Stellantis Employee - Parte 2 (Especializadas) - TAMANHO: G;0;8
+BF3E4-5434;[SHARED SERVICES - 81] Entidade: SOI - Views Stellantis Especiais (FLUA, Apps, Manufatura) - TAMANHO: G;0;8
+BF3E4-5445;[SHARED SERVICES - 82] Entidade: SOI - Views de Liderança e Índices - TAMANHO: P;0;3
+BF3E4-5451;[SHARED SERVICES - 83] Entidade: SOI - Views Analíticas de Consumo (Datasets Especializados) - TAMANHO: G;0;10
+BF3E4-5464;[SHARED SERVICES - 84] Entidade: CROSS - Views de Validação e Check de Erros - TAMANHO: P;0;3
+BF3E4-5470;[SHARED SERVICES - 85] Entidade: CROSS - Views de Budget e Forecast - TAMANHO: P;0;2
+BF3E4-5475;[SHARED SERVICES - 86] Entidade: CROSS - Views de Employee Data e People Analytics - TAMANHO: M;0;4
+BF3E4-5482;[SHARED SERVICES - 87] Entidade: HandsOn - Tabelas Base Handson (Formulários) - TAMANHO: M;2;0
+BF3E4-5489;[SHARED SERVICES - 89] Entidade: HandsOn - Tabelas de Processos Digitais (Offboarding) - TAMANHO: G;4;5
+BF3E4-5502;[SHARED SERVICES - 90] Entidade: HandsOn - Tabelas de Segurança (Security Card) - TAMANHO: M;0;3
+BF3E4-5508;[SHARED SERVICES - 91] Entidade: HandsOn - Dados Demográficos (Etnia, Gênero, Nome Social) - TAMANHO: G;5;5
+BF3E4-5522;[SHARED SERVICES - 92] Entidade: HandsOn - Processos Digitais Gerais - TAMANHO: P;2;1
+BF3E4-5529;[SHARED SERVICES - 93] Entidade: HandsOn - Dados PWD (Pessoa com Deficiência) - TAMANHO: M;2;2
+BF3E4-5537;[SHARED SERVICES - 94] Entidade: HandsOn - Tabelas Formulário Alternativas - TAMANHO: P;2;1
+BF3E4-5544;[SHARED SERVICES - 95] Entidade: HandsOn - Views de Controle e Variações - TAMANHO: P;0;3
+BF3E4-5550;[SHARED SERVICES - 96] Entidade: HandsOn - Views de Integração HRIS - TAMANHO: P;0;2
+BF3E4-5555;[SHARED SERVICES - 97] Entidade: HandsOn - Views de Integração HS Security Card - TAMANHO: P;0;3
+BF3E4-5561;[SHARED SERVICES - 98] Entidade: CROSS - Views de Liderança e Organização - TAMANHO: M;0;2
+BF3E4-5566;[SHARED SERVICES - 99] Entidade: CROSS - Views Stellantis (Diversity, Férias, Turnover) - TAMANHO: G;0;7
+BF3E4-5576;[SHARED SERVICES - 100] Entidade: CROSS - Views de Integração RUBI - TAMANHO: M;0;4
+BF3E4-5583;[SHARED SERVICES - 101] Entidade: CROSS - Views de Integração VetoRH - TAMANHO: M;0;5
+BF3E4-5591;[SHARED SERVICES - 102] Entidade: CROSS - Views de Serviços Especializados - TAMANHO: M;0;5
+BF3E4-5599;[SHARED SERVICES - 103] Entidade: COMPENSATION - Views de Budget, Espelho Contábil e Funcionários - TAMANHO: M;0;2
+BF3E4-5605;[SHARED SERVICES - 104] Entidade: COMPENSATION - Views Especializadas (Benefits, Horas Extras, Saturation) - TAMANHO: M;0;3
+BF3E4-5611;[SHARED SERVICES - 105] Entidade: COMPLIENCE - View de Hiring Monthly - TAMANHO: P;0;1
+BF3E4-5615;[SHARED SERVICES - 106] Entidade: CROSS - View de Check Erros Automático - TAMANHO: P;0;1
+BF3E4-5619;[SHARED SERVICES - 107] Entidade: ENDUSER - Views de Headcount e Turnover - TAMANHO: M;0;2
+BF3E4-5624;[SHARED SERVICES - 108] Entidade: HRBP - View de People Analytics Employee Data - TAMANHO: P;0;1
+BF3E4-5628;[SHARED SERVICES - 109] Entidade: HS - View de Lider Carteira Condução - TAMANHO: P;0;1
+BF3E4-5632;[SHARED SERVICES - 110] Entidade: JURIDICO ANALYTICS - Views de Índice de Judicialização - TAMANHO: P;0;2
+BF3E4-5636;[SHARED SERVICES - 111] Entidade: LABOUR RELATIONS - View de CBO Cota Aprendiz - TAMANHO: P;0;1
+BF3E4-5640;[SHARED SERVICES - 112] Entidade: LEARNING - Views de Turnover e Base Efetivos - TAMANHO: M;0;3
+BF3E4-5646;[SHARED SERVICES - 113] Entidade: MANUFACTURING SCBU - View de Headcount SCBU - TAMANHO: P;0;1
+BF3E4-5650;[SHARED SERVICES - 114] Entidade: MANUFATURA ANALYTICS - Views de Manufacturing - TAMANHO: P;0;3
+BF3E4-5656;[SHARED SERVICES - 115] Entidade: MANUFATURA ICT - View de Email Bluecollar - TAMANHO: P;0;1
+BF3E4-5660;[SHARED SERVICES - 116] Entidade: ORG DESIGN ANALYTICS - View de Masterfile - TAMANHO: M;0;4
+BF3E4-5667;[SHARED SERVICES - 117] Entidade: REAL STATE - View de Headcount Site - TAMANHO: P;0;1
+BF3E4-5671;[SHARED SERVICES - 118] Entidade: TALENT ACQUISITION - View de Turnover - TAMANHO: P;0;1
+BF3E4-5675;[SHARED SERVICES - 119] Entidade: TALENT MANAGEMENT - View de Turnover Enterview - TAMANHO: P;0;1
+BF3E4-5679;[SHARED SERVICES - 120] Entidade: WORKFORCE ANALYTICS - Views de Hiring, Turnover e Check Erros - TAMANHO: P;0;3
+BF3E4-5685;[SHARED SERVICES - 121] Entidade: Tabelas Manuais - Staging_CIW - TAMANHO: G;8;0
+BF3E4-5695;[SHARED SERVICES - 122] Entidade: Tabelas Manuais - CIW - TAMANHO: G;8;0
+BF3E4-5705;[SHARED SERVICES - 123] Entidade: Tabelas Manuais - FSE_HR e FSE_HRS - TAMANHO: G;10;0
+BF3E4-5717;[SHARED SERVICES - 124] Entidade: Tabelas Manuais - FSE_HRS - TAMANHO: G;10;0
+BF3E4-5729;[SHARED SERVICES - 125] Entidade: Tabelas Manuais - FSE_HRS Lote 2 - TAMANHO: G;8;0
+BF3E4-5739;[SHARED SERVICES - 126] Entidade: Tabelas e View Manuais - FSE_PI - TAMANHO: M;4;1
+BF3E4-5746;[SHARED SERVICES - 127] Entidade: Tabelas Manuais - FSE_TAX - TAMANHO: G;10;0
+BF3E4-5758;[SHARED SERVICES - 128] Entidade: Tabelas e Views Manuais Restantes - TAMANHO: G;3;4
+BF3E4-3817;[SUPPLY CHAIN - 2] Entidade: Movimentos Contábeis - Parte 1: Plantas FAASA, CKD e FIASA - TAMANHO: P;1;0
+BF3E4-3826;[SUPPLY CHAIN - 3] Entidade: Movimentos Contábeis - Parte 2: Plantas FIRE, JEEP e Mecânica - TAMANHO: M;1;2
+BF3E4-3837;[SUPPLY CHAIN - 4] Entidade: Posições de Estoque - Parte 1: Plantas JEEP, FAASA e FIASA - TAMANHO: P;1;0
+BF3E4-3846;[SUPPLY CHAIN - 5] Entidade: Posições de Estoque - Parte 2: Plantas FIRE e Mecânica - TAMANHO: M;1;2
+BF3E4-3855;[SUPPLY CHAIN - 6] Entidade: Cadastros e Pedidos Especiais - TAMANHO: M;3;6
+BF3E4-3870;[SUPPLY CHAIN - 7] Entidade: Notas Fiscais de Entrada - TAMANHO: M;3;2
+BF3E4-3880;[SUPPLY CHAIN - 8] Entidade: Tabelas Mestres - Áreas e Localizações - TAMANHO: M;4;6
+BF3E4-3895;[SUPPLY CHAIN - 9] Entidade: Views Dimensão - Compartimentos e Unidades - TAMANHO: M;0;4
+BF3E4-3902;[SUPPLY CHAIN - 10] Entidade: Etiquetas CIM - Parte 1: Plantas FIAPE, FIASA e Mecânica - TAMANHO: P;1;0
+BF3E4-3911;[SUPPLY CHAIN - 11] Entidade: Etiquetas CIM - Parte 2: Plantas FIRE e FAASA - TAMANHO: P;1;2
+BF3E4-3920;[SUPPLY CHAIN - 12] Entidade: Estoque por Desenho - Parte 1: FIASA Histórico e Current - TAMANHO: M;2;0
+BF3E4-3928;[SUPPLY CHAIN - 13] Entidade: Estoque por Desenho - Parte 2: FIAPE Histórico e Current - TAMANHO: M;2;0
+BF3E4-3935;[SUPPLY CHAIN - 14] Entidade: Estoque por Desenho - Parte 3: FAASA Histórico e Current - TAMANHO: M;2;0
+BF3E4-3942;[SUPPLY CHAIN - 15] Entidade: Estoque por Desenho - Parte 4: FIRE e Mecânica - TAMANHO: M;2;0
+BF3E4-3957;[SUPPLY CHAIN - 16] Entidade: Tabelas Auxiliares e Views Complementares - TAMANHO: G;4;5
+BF3E4-3971;[SUPPLY CHAIN - 17] Entidade: Rotas e Destinos Logísticos - TAMANHO: G;6;4
+BF3E4-3986;[SUPPLY CHAIN - 18] Entidade: Pedidos Logísticos e Itens - TAMANHO: G;6;4
+BF3E4-4002;[SUPPLY CHAIN - 19] Entidade: Inventário - Cabeçalho e Lotes - TAMANHO: G;4;4
+BF3E4-4016;[SUPPLY CHAIN - 20] Entidade: Inventário - Itens e Leituras - TAMANHO: G;4;4
+BF3E4-4029;[SUPPLY CHAIN - 21] Entidade: Recebimento e Transmissões - TAMANHO: G;4;4
+BF3E4-4042;[SUPPLY CHAIN - 22] Entidade: Conferência Física e MDR Part Number - TAMANHO: G;4;4
+BF3E4-4056;[SUPPLY CHAIN - 23] Entidade: Volumes de Expedição - TAMANHO: M;2;2
+BF3E4-4065;[SUPPLY CHAIN - 24] Entidade: QRCode e Repicking - TAMANHO: G;4;4
+BF3E4-4078;[SUPPLY CHAIN - 25] Entidade: Troca de Locação - TAMANHO: G;4;4
+BF3E4-4091;[SUPPLY CHAIN - 26] Entidade: Estado dos Conjuntos (SSOLQ051) - TAMANHO: P;1;2
+BF3E4-4098;[SUPPLY CHAIN - 27] Entidade: Cadastros Eventuais e Anagrafica (SSOLQ057, SSOLQ060, SSDCE001) - TAMANHO: G;3;6
+BF3E4-4112;[SUPPLY CHAIN - 28] Entidade: Cadastro de Desenhos por Estabelecimento (SSOLQ068) - TAMANHO: M;1;3
+BF3E4-4120;[SUPPLY CHAIN - 29] Entidade: Ordens e Características por Trecho (SSOLQ072, SSOLQ073, SSOLQ077) - TAMANHO: G;3;6
+BF3E4-4133;[SUPPLY CHAIN - 30] Entidade: Giro Diário de Consumo de Peças (SSOLQ110) - TAMANHO: M;1;2
+BF3E4-6211;[SUPPLY CHAIN - 31] Entidade: Giro Mensal de Consumo de Peças (SSOLQ130) - TAMANHO: G;1;2
+BF3E4-4148;[SUPPLY CHAIN - 32] Entidade: Consumos S-1 e Necessidades Brutas (SSOLQ134) - TAMANHO: P;1;2
+BF3E4-4155;[SUPPLY CHAIN - 33] Entidade: Produtos Acabados e Desenhos - Carga Diária (SSOLQ144, SSOLQ145) - TAMANHO: G;4;4
+BF3E4-4175;[SUPPLY CHAIN - 34] Entidade: Produtos Acabados e Desenhos - Carga Mensal (SSOLQ146, SSOLQ147) - TAMANHO: G;4;4
+BF3E4-4190;[SUPPLY CHAIN - 35] Entidade: Desenhos Calculados por Seção (SSOLQ150) - TAMANHO: P;1;2
+BF3E4-4207;[SUPPLY CHAIN - 36] Entidade: Data Mestre e Números de Peça (SSOLQ500, SSOLQ501) - TAMANHO: G;4;6
+BF3E4-4221;[SUPPLY CHAIN - 37] Entidade: Dimensões Básicas de Estoque - TAMANHO: P;3;0
+BF3E4-4227;[SUPPLY CHAIN - 38] Entidade: Indicadores e Causal - TAMANHO: P;2;0
+BF3E4-4232;[SUPPLY CHAIN - 39] Entidade: Staging - Dados Brutos SAP e IMS - TAMANHO: M;2;2
+BF3E4-4241;[SUPPLY CHAIN - 40] Entidade: Estoque Material e Saldo SAP - TAMANHO: M;2;4
+BF3E4-4252;[SUPPLY CHAIN - 41] Entidade: Apontamentos e Material em Trânsito - TAMANHO: M;2;4
+BF3E4-4263;[SUPPLY CHAIN - 42] Entidade: Estoque Viajante e Views Consolidadas - TAMANHO: P;1;2
+BF3E4-4270;[SUPPLY CHAIN - 43] Entidade: Cadastros Base - Incoterms, Meios de Transporte e Saturação - TAMANHO: P;3;0
+BF3E4-4276;[SUPPLY CHAIN - 44] Entidade: Transporte e Frete - Staging e Consolidação - TAMANHO: M;2;3
+BF3E4-4285;[SUPPLY CHAIN - 45] Entidade: Estoque de Embalagens Retornáveis - TAMANHO: P;1;1
+BF3E4-4291;[SUPPLY CHAIN - 46] Entidade: Itens de Nota Fiscal e Movimentação - TAMANHO: M;1;4
+BF3E4-4300;[SUPPLY CHAIN - 47] Entidade: Ingestão TM1 - Tabelas Auxiliares e Produto - TAMANHO: M;4;0
+BF3E4-4313;[SUPPLY CHAIN - 48] Entidade: Ingestão RTM e LTP - Event-Driven - TAMANHO: M;2;4
+BF3E4-4323;[SUPPLY CHAIN - 49] Entidade: Ingestão Part Dump A9 - Orchestrated DataStage - TAMANHO: M;2;2
+BF3E4-4331;[SUPPLY CHAIN - 50] Entidade: Ingestão Flow - Parte 1 (Cálculo Previsional e CBA) - TAMANHO: G;4;4
+BF3E4-4343;[SUPPLY CHAIN - 51] Entidade: Ingestão Flow - Parte 2 (CBH e Months Rolling) - TAMANHO: G;4;4
+BF3E4-4355;[SUPPLY CHAIN - 52] Entidade: Ingestão Flow - Parte 3 (Cadastros Auxiliares e Logistics) - TAMANHO: M;4;0
+BF3E4-4363;[SUPPLY CHAIN - 53] Entidade: Views Consolidadas e Analíticas Avançadas - TAMANHO: P;0;3
+BF3E4-4369;[SUPPLY CHAIN - 54] Entidade: Ativação de Transporte DHL - TAMANHO: M;2;2
+BF3E4-4377;[SUPPLY CHAIN - 55] Entidade: Ativação e Aprovação AVA SPOT - TAMANHO: M;2;2
+BF3E4-4386;[SUPPLY CHAIN - 56] Entidade: Yard Truck - Movimentação de Veículos - TAMANHO: P;1;1
+BF3E4-4392;[SUPPLY CHAIN - 57] Entidade: Rastreamento Real-Time via Pub/Sub - TAMANHO: M;2;4
+BF3E4-4402;[SUPPLY CHAIN - 58] Entidade: Outbound Transporte Batch via DataStage - TAMANHO: P;1;2
+BF3E4-4409;[SUPPLY CHAIN - 59] Entidade: Processamento Delta Chegadas e Views Especializadas - TAMANHO: M;1;3
+BF3E4-4417;[SUPPLY CHAIN - 60] Entidade: Carga Base RapidResponse - Hierarquias e Descrições - TAMANHO: G;10;0
+BF3E4-4430;[SUPPLY CHAIN - 61] Entidade: Cadastros de Canais e Subcanais - TAMANHO: M;4;0
+BF3E4-4437;[SUPPLY CHAIN - 62] Entidade: Planejamento Operacional - Parte 1 (OSS, PSA, Confirmado) - TAMANHO: G;6;3
+BF3E4-4458;[SUPPLY CHAIN - 63] Entidade: Planejamento Operacional - Parte 2 (Geral e Volume Indústria) - TAMANHO: M;4;2
+BF3E4-4473;[SUPPLY CHAIN - 64] Entidade: Planejamento Assegnazione e Emplacamento - TAMANHO: M;4;2
+BF3E4-4488;[SUPPLY CHAIN - 65] Entidade: Lista Mestre Pokey e Produto A13 - TAMANHO: M;4;2
+BF3E4-4503;[SUPPLY CHAIN - 66] Entidade: Dados Atuais e Emissão CO2 - Export Files - TAMANHO: M;0;4
+BF3E4-4515;[SUPPLY CHAIN - 67] Entidade: Comprovação Eletrônica de Entrega - EPOD Completo - TAMANHO: G;6;3
+BF3E4-4528;[SUPPLY CHAIN - 68] Entidade: Ingestão de Dados Base - Volume Accuracy - TAMANHO: M;4;4
+BF3E4-4540;[SUPPLY CHAIN - 69] Entidade: Processamento Final - Cálculo de Mix e Volume Accuracy - TAMANHO: P;1;1
+BF3E4-4555;[SUPPLY CHAIN - 70] Entidade: External Tables Google Sheets - Mapeamentos De-Para Parte 1 - TAMANHO: G;10;0
+BF3E4-4568;[SUPPLY CHAIN - 71] Entidade: External Tables Google Sheets - Histórico e Volumes Globais - TAMANHO: G;10;0
+BF3E4-4581;[SUPPLY CHAIN - 72] Entidade: Carga Física De-Para e Mapeamentos - TAMANHO: M;5;0
+BF3E4-4589;[SUPPLY CHAIN - 73] Entidade: Carga Física Delivery EMEA e NAFTA - TAMANHO: M;4;0
+BF3E4-4597;[SUPPLY CHAIN - 74] Entidade: Carga Física Stocks - Dealer, OEM e Viajantes - TAMANHO: M;5;0
+BF3E4-4606;[SUPPLY CHAIN - 75] Entidade: Carga Física Retail e Volume Argentina - TAMANHO: P;3;0
+BF3E4-4612;[SUPPLY CHAIN - 76] Entidade: Carga Física Wholesales e Planejamento - TAMANHO: M;5;0
+BF3E4-4621;[SUPPLY CHAIN - 77] Entidade: Consolidação Principal - tb_actual e View Base - TAMANHO: P;1;1
+BF3E4-4628;[SUPPLY CHAIN - 78] Entidade: Wholesales NAFTA ROL - Carga Delta e Views - TAMANHO: P;1;2
+BF3E4-4635;[SUPPLY CHAIN - 79] Entidade: Views Planejamento - Budget Forecast e Estimativas - TAMANHO: M;;4
+BF3E4-4644;[SUPPLY CHAIN - 80] Entidade: Views NAFTA - Dimensões Veículos e Produtos - TAMANHO: M;0;4
+BF3E4-4650;[SUPPLY CHAIN - 81] Entidade: Stock History Regional - TAMANHO: M;5;0
+BF3E4-4660;[SUPPLY CHAIN - 82] Entidade: Eventos e Pedidos Comerciais - TAMANHO: P;2;0
+BF3E4-4666;[SUPPLY CHAIN - 83] Entidade: Indicadores FCO - TAMANHO: M;4;0
+BF3E4-4674;[SUPPLY CHAIN - 84] Entidade: Estoque OEM e Dealer - TAMANHO: G;7;0
+BF3E4-4685;[SUPPLY CHAIN - 85] Entidade: KPIs de Vendas e Produção - TAMANHO: M;4;0
