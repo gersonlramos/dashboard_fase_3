@@ -6,16 +6,22 @@ import os
 import sys
 from datetime import datetime, timezone, timedelta
 
-# Garante que os módulos em dashboard/ sejam encontrados
-sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), '..'))
+# Garante import consistente no Streamlit Cloud e em execucao local
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+APP_DIR = os.path.dirname(SCRIPT_DIR)
+if APP_DIR not in sys.path:
+    sys.path.insert(0, APP_DIR)
 
-from calculations import get_completion_dates
-from data_loader import carregar_dados_csv
-from auth import exigir_login
+try:
+    from dashboard.calculations import get_completion_dates
+    from dashboard.data_loader import carregar_dados_csv
+except ModuleNotFoundError:
+    from calculations import get_completion_dates
+    from data_loader import carregar_dados_csv
 
 # Diretórios — pages/ fica um nível abaixo de dashboard/, que fica um abaixo de app/
-SCRIPT_DIR  = os.path.dirname(os.path.abspath(__file__))   # .../dashboard/pages
-APP_DIR     = os.path.dirname(os.path.dirname(SCRIPT_DIR)) # .../app
+SCRIPT_DIR  = os.path.dirname(os.path.abspath(__file__))
+APP_DIR     = os.path.dirname(SCRIPT_DIR)
 DADOS_DIR   = os.path.join(APP_DIR, 'dados')
 ASSETS_DIR  = os.path.join(APP_DIR, 'assets')
 
@@ -26,8 +32,8 @@ st.set_page_config(
     layout="wide"
 )
 
-# ── Autenticação ───────────────────────────────────────────────────────────────
-exigir_login('executivo')
+# ── Autenticação (desativada temporariamente) ────────────────────────────────
+# exigir_login('executivo')
 
 # Carregar dados
 arquivo_selecionado = os.path.join(DADOS_DIR, "FASE_3.csv")
