@@ -30,23 +30,11 @@ jobs:
       - name: Instalar dependências
         run: pip install -r requirements.txt
 
-      - name: Executar script de extração completa
+      - name: Executar todos os scripts de extração
         env:
           EMAIL: ${{ secrets.JIRA_EMAIL }}
           API_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
-        run: python app/scripts/script_atualizacao.py
-
-      - name: Executar script de extração de histórico
-        env:
-          EMAIL: ${{ secrets.JIRA_EMAIL }}
-          API_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
-        run: python app/scripts/extrair_historico.py
-
-      - name: Executar script de pendências
-        env:
-          EMAIL: ${{ secrets.JIRA_EMAIL }}
-          API_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
-        run: python app/scripts/script_pendencias.py
+        run: python app/scripts/atualizar_dados.py
 
       - name: Commit e push dos dados atualizados
         run: |
