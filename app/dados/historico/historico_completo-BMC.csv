@@ -1,6 +1,65 @@
 ﻿Chave,Titulo,Data Criacao,Data Mudanca,Status Antigo,Status Novo,Autor
-BF3E4-61,[BMC - 1] Entidade: BMC - Tamanho M,2026-02-24T12:53:16.393-0300,2026-03-17T10:59:06.678-0300,To Do,IN DEVELOPMENT,artur.mariano
-BF3E4-61,[BMC - 1] Entidade: BMC - Tamanho M,2026-02-24T12:53:16.393-0300,2026-03-09T11:09:17.678-0300,Refined,To Do,maite.willig
-BF3E4-61,[BMC - 1] Entidade: BMC - Tamanho M,2026-02-24T12:53:16.393-0300,2026-03-09T11:09:03.946-0300,IN REFINEMENT,Refined,maite.willig
-BF3E4-61,[BMC - 1] Entidade: BMC - Tamanho M,2026-02-24T12:53:16.393-0300,2026-03-09T11:09:01.041-0300,WAITING REFINEMENT,IN REFINEMENT,maite.willig
-BF3E4-61,[BMC - 1] Entidade: BMC - Tamanho M,2026-02-24T12:53:16.393-0300,2026-02-26T10:54:51.708-0300,Open,WAITING REFINEMENT,maite.willig
+BF3E4-80,vw_performance_social,2026-02-24T12:53:48.979-0300,2026-03-26T15:10:13.556-0300,In progress,Waiting Test,maite.willig
+BF3E4-80,vw_performance_social,2026-02-24T12:53:48.979-0300,2026-03-17T10:58:40.834-0300,Open,In progress,artur.mariano
+BF3E4-79,vw_performance_paid_search_campaigns,2026-02-24T12:53:47.575-0300,2026-03-26T15:10:14.815-0300,In progress,Waiting Test,maite.willig
+BF3E4-79,vw_performance_paid_search_campaigns,2026-02-24T12:53:47.575-0300,2026-03-17T10:58:37.465-0300,Open,In progress,artur.mariano
+BF3E4-78,vw_performance_paid_search,2026-02-24T12:53:46.153-0300,2026-03-26T15:10:08.679-0300,In progress,Waiting Test,maite.willig
+BF3E4-78,vw_performance_paid_search,2026-02-24T12:53:46.153-0300,2026-03-17T10:58:17.341-0300,Open,In progress,artur.mariano
+BF3E4-77,vw_performance_paid_search_kw,2026-02-24T12:53:44.672-0300,2026-03-26T15:10:11.393-0300,In progress,Waiting Test,maite.willig
+BF3E4-77,vw_performance_paid_search_kw,2026-02-24T12:53:44.672-0300,2026-03-17T10:58:14.269-0300,Open,In progress,artur.mariano
+BF3E4-76,vw_performance_website,2026-02-24T12:53:43.162-0300,2026-03-26T15:10:06.193-0300,In progress,Waiting Test,maite.willig
+BF3E4-76,vw_performance_website,2026-02-24T12:53:43.162-0300,2026-03-17T10:58:11.293-0300,Open,In progress,artur.mariano
+BF3E4-75,vw_venda_identificada_lead,2026-02-24T12:53:41.572-0300,2026-03-26T09:29:57.902-0300,In progress,Waiting Test,artur.mariano
+BF3E4-75,vw_venda_identificada_lead,2026-02-24T12:53:41.572-0300,2026-03-25T08:41:42.671-0300,To Do,In progress,luis.simoes2
+BF3E4-75,vw_venda_identificada_lead,2026-02-24T12:53:41.572-0300,2026-03-18T11:34:54.437-0300,In progress,To Do,artur.mariano
+BF3E4-75,vw_venda_identificada_lead,2026-02-24T12:53:41.572-0300,2026-03-18T09:46:28.942-0300,Open,In progress,ana.cartaxo
+BF3E4-75,vw_venda_identificada_lead,2026-02-24T12:53:41.572-0300,2026-03-17T10:58:33.979-0300,In progress,Open,artur.mariano
+BF3E4-75,vw_venda_identificada_lead,2026-02-24T12:53:41.572-0300,2026-03-17T10:58:08.974-0300,Open,In progress,artur.mariano
+BF3E4-74,vw_venda_identificada_veiculo,2026-02-24T12:53:39.573-0300,2026-03-26T09:29:55.844-0300,In progress,Waiting Test,artur.mariano
+BF3E4-74,vw_venda_identificada_veiculo,2026-02-24T12:53:39.573-0300,2026-03-25T08:41:38.281-0300,To Do,In progress,luis.simoes2
+BF3E4-74,vw_venda_identificada_veiculo,2026-02-24T12:53:39.573-0300,2026-03-18T11:34:59.679-0300,Open,To Do,artur.mariano
+BF3E4-74,vw_venda_identificada_veiculo,2026-02-24T12:53:39.573-0300,2026-03-18T11:34:50.211-0300,In progress,Open,artur.mariano
+BF3E4-74,vw_venda_identificada_veiculo,2026-02-24T12:53:39.573-0300,2026-03-18T09:46:22.150-0300,Open,In progress,ana.cartaxo
+BF3E4-74,vw_venda_identificada_veiculo,2026-02-24T12:53:39.573-0300,2026-03-17T16:11:40.792-0300,In progress,Open,jose.souto2
+BF3E4-74,vw_venda_identificada_veiculo,2026-02-24T12:53:39.573-0300,2026-03-17T16:11:29.503-0300,Open,In progress,jose.souto2
+BF3E4-74,vw_venda_identificada_veiculo,2026-02-24T12:53:39.573-0300,2026-03-17T10:58:32.183-0300,In progress,Open,artur.mariano
+BF3E4-74,vw_venda_identificada_veiculo,2026-02-24T12:53:39.573-0300,2026-03-17T10:58:06.633-0300,Open,In progress,artur.mariano
+BF3E4-73,Views Analíticas,2026-02-24T12:53:37.735-0300,2026-03-26T15:10:09.322-0300,In progress,Waiting Test,maite.willig
+BF3E4-73,Views Analíticas,2026-02-24T12:53:37.735-0300,2026-03-17T10:58:04.075-0300,Open,In progress,artur.mariano
+BF3E4-72,Google_Analytics_4.tb_performance_website   |   MERGE via Cloud Function - Performance Website - Particionado por dat_referencia - Origem: Google Analytics 4,2026-02-24T12:53:36.232-0300,2026-03-26T15:10:12.074-0300,In progress,Waiting Test,maite.willig
+BF3E4-72,Google_Analytics_4.tb_performance_website   |   MERGE via Cloud Function - Performance Website - Particionado por dat_referencia - Origem: Google Analytics 4,2026-02-24T12:53:36.232-0300,2026-03-17T10:57:28.458-0300,Open,In progress,artur.mariano
+BF3E4-72,Google_Analytics_4.tb_performance_website   |   MERGE via Cloud Function - Performance Website - Particionado por dat_referencia - Origem: Google Analytics 4,2026-02-24T12:53:36.232-0300,2026-03-09T10:57:23.827-0300,In progress,Open,marina.bueno
+BF3E4-72,Google_Analytics_4.tb_performance_website   |   MERGE via Cloud Function - Performance Website - Particionado por dat_referencia - Origem: Google Analytics 4,2026-02-24T12:53:36.232-0300,2026-03-09T10:27:02.975-0300,Open,In progress,artur.mariano
+BF3E4-71,Google_Ads.tb_performance_paid_search   |   MERGE via Cloud Function - Performance Paid Search - Particionado por dat_referencia - Origem: Google Ads,2026-02-24T12:53:34.782-0300,2026-03-26T15:10:07.263-0300,In progress,Waiting Test,maite.willig
+BF3E4-71,Google_Ads.tb_performance_paid_search   |   MERGE via Cloud Function - Performance Paid Search - Particionado por dat_referencia - Origem: Google Ads,2026-02-24T12:53:34.782-0300,2026-03-17T10:57:25.904-0300,Open,In progress,artur.mariano
+BF3E4-70,Google_Ads.tb_performance_paid_search_kw   |   MERGE via Cloud Function - Performance Paid Search Keywords - Particionado por dat_referencia - Origem: Google Ads,2026-02-24T12:53:33.392-0300,2026-03-26T15:10:16.713-0300,In progress,Waiting Test,maite.willig
+BF3E4-70,Google_Ads.tb_performance_paid_search_kw   |   MERGE via Cloud Function - Performance Paid Search Keywords - Particionado por dat_referencia - Origem: Google Ads,2026-02-24T12:53:33.392-0300,2026-03-17T10:57:22.743-0300,Open,In progress,artur.mariano
+BF3E4-70,Google_Ads.tb_performance_paid_search_kw   |   MERGE via Cloud Function - Performance Paid Search Keywords - Particionado por dat_referencia - Origem: Google Ads,2026-02-24T12:53:33.392-0300,2026-03-09T10:57:21.993-0300,In progress,Open,marina.bueno
+BF3E4-70,Google_Ads.tb_performance_paid_search_kw   |   MERGE via Cloud Function - Performance Paid Search Keywords - Particionado por dat_referencia - Origem: Google Ads,2026-02-24T12:53:33.392-0300,2026-03-09T10:27:00.145-0300,Open,In progress,artur.mariano
+BF3E4-69,Google_Ads.tb_performance_paid_search_campaigns   |   MERGE via Cloud Function - Performance Paid Search Campaigns - Particionado por dat_referencia - Origem: Google Ads,2026-02-24T12:53:31.887-0300,2026-03-26T15:10:12.762-0300,In progress,Waiting Test,maite.willig
+BF3E4-69,Google_Ads.tb_performance_paid_search_campaigns   |   MERGE via Cloud Function - Performance Paid Search Campaigns - Particionado por dat_referencia - Origem: Google Ads,2026-02-24T12:53:31.887-0300,2026-03-17T10:57:19.541-0300,Open,In progress,artur.mariano
+BF3E4-68,Facebook_Ads.tb_performance_social   |   MERGE via Cloud Function - Performance Social - Particionado por dat_referencia - Origem: Facebook Ads,2026-02-24T12:53:29.883-0300,2026-03-26T15:10:15.479-0300,In progress,Waiting Test,maite.willig
+BF3E4-68,Facebook_Ads.tb_performance_social   |   MERGE via Cloud Function - Performance Social - Particionado por dat_referencia - Origem: Facebook Ads,2026-02-24T12:53:29.883-0300,2026-03-17T10:49:38.499-0300,Open,In progress,artur.mariano
+BF3E4-68,Facebook_Ads.tb_performance_social   |   MERGE via Cloud Function - Performance Social - Particionado por dat_referencia - Origem: Facebook Ads,2026-02-24T12:53:29.883-0300,2026-03-09T10:57:19.834-0300,In progress,Open,marina.bueno
+BF3E4-68,Facebook_Ads.tb_performance_social   |   MERGE via Cloud Function - Performance Social - Particionado por dat_referencia - Origem: Facebook Ads,2026-02-24T12:53:29.883-0300,2026-03-09T10:26:57.026-0300,Open,In progress,artur.mariano
+BF3E4-67,"Cloud Function: fn_qry_stagging_google_analytics_4_performance_website (Template: fn-qry-bgq)   |   HTTP Operator, executa query SQL para Google Analytics 4 (Supermetrics → Mart)",2026-02-24T12:53:28.053-0300,2026-03-26T15:10:07.979-0300,In progress,Waiting Test,maite.willig
+BF3E4-67,"Cloud Function: fn_qry_stagging_google_analytics_4_performance_website (Template: fn-qry-bgq)   |   HTTP Operator, executa query SQL para Google Analytics 4 (Supermetrics → Mart)",2026-02-24T12:53:28.053-0300,2026-03-17T10:49:35.972-0300,Open,In progress,artur.mariano
+BF3E4-67,"Cloud Function: fn_qry_stagging_google_analytics_4_performance_website (Template: fn-qry-bgq)   |   HTTP Operator, executa query SQL para Google Analytics 4 (Supermetrics → Mart)",2026-02-24T12:53:28.053-0300,2026-03-09T10:57:18.068-0300,In progress,Open,marina.bueno
+BF3E4-67,"Cloud Function: fn_qry_stagging_google_analytics_4_performance_website (Template: fn-qry-bgq)   |   HTTP Operator, executa query SQL para Google Analytics 4 (Supermetrics → Mart)",2026-02-24T12:53:28.053-0300,2026-03-09T10:52:32.826-0300,Open,In progress,artur.mariano
+BF3E4-66,"Cloud Function: fn_qry_stagging_google_ads_performance_paid_search_kw (Template: fn-qry-bgq)   |   HTTP Operator, executa query SQL para Google Ads Keywords (Supermetrics → Mart)",2026-02-24T12:53:26.519-0300,2026-03-26T15:10:10.614-0300,In progress,Waiting Test,maite.willig
+BF3E4-66,"Cloud Function: fn_qry_stagging_google_ads_performance_paid_search_kw (Template: fn-qry-bgq)   |   HTTP Operator, executa query SQL para Google Ads Keywords (Supermetrics → Mart)",2026-02-24T12:53:26.519-0300,2026-03-17T10:49:34.050-0300,Open,In progress,artur.mariano
+BF3E4-66,"Cloud Function: fn_qry_stagging_google_ads_performance_paid_search_kw (Template: fn-qry-bgq)   |   HTTP Operator, executa query SQL para Google Ads Keywords (Supermetrics → Mart)",2026-02-24T12:53:26.519-0300,2026-03-09T10:57:15.558-0300,In progress,Open,marina.bueno
+BF3E4-66,"Cloud Function: fn_qry_stagging_google_ads_performance_paid_search_kw (Template: fn-qry-bgq)   |   HTTP Operator, executa query SQL para Google Ads Keywords (Supermetrics → Mart)",2026-02-24T12:53:26.519-0300,2026-03-09T10:52:16.430-0300,Open,In progress,artur.mariano
+BF3E4-65,"Cloud Function: fn_qry_stagging_google_ads_performance_paid_search_campaigns (Template: fn-qry-bgq)   |   HTTP Operator, executa query SQL para Google Ads Campaigns (Supermetrics → Mart)",2026-02-24T12:53:24.576-0300,2026-03-26T15:10:17.493-0300,In progress,Waiting Test,maite.willig
+BF3E4-65,"Cloud Function: fn_qry_stagging_google_ads_performance_paid_search_campaigns (Template: fn-qry-bgq)   |   HTTP Operator, executa query SQL para Google Ads Campaigns (Supermetrics → Mart)",2026-02-24T12:53:24.576-0300,2026-03-17T10:49:31.812-0300,Open,In progress,artur.mariano
+BF3E4-64,"Cloud Function: fn_qry_stagging_google_ads_performance_paid_search (Template: fn-qry-bgq)   |   HTTP Operator, executa query SQL para Google Ads (Supermetrics → Mart)",2026-02-24T12:53:22.798-0300,2026-03-26T15:10:14.215-0300,In progress,Waiting Test,maite.willig
+BF3E4-64,"Cloud Function: fn_qry_stagging_google_ads_performance_paid_search (Template: fn-qry-bgq)   |   HTTP Operator, executa query SQL para Google Ads (Supermetrics → Mart)",2026-02-24T12:53:22.798-0300,2026-03-17T10:49:23.613-0300,Open,In progress,artur.mariano
+BF3E4-63,"Cloud Function: fn_qry_stagging_facebook_ads_performance_social (Template: fn-qry-bgq)   |   HTTP Operator, executa query SQL para Facebook Ads (Supermetrics → Mart). Esta Cloud Function é do tipo HTTP Trigger e executa queries SQL no BigQuery com base no",2026-02-24T12:53:20.813-0300,2026-03-26T15:10:16.078-0300,In progress,Waiting Test,maite.willig
+BF3E4-63,"Cloud Function: fn_qry_stagging_facebook_ads_performance_social (Template: fn-qry-bgq)   |   HTTP Operator, executa query SQL para Facebook Ads (Supermetrics → Mart). Esta Cloud Function é do tipo HTTP Trigger e executa queries SQL no BigQuery com base no",2026-02-24T12:53:20.813-0300,2026-03-17T10:49:21.017-0300,Open,In progress,artur.mariano
+BF3E4-63,"Cloud Function: fn_qry_stagging_facebook_ads_performance_social (Template: fn-qry-bgq)   |   HTTP Operator, executa query SQL para Facebook Ads (Supermetrics → Mart). Esta Cloud Function é do tipo HTTP Trigger e executa queries SQL no BigQuery com base no",2026-02-24T12:53:20.813-0300,2026-03-09T10:57:13.671-0300,In progress,Open,marina.bueno
+BF3E4-63,"Cloud Function: fn_qry_stagging_facebook_ads_performance_social (Template: fn-qry-bgq)   |   HTTP Operator, executa query SQL para Facebook Ads (Supermetrics → Mart). Esta Cloud Function é do tipo HTTP Trigger e executa queries SQL no BigQuery com base no",2026-02-24T12:53:20.813-0300,2026-03-09T10:26:49.021-0300,Open,In progress,artur.mariano
+BF3E4-62,DAG - data-lake-bmc-carga-supermetrics,2026-02-24T12:53:18.976-0300,2026-03-27T09:10:31.390-0300,Waiting Test,In progress,artur.mariano
+BF3E4-62,DAG - data-lake-bmc-carga-supermetrics,2026-02-24T12:53:18.976-0300,2026-03-26T15:10:09.952-0300,In progress,Waiting Test,maite.willig
+BF3E4-62,DAG - data-lake-bmc-carga-supermetrics,2026-02-24T12:53:18.976-0300,2026-03-17T10:49:17.199-0300,Open,In progress,artur.mariano
+BF3E4-62,DAG - data-lake-bmc-carga-supermetrics,2026-02-24T12:53:18.976-0300,2026-03-09T10:57:10.508-0300,In progress,Open,marina.bueno
+BF3E4-62,DAG - data-lake-bmc-carga-supermetrics,2026-02-24T12:53:18.976-0300,2026-03-09T10:27:06.843-0300,Open,In progress,artur.mariano
