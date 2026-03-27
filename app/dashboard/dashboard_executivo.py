@@ -7,8 +7,10 @@ import sys
 from datetime import datetime, timezone, timedelta
 
 # Garante import consistente no Streamlit Cloud e em execucao local
+# pages/ -> dashboard/ -> app/
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
-APP_DIR = os.path.dirname(SCRIPT_DIR)
+DASHBOARD_DIR = os.path.dirname(SCRIPT_DIR)
+APP_DIR = os.path.dirname(DASHBOARD_DIR)
 if APP_DIR not in sys.path:
     sys.path.insert(0, APP_DIR)
 
@@ -19,9 +21,7 @@ except ModuleNotFoundError:
     from calculations import get_completion_dates
     from data_loader import carregar_dados_csv
 
-# Diretórios — pages/ fica um nível abaixo de dashboard/, que fica um abaixo de app/
-SCRIPT_DIR  = os.path.dirname(os.path.abspath(__file__))
-APP_DIR     = os.path.dirname(SCRIPT_DIR)
+# Diretórios — pages/ fica dois níveis abaixo de app/
 DADOS_DIR   = os.path.join(APP_DIR, 'dados')
 ASSETS_DIR  = os.path.join(APP_DIR, 'assets')
 
@@ -447,7 +447,22 @@ if os.path.exists(_arquivo_proc):
         "Produção Assistida": "#9467bd",
     }
     _ordem_fase   = ["Desenvolvimento", "Homologação", "Preparo Produção", "Produção Assistida"]
-    _lakes_ordem  = sorted(_df_gantt["Lake"].unique())
+    _lake_ordem_idx = {
+        "BMC": 0,
+        "COMPRAS": 1,
+        "MOPAR": 2,
+        "CLIENTE": 3,
+        "SHAREDSERVICES": 4,
+        "RH": 5,
+        "FINANCE": 6,
+        "SUPPLYCHAIN": 7,
+        "COMMERCIAL": 8,
+        "COMERCIAL": 8,
+    }
+    _lakes_ordem = sorted(
+        _df_gantt["Lake"].dropna().unique(),
+        key=lambda _l: (_lake_ordem_idx.get(str(_l).strip().upper().replace(" ", ""), 999), str(_l)),
+    )
 
     if not _df_gantt.empty:
         _fig_gantt = go.Figure()
@@ -494,6 +509,11 @@ if os.path.exists(_arquivo_proc):
 
         _data_fim_gantt = _df_gantt["end"].max()
         _ticks_gantt    = pd.date_range(start=_data_ref, end=_data_fim_gantt, freq="2W")
+        if _ticks_gantt.empty:
+            _ticks_gantt = pd.DatetimeIndex([_data_ref])
+        # Garante que a ultima data de entrega apareca explicitamente no eixo X.
+        _ticks_gantt = _ticks_gantt.append(pd.DatetimeIndex([_data_fim_gantt]))
+        _ticks_gantt = _ticks_gantt.drop_duplicates().sort_values()
         _tick_offs      = [int((d - _data_ref).days) for d in _ticks_gantt]
         _tick_labels    = [d.strftime("%d/%m/%Y") for d in _ticks_gantt]
 
