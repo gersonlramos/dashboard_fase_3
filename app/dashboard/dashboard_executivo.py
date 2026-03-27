@@ -7,10 +7,9 @@ import sys
 from datetime import datetime, timezone, timedelta
 
 # Garante import consistente no Streamlit Cloud e em execucao local
-# pages/ -> dashboard/ -> app/
+# dashboard/ -> app/
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
-DASHBOARD_DIR = os.path.dirname(SCRIPT_DIR)
-APP_DIR = os.path.dirname(DASHBOARD_DIR)
+APP_DIR = os.path.dirname(SCRIPT_DIR)
 if APP_DIR not in sys.path:
     sys.path.insert(0, APP_DIR)
 
@@ -21,7 +20,7 @@ except ModuleNotFoundError:
     from calculations import get_completion_dates
     from data_loader import carregar_dados_csv
 
-# Diretórios — pages/ fica dois níveis abaixo de app/
+# Diretorios — dashboard/ fica um nivel abaixo de app/
 DADOS_DIR   = os.path.join(APP_DIR, 'dados')
 ASSETS_DIR  = os.path.join(APP_DIR, 'assets')
 
