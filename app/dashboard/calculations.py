@@ -236,7 +236,12 @@ def get_completion_dates(df_fase3, dados_dir):
         df_hist_all = pd.concat(history_dfs, ignore_index=True)
     df_hist_all['Status Novo'] = df_hist_all['Status Novo'].astype(str).str.strip().str.lower()
     done_statuses = {'done', 'closed', 'resolved', 'concluído', 'concluida', 'canceled', 'cancelled'}
-    df_hist_all['Data Mudanca'] = pd.to_datetime(df_hist_all['Data Mudanca'], errors='coerce')
+    df_hist_all['Data Mudanca'] = pd.to_datetime(df_hist_all['Data Mudanca'], errors='coerce', utc=True).dt.tz_localize(None)
+
+    # ── Correções manuais de data ─────────────────────────────────────────────
+    # BF3E4-294: done registrado incorretamente em 2026-03-26; data real é 05/03/2026
+    _mask_294 = (df_hist_all['Chave'] == 'BF3E4-294') & (df_hist_all['Status Novo'] == 'done')
+    df_hist_all.loc[_mask_294, 'Data Mudanca'] = pd.Timestamp('2026-03-05')
     df_hist_all = df_hist_all.dropna(subset=['Data Mudanca'])
     done_dates = (
         df_hist_all[df_hist_all['Status Novo'].isin(done_statuses)]
