@@ -1,0 +1,15 @@
+credentials:
+  usernames:
+    admin:
+      name: Administrador
+      password: $2b$12$huPjV9apDiTHKsSDVboA2OHtbbw0JLgUHKxkt/2c31gZUP9KXjpde  # admin123
+      pages: [estrategico, executivo]
+    executivo:
+      name: Usuário Executivo
+      password: $2b$12$Av9viLEQ8deRAWnTN2D2be5/OaumIqEASjJN2JvE7tcMJWD2g8/iq  # exec123
+      pages: [executivo]
+
+cookie:
+  expiry_days: 1
+  key: dashboard_stellantis_key
+  name: dashboard_auth
